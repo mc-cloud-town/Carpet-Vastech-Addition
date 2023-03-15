@@ -297,6 +297,23 @@ public class StackTraceDeobfuscator {
         return deobfStackTrace;
     }
 
+    public StackTraceElement[] deobfuscateWithStackTrace(StackTraceElement[] stackTrace) {
+        if (srgUrl == null) {
+            throw new IllegalStateException("No mappings url has been set");
+        }
+        if (stackTrace == null) {
+            throw new IllegalStateException("No stack trace has been set");
+        }
+
+        loadMappings();
+
+        StackTraceElement[] deobfStackTrace = new StackTraceElement[stackTrace.length];
+        for (int i = 0; i < stackTrace.length; i++) {
+            deobfStackTrace[i] = deobfuscate(stackTrace[i]);
+        }
+        return deobfStackTrace;
+    }
+
     private StackTraceElement deobfuscate(StackTraceElement elem) {
         String className = elem.getClassName().replace('.', '/');
 

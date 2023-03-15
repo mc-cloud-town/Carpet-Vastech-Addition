@@ -221,7 +221,9 @@ public class CarpetClientChunkLogger {
 
         private String asString(StackTraceElement[] trace, boolean deobfuscated) {
             if (deobfuscated) {
-                trace = DEOBFUSCATOR.withStackTrace(trace).deobfuscate();
+//                trace = DEOBFUSCATOR.withStackTrace(trace).deobfuscate();
+                // CM-Vas: Chunk debug map crash fix
+                trace = DEOBFUSCATOR.deobfuscateWithStackTrace(trace);
             }
             StringBuilder stacktrace = new StringBuilder();
             int i;
