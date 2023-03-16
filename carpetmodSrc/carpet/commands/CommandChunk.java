@@ -29,7 +29,7 @@ public class CommandChunk extends CommandCarpetBase
 
     public String getUsage(ICommandSender sender)
     {
-        return "Usage: chunk <load | info | unload | regen | repop | asyncrepop> <X> <Z>";
+        return "Usage: chunk <load | info | unload | regen | repop | asyncrepop | setInvisible | remove> <X> <Z>";
     }
 
     public String getName()
@@ -70,6 +70,12 @@ public class CommandChunk extends CommandCarpetBase
                     return;
                 case "asyncrepop":
                     asyncrepop(sender, chunkX, chunkZ);
+                    return;
+                case "setInvisible":
+                    setInvisible(sender, chunkX, chunkZ);
+                    return;
+                case "remove":
+                    remove(sender, chunkX, chunkZ);
                     return;
                 case "info":
                 default:
@@ -163,6 +169,21 @@ public class CommandChunk extends CommandCarpetBase
         ChunkProviderServer provider = (ChunkProviderServer) world.getChunkProvider();
         provider.queueUnload(chunk);
         sender.sendMessage(new TextComponentString(("Chunk is queue to unload")));
+    }
+
+    protected void setInvisible(ICommandSender sender, int x, int z) {
+        if (!world.isChunkLoaded(x, z, false)) {
+            sender.sendMessage(new TextComponentString("Chunk is not loaded"));
+            return;
+        }
+        Chunk chunk = world.getChunk(x, z);
+        chunk.setTerrainPopulated(false);
+    }
+
+    protected void remove(ICommandSender sender, int x, int z) {
+        Chunk chunk = world.getChunk(x, z);
+        chunk.toRemove = true;
+        sender.sendMessage(new TextComponentString("Marked chunk for regeneration"));
     }
 
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {

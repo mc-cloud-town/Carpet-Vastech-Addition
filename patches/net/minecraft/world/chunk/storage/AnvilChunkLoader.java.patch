@@ -106,7 +106,16 @@
          return nbttagcompound != null ? true : RegionFileCache.func_191064_f(this.field_75825_d, p_191063_1_, p_191063_2_);
      }
  
-@@ -132,37 +186,63 @@
+@@ -106,6 +160,8 @@
+                     chunk = this.func_75823_a(p_75822_1_, nbttagcompound);
+                 }
+ 
++                // Vastech-CM: chunk remove
++                if (chunk.toRemove) return null;
+                 return chunk;
+             }
+         }
+@@ -132,37 +188,63 @@
  
      protected void func_75824_a(ChunkPos p_75824_1_, NBTTagCompound p_75824_2_)
      {
@@ -182,7 +191,7 @@
                      try
                      {
                          this.func_183013_b(chunkpos, nbttagcompound);
-@@ -171,17 +251,19 @@
+@@ -171,17 +253,19 @@
                      {
                          field_151505_a.error("Failed to save chunk", (Throwable)exception);
                      }
@@ -211,7 +220,7 @@
      }
  
      private void func_183013_b(ChunkPos p_183013_1_, NBTTagCompound p_183013_2_) throws IOException
-@@ -249,7 +331,8 @@
+@@ -249,7 +333,8 @@
          });
      }
  
@@ -221,7 +230,17 @@
      {
          p_75820_3_.func_74768_a("xPos", p_75820_1_.field_76635_g);
          p_75820_3_.func_74768_a("zPos", p_75820_1_.field_76647_h);
-@@ -295,6 +378,10 @@
+@@ -258,6 +343,9 @@
+         p_75820_3_.func_74757_a("TerrainPopulated", p_75820_1_.func_177419_t());
+         p_75820_3_.func_74757_a("LightPopulated", p_75820_1_.func_177423_u());
+         p_75820_3_.func_74772_a("InhabitedTime", p_75820_1_.func_177416_w());
++        // Vastech-CM: chunk remove
++        p_75820_3_.func_74757_a("ToRemove", p_75820_1_.toRemove);
++        // CM end
+         ExtendedBlockStorage[] aextendedblockstorage = p_75820_1_.func_76587_i();
+         NBTTagList nbttaglist = new NBTTagList();
+         boolean flag = p_75820_2_.field_73011_w.func_191066_m();
+@@ -295,6 +383,10 @@
          }
  
          p_75820_3_.func_74782_a("Sections", nbttaglist);
@@ -232,7 +251,17 @@
          p_75820_3_.func_74773_a("Biomes", p_75820_1_.func_76605_m());
          p_75820_1_.func_177409_g(false);
          NBTTagList nbttaglist1 = new NBTTagList();
-@@ -383,6 +470,11 @@
+@@ -356,6 +448,9 @@
+         chunk.func_177446_d(p_75823_2_.func_74767_n("TerrainPopulated"));
+         chunk.func_177421_e(p_75823_2_.func_74767_n("LightPopulated"));
+         chunk.func_177415_c(p_75823_2_.func_74763_f("InhabitedTime"));
++        // Vastech-CM: chunk remove
++        chunk.toRemove = p_75823_2_.func_74767_n("ToRemove");
++        // CM end
+         NBTTagList nbttaglist = p_75823_2_.func_150295_c("Sections", 10);
+         int k = 16;
+         ExtendedBlockStorage[] aextendedblockstorage = new ExtendedBlockStorage[16];
+@@ -383,6 +478,11 @@
  
          chunk.func_76602_a(aextendedblockstorage);
  
