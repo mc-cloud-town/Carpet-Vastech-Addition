@@ -22,6 +22,7 @@ import carpet.carpetclient.CarpetClientRuleChanger;
 import carpet.helpers.RandomTickOptimization;
 import carpet.helpers.ScoreboardDelta;
 import carpet.patches.BlockWool;
+import carpet.utils.Messenger;
 import carpet.utils.TickingArea;
 import carpet.worldedit.WorldEditBridge;
 import net.minecraft.block.BlockFalling;
@@ -846,6 +847,21 @@ public class CarpetSettings
             category = {FEATURE}
     )
     public static boolean autoCraftingDropper = false;
+
+    public static boolean validateRainyaphtyl(boolean val) {
+        if (val) return true;
+        else {
+            Messenger.print_server_message(CarpetServer.minecraft_server, "No u");
+            return false;
+        }
+    }
+
+    @Rule(
+            desc = "Don't turn this off",
+            category = {FEATURE},
+            validator = "validateRainyaphtyl"
+    )
+    public static boolean isRainyaphthylCute = true;
 
     @Rule(desc = "Scoreboard displays changes over time, specified in seconds.", options = {"0", "60", "600", "3600"}, validator = "validateScoreboardDelta", category = EXPERIMENTAL, extra = {
             "Set to 0 to disable Scoreboard delta display."

@@ -1,0 +1,10 @@
+--- ../src-base/minecraft/net/minecraft/world/gen/feature/WorldGenDungeons.java
++++ ../src-work/minecraft/net/minecraft/world/gen/feature/WorldGenDungeons.java
+@@ -25,6 +25,7 @@
+ 
+     public boolean func_180709_b(World p_180709_1_, Random p_180709_2_, BlockPos p_180709_3_)
+     {
++        System.out.println("Dungeon at " + p_180709_3_);
+         int i = 3;
+         int j = p_180709_2_.nextInt(2) + 2;
+         int k = -j - 1;

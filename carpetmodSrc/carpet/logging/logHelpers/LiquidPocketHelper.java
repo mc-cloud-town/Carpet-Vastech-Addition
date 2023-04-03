@@ -5,6 +5,7 @@ import carpet.utils.Messenger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 
 public class LiquidPocketHelper {
     private static final LiquidPocketHelper INSTANCE = new LiquidPocketHelper();
@@ -17,7 +18,7 @@ public class LiquidPocketHelper {
     }
 
     public void onLiquidPocketPlacement(BlockPos pos) {
-        LoggerRegistry.getLogger("liquidPocket").log((playerOption -> new ITextComponent[]
-                {Messenger.m(null, "w Placement of a liquid pocket at position " + pos)}));
+        LoggerRegistry.getLogger("liquidPocket").logNoCommand(() -> new ITextComponent[]
+                {Messenger.m(null, TextFormatting.WHITE + "- Attempt to place a liquid pocket at position " + pos)});
     }
 }

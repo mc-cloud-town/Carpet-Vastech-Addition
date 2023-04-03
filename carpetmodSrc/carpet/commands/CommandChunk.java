@@ -191,7 +191,7 @@ public class CommandChunk extends CommandCarpetBase
         int chunkZ = sender.getPosition().getZ() >> 4;
 
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, "info", "load", "unload", "regen", "repop", "asyncrepop");
+            return getListOfStringsMatchingLastWord(args, "info", "load", "unload", "regen", "repop", "asyncrepop", "setInvisible", "remove");
         } else if (args.length == 2) {
             return getListOfStringsMatchingLastWord(args, Integer.toString(chunkX), "~");
         } else if (args.length == 3) {

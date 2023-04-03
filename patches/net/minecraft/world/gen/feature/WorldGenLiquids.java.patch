@@ -11,13 +11,12 @@
  import net.minecraft.block.Block;
  import net.minecraft.block.material.Material;
  import net.minecraft.block.state.IBlockState;
-@@ -19,6 +23,9 @@
+@@ -19,6 +23,8 @@
  
      public boolean func_180709_b(World p_180709_1_, Random p_180709_2_, BlockPos p_180709_3_)
      {
-+        if (LoggerRegistry.__liquidPocket) {
-+            LiquidPocketHelper.getInstance().onLiquidPocketPlacement(p_180709_3_);
-+        }
++        System.out.println(p_180709_3_);
++        LiquidPocketHelper.getInstance().onLiquidPocketPlacement(p_180709_3_);
          if (p_180709_1_.func_180495_p(p_180709_3_.func_177984_a()).func_177230_c() != Blocks.field_150348_b)
          {
              return false;

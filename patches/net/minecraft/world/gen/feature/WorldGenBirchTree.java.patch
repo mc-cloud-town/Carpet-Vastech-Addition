@@ -1,0 +1,34 @@
+--- ../src-base/minecraft/net/minecraft/world/gen/feature/WorldGenBirchTree.java
++++ ../src-work/minecraft/net/minecraft/world/gen/feature/WorldGenBirchTree.java
+@@ -85,17 +85,31 @@
+ 
+                     for (int i2 = p_180709_3_.func_177956_o() - 3 + i; i2 <= p_180709_3_.func_177956_o() + i; ++i2)
+                     {
++                        // k2: iterates from -3 to 0
++                        // l2: leaf radius, 2 in the first two iterations and 1 in the last two
+                         int k2 = i2 - (p_180709_3_.func_177956_o() + i);
+                         int l2 = 1 - k2 / 2;
+ 
+                         for (int i3 = p_180709_3_.func_177958_n() - l2; i3 <= p_180709_3_.func_177958_n() + l2; ++i3)
+                         {
++                            // j1, l1: x,z offsets
+                             int j1 = i3 - p_180709_3_.func_177958_n();
+ 
+                             for (int k1 = p_180709_3_.func_177952_p() - l2; k1 <= p_180709_3_.func_177952_p() + l2; ++k1)
+                             {
+                                 int l1 = k1 - p_180709_3_.func_177952_p();
+ 
++                                // first 2 layers: 5x5 with 1/2 chance of missing corners
++                                // 3rd layer: 3x3 with 1/2 chance of missing corners
++                                // 4th later: 3x3 with missing corners
++                                // 5x5 detection:
++                                /*
++                                 * L 0 0
++                                 * L L 0
++                                 * 0 L L
++                                 * 0 0 L
++                                 */
++                                // bud piston detection at the middle two layers; sacrifice some leaf crushers for detection
+                                 if (Math.abs(j1) != l2 || Math.abs(l1) != l2 || p_180709_2_.nextInt(2) != 0 && k2 != 0)
+                                 {
+                                     BlockPos blockpos = new BlockPos(i3, i2, k1);

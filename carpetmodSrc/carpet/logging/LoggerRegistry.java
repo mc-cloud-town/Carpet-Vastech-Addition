@@ -1,6 +1,7 @@
 package carpet.logging;
 
 import carpet.CarpetSettings;
+import carpet.logging.logHelpers.LoggerFreeOptions;
 import com.google.common.base.Charsets;
 import com.google.gson.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -70,6 +71,7 @@ public class LoggerRegistry
         registerLogger("rng", new Logger(server, "rng", null, null, LogHandler.CHAT));
         registerLogger("explosions", new Logger(server, "explosions", "compact", new String[]{"brief", "full", "compact"}, LogHandler.CHAT));
         registerLogger("liquidPocket", new Logger(server, "liquidPocket", null, null, LogHandler.HUD));
+        registerLogger("population", new LoggerFreeOptions(server, "population", LogHandler.CHAT));
 
         registerLogger("autosave", new Logger(server, "autosave", null, null, LogHandler.HUD));
         registerLogger("tps", new Logger(server, "tps", null, null, LogHandler.HUD));

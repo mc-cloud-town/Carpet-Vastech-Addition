@@ -1,0 +1,14 @@
+--- ../src-base/minecraft/net/minecraft/world/gen/feature/WorldGenerator.java
++++ ../src-work/minecraft/net/minecraft/world/gen/feature/WorldGenerator.java
+@@ -9,6 +9,11 @@
+ {
+     private final boolean field_76488_a;
+ 
++    // CM - added getter
++    public boolean isDoBlockNotify() {
++        return field_76488_a;
++    }
++
+     public WorldGenerator()
+     {
+         this(false);
