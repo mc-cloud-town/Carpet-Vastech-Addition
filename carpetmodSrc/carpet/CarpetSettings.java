@@ -1015,6 +1015,14 @@ public class CarpetSettings
     @Rule(desc = "Removes tnt applying velocity to other entities.", category = CREATIVE)
     public static boolean removeTNTVelocity = false;
 
+    // VasCM rules
+    @Rule(desc = "Move the action of fake players from EU phase to NU phase", category = FEATURE)
+    public static boolean fakePlayerInNUPhase = false;
+
+    @Rule(desc = "Disable the large stacktrace output of update suppression and convert to a single line of output, to lower the pressure of MCDR and lower log file size. ", category = FIX)
+    public static boolean disableUpdateSuppressionLogging = false;
+
+
     // ===== API ===== //
 
     /**

@@ -15,6 +15,10 @@ public class Logger
     // Reference to the minecraft server. Used to look players up by name.
     private MinecraftServer server;
 
+    public Map<String, String> getSubscribedPlayers() {
+        return subscribedPlayers;
+    }
+
     // The set of subscribed players.
     private Map<String, String> subscribedPlayers;
 

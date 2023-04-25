@@ -6,7 +6,7 @@
  
 -    public boolean func_180709_b(World p_180709_1_, Random p_180709_2_, BlockPos p_180709_3_)
 +    /*
-+    public boolean generate(World worldIn, Random rand, BlockPos position)
++    public boolean generate_vanilla(World worldIn, Random rand, BlockPos position)
      {
 -        int i = p_180709_2_.nextInt(3) + p_180709_2_.nextInt(2) + 6;
 -        int j = p_180709_3_.func_177958_n();
@@ -175,35 +175,35 @@
 +     */
  
 +    // VasCM - renamed variables for better reading
-+    public boolean func_180709_b(World p_180709_1_, Random p_180709_2_, BlockPos p_180709_3_)
++    public boolean generate_vanilla(World worldIn, Random rand, BlockPos position)
 +    {
-+        int height = p_180709_2_.nextInt(3) + p_180709_2_.nextInt(2) + 6;
-+        int posX = p_180709_3_.func_177958_n();
-+        int posY = p_180709_3_.func_177956_o();
-+        int posZ = p_180709_3_.func_177952_p();
++        int height = rand.nextInt(3) + rand.nextInt(2) + 6;
++        int posX = position.func_177958_n();
++        int posY = position.func_177956_o();
++        int posZ = position.func_177952_p();
 +
 +        if (posY >= 1 && posY + height + 1 < 256)
 +        {
-+            BlockPos posDown = p_180709_3_.func_177977_b();
-+            Block block = p_180709_1_.func_180495_p(posDown).func_177230_c();
++            BlockPos posDown = position.func_177977_b();
++            Block block = worldIn.func_180495_p(posDown).func_177230_c();
 +
 +            if (block != Blocks.field_150349_c && block != Blocks.field_150346_d)
 +            {
 +                return false;
 +            }
-+            else if (!this.func_181638_a(p_180709_1_, p_180709_3_, height))
++            else if (!this.func_181638_a(worldIn, position, height))
 +            {
 +                return false;
 +            }
 +            else
 +            {
-+                this.func_175921_a(p_180709_1_, posDown);
-+                this.func_175921_a(p_180709_1_, posDown.func_177974_f());
-+                this.func_175921_a(p_180709_1_, posDown.func_177968_d());
-+                this.func_175921_a(p_180709_1_, posDown.func_177968_d().func_177974_f());
-+                EnumFacing trunkSlant = EnumFacing.Plane.HORIZONTAL.func_179518_a(p_180709_2_);
-+                int straightTrunkHeight = height - p_180709_2_.nextInt(4);
-+                int offsetTrunkHeight = 2 - p_180709_2_.nextInt(3);
++                this.func_175921_a(worldIn, posDown);
++                this.func_175921_a(worldIn, posDown.func_177974_f());
++                this.func_175921_a(worldIn, posDown.func_177968_d());
++                this.func_175921_a(worldIn, posDown.func_177968_d().func_177974_f());
++                EnumFacing trunkSlant = EnumFacing.Plane.HORIZONTAL.func_179518_a(rand);
++                int straightTrunkHeight = height - rand.nextInt(4);
++                int offsetTrunkHeight = 2 - rand.nextInt(3);
 +                int trunkX = posX;
 +                int trunkZ = posZ;
 +                int leafBaseY = posY + height - 1;
@@ -221,14 +221,14 @@
 +
 +                    int k2 = posY + h;
 +                    BlockPos logPos = new BlockPos(trunkX, k2, trunkZ);
-+                    Material material = p_180709_1_.func_180495_p(logPos).func_185904_a();
++                    Material material = worldIn.func_180495_p(logPos).func_185904_a();
 +
 +                    if (material == Material.field_151579_a || material == Material.field_151584_j)
 +                    {
-+                        this.func_181639_b(p_180709_1_, logPos);
-+                        this.func_181639_b(p_180709_1_, logPos.func_177974_f());
-+                        this.func_181639_b(p_180709_1_, logPos.func_177968_d());
-+                        this.func_181639_b(p_180709_1_, logPos.func_177974_f().func_177968_d());
++                        this.func_181639_b(worldIn, logPos);
++                        this.func_181639_b(worldIn, logPos.func_177974_f());
++                        this.func_181639_b(worldIn, logPos.func_177968_d());
++                        this.func_181639_b(worldIn, logPos.func_177974_f().func_177968_d());
 +                    }
 +                }
 +
@@ -240,10 +240,10 @@
 +                        // Leaf Part 1
 +                        // place 6x6 leaves 1 block below <leafBaseY>
 +                        int leafYOffset = -1;
-+                        this.func_150526_a(p_180709_1_, trunkX + leafXOffset, leafBaseY + leafYOffset, trunkZ + leafZOffset);
-+                        this.func_150526_a(p_180709_1_, 1 + trunkX - leafXOffset, leafBaseY + leafYOffset, trunkZ + leafZOffset);
-+                        this.func_150526_a(p_180709_1_, trunkX + leafXOffset, leafBaseY + leafYOffset, 1 + trunkZ - leafZOffset);
-+                        this.func_150526_a(p_180709_1_, 1 + trunkX - leafXOffset, leafBaseY + leafYOffset, 1 + trunkZ - leafZOffset);
++                        this.func_150526_a(worldIn, trunkX + leafXOffset, leafBaseY + leafYOffset, trunkZ + leafZOffset);
++                        this.func_150526_a(worldIn, 1 + trunkX - leafXOffset, leafBaseY + leafYOffset, trunkZ + leafZOffset);
++                        this.func_150526_a(worldIn, trunkX + leafXOffset, leafBaseY + leafYOffset, 1 + trunkZ - leafZOffset);
++                        this.func_150526_a(worldIn, 1 + trunkX - leafXOffset, leafBaseY + leafYOffset, 1 + trunkZ - leafZOffset);
 +
 +                        // Leaf Part 2
 +                        /* place leaves 1 block above <leafBaseY> with following pattern: 0 = air, L = leaf, T = leaf directly above trunk
@@ -257,22 +257,22 @@
 +                        if ((leafXOffset > -2 || leafZOffset > -1) && (leafXOffset != -1 || leafZOffset != -2))
 +                        {
 +                            leafYOffset = 1;
-+                            this.func_150526_a(p_180709_1_, trunkX + leafXOffset, leafBaseY + leafYOffset, trunkZ + leafZOffset);
-+                            this.func_150526_a(p_180709_1_, 1 + trunkX - leafXOffset, leafBaseY + leafYOffset, trunkZ + leafZOffset);
-+                            this.func_150526_a(p_180709_1_, trunkX + leafXOffset, leafBaseY + leafYOffset, 1 + trunkZ - leafZOffset);
-+                            this.func_150526_a(p_180709_1_, 1 + trunkX - leafXOffset, leafBaseY + leafYOffset, 1 + trunkZ - leafZOffset);
++                            this.func_150526_a(worldIn, trunkX + leafXOffset, leafBaseY + leafYOffset, trunkZ + leafZOffset);
++                            this.func_150526_a(worldIn, 1 + trunkX - leafXOffset, leafBaseY + leafYOffset, trunkZ + leafZOffset);
++                            this.func_150526_a(worldIn, trunkX + leafXOffset, leafBaseY + leafYOffset, 1 + trunkZ - leafZOffset);
++                            this.func_150526_a(worldIn, 1 + trunkX - leafXOffset, leafBaseY + leafYOffset, 1 + trunkZ - leafZOffset);
 +                        }
 +                    }
 +                }
 +
 +                // Leaf Part 3
 +                // place 2x2 leaves 2 blocks above <leafBaseY> with 1/2 chance
-+                if (p_180709_2_.nextBoolean())
++                if (rand.nextBoolean())
 +                {
-+                    this.func_150526_a(p_180709_1_, trunkX, leafBaseY + 2, trunkZ);
-+                    this.func_150526_a(p_180709_1_, trunkX + 1, leafBaseY + 2, trunkZ);
-+                    this.func_150526_a(p_180709_1_, trunkX + 1, leafBaseY + 2, trunkZ + 1);
-+                    this.func_150526_a(p_180709_1_, trunkX, leafBaseY + 2, trunkZ + 1);
++                    this.func_150526_a(worldIn, trunkX, leafBaseY + 2, trunkZ);
++                    this.func_150526_a(worldIn, trunkX + 1, leafBaseY + 2, trunkZ);
++                    this.func_150526_a(worldIn, trunkX + 1, leafBaseY + 2, trunkZ + 1);
++                    this.func_150526_a(worldIn, trunkX, leafBaseY + 2, trunkZ + 1);
 +                }
 +
 +
@@ -296,7 +296,7 @@
 +                        && (leafXOffset != 4 || leafZOffset != -3) && (leafXOffset != 4 || leafZOffset != 4)
 +                        && (Math.abs(leafXOffset) < 3 || Math.abs(leafZOffset) < 3))
 +                        {
-+                            this.func_150526_a(p_180709_1_, trunkX + leafXOffset, leafBaseY, trunkZ + leafZOffset);
++                            this.func_150526_a(worldIn, trunkX + leafXOffset, leafBaseY, trunkZ + leafZOffset);
 +                        }
 +                    }
 +                }
@@ -305,13 +305,13 @@
 +                {
 +                    for (int branchOffsetZ = -1; branchOffsetZ <= 2; ++branchOffsetZ)
 +                    {
-+                        if ((branchOffsetX < 0 || branchOffsetX > 1 || branchOffsetZ < 0 || branchOffsetZ > 1) && p_180709_2_.nextInt(3) <= 0)
++                        if ((branchOffsetX < 0 || branchOffsetX > 1 || branchOffsetZ < 0 || branchOffsetZ > 1) && rand.nextInt(3) <= 0)
 +                        {
-+                            int branchHeight = p_180709_2_.nextInt(3) + 2;
++                            int branchHeight = rand.nextInt(3) + 2;
 +                            // place <branchHeight> logs from y level <leafBaseY - 1> to <leafBaseY - branchHeight>
 +                            for (int i5 = 0; i5 < branchHeight; ++i5)
 +                            {
-+                                this.func_181639_b(p_180709_1_, new BlockPos(posX + branchOffsetX, leafBaseY - i5 - 1, posZ + branchOffsetZ));
++                                this.func_181639_b(worldIn, new BlockPos(posX + branchOffsetX, leafBaseY - i5 - 1, posZ + branchOffsetZ));
 +                            }
 +
 +                            // Leaf Part 5
@@ -321,7 +321,7 @@
 +                            {
 +                                for (int l2 = -1; l2 <= 1; ++l2)
 +                                {
-+                                    this.func_150526_a(p_180709_1_, trunkX + branchOffsetX + j5, leafBaseY, trunkZ + branchOffsetZ + l2);
++                                    this.func_150526_a(worldIn, trunkX + branchOffsetX + j5, leafBaseY, trunkZ + branchOffsetZ + l2);
 +                                }
 +                            }
 +                            // Leaf Part 6
@@ -332,7 +332,7 @@
 +                                {
 +                                    if (Math.abs(k5) != 2 || Math.abs(l5) != 2)
 +                                    {
-+                                        this.func_150526_a(p_180709_1_, trunkX + branchOffsetX + k5, leafBaseY - 1, trunkZ + branchOffsetZ + l5);
++                                        this.func_150526_a(worldIn, trunkX + branchOffsetX + k5, leafBaseY - 1, trunkZ + branchOffsetZ + l5);
 +                                    }
 +                                }
 +                            }

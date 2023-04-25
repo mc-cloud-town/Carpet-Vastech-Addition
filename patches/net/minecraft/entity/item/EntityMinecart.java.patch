@@ -21,7 +21,18 @@
      public EntityMinecart(World p_i1712_1_)
      {
          super(p_i1712_1_);
-@@ -474,7 +481,10 @@
+@@ -355,7 +362,9 @@
+                     {
+                         Entity entity1 = list.get(j1);
+ 
+-                        if (!(entity1 instanceof EntityPlayer) && !(entity1 instanceof EntityIronGolem) && !(entity1 instanceof EntityMinecart) && !this.func_184207_aI() && !entity1.func_184218_aH())
++                        if (!(entity1 instanceof EntityPlayer) && !(entity1 instanceof EntityIronGolem)
++                                && !(entity1 instanceof EntityMinecart)
++                                && !this.func_184207_aI() && !entity1.func_184218_aH())
+                         {
+                             entity1.func_184220_m(this);
+                         }
+@@ -474,7 +483,10 @@
          this.field_70179_y = d5 * d2 / d3;
          Entity entity = this.func_184188_bt().isEmpty() ? null : (Entity)this.func_184188_bt().get(0);
  

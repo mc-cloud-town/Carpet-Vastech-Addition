@@ -31,7 +31,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class EntityPlayerActionPack
+public class EntityPlayerActionPack implements Runnable // VasCM - implements Runnable
 {
     private EntityPlayerMP player;
 
@@ -353,6 +353,12 @@ public class EntityPlayerActionPack
         {
             player.moveStrafing = strafing*(sneaking?0.3F:1.0F);
         }
+    }
+
+    // VasCM
+    @Override
+    public void run() {
+        this.onUpdate();
     }
 
     public void jumpOnce()

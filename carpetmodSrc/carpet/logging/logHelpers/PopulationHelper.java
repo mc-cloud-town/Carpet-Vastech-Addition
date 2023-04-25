@@ -19,6 +19,14 @@ import java.util.function.BiConsumer;
 import static carpet.logging.logHelpers.PopulationConstants.*;
 
 public class PopulationHelper {
+    private PopulationHelper() {}
+
+    private static final PopulationHelper INSTANCE = new PopulationHelper();
+
+    public static PopulationHelper getInstance() {
+        return INSTANCE;
+    }
+
     /*
      * Events to log during population:
      * 1. Placement of features, such as liquid pockets
@@ -30,9 +38,8 @@ public class PopulationHelper {
      */
 
     // Part 0: Utilities
-    public static final Map<UUID, String> optionsByPlayer = new HashMap<>();
     public static String getOptionStringForPlayer(EntityPlayer player) {
-        return optionsByPlayer.get(player.getUniqueID());
+        return getPopulationLogger().getSubscribedPlayers().get(player.getName());
     }
 
     public static Logger getPopulationLogger() {
@@ -42,14 +49,14 @@ public class PopulationHelper {
         return "(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ')';
     }
     public static class PopulationLoggerOptions {
-        public Set<World> worldsToLog = new HashSet<>();
-        public Set<Class<? extends WorldGenerator>> featuresToLog = new TreeSet<>();
+        public Set<String> worldsToLog = new HashSet<>();
+        public Set<Class<? extends WorldGenerator>> featuresToLog = new HashSet<>();
         public Set<PopulationFlag> flagsToLog = EnumSet.noneOf(PopulationFlag.class);
-        public boolean shouldLogPopulationSuppression;
-        public boolean shouldLogAsyncPopulation;
+        public boolean shouldLogPopulationSuppression = false;
+        public boolean shouldLogAsyncPopulation = false;
 
         public boolean shouldLogWorld(World world) {
-            return worldsToLog.contains(world);
+            return worldsToLog.contains(world.provider.getDimensionType().getName());
         }
 
         public boolean shouldLogFeature(WorldGenerator feature) {
@@ -67,6 +74,7 @@ public class PopulationHelper {
     }
 
     public void log(BiConsumer<PopulationLoggerOptions, List<ITextComponent>> message) {
+        if (!LoggerRegistry.__population) return;
         if (isOnBeaconThread()) return; // avoid trouble with multithreading
         Logger logger = getPopulationLogger();
         logger.log((yeet, player) -> {
@@ -80,18 +88,25 @@ public class PopulationHelper {
     // Part 1: Features
 
     public static enum PopulationFlag {
-        ITT("instant tile ticks", true),
-        IF("instant fall", false),
-        RPF("redstone power", false);
+        ITT("instant tile ticks", "ITT", true),
+        IF("instant fall", "IF", false),
+        RPF("redstone power", "RPF", false);
         private String name;
+        private String acronym;
         private boolean worldDependent;
-        PopulationFlag(String name, boolean worldDependent) {
+        PopulationFlag(String name, String acronym, boolean worldDependent) {
             this.name = name;
+            this.acronym = acronym;
             this.worldDependent = worldDependent;
         }
         public String getName() {
             return name;
         }
+
+        public String getAcronym() {
+            return acronym;
+        }
+
         public boolean isWorldDependent() {
             return worldDependent;
         }
@@ -122,6 +137,7 @@ public class PopulationHelper {
     }
 
     // Part 2: Structures
+    // Currently unsupported
 
     // Part 3: Population start and end
     public void logPopulationStart(World world, ChunkPos pos) {
@@ -132,9 +148,11 @@ public class PopulationHelper {
                         "Population of chunk (%d, %d) started! ", pos.x, pos.z)));
             }
         });
+        logFlagToggle(null, PopulationFlag.IF, true);
     }
 
     public void logPopulationEnd(World world, ChunkPos pos) {
+        logFlagToggle(null, PopulationFlag.IF, false);
         log((options, components) -> {
             if (options.shouldLogWorld(world) && options.shouldLogAsyncPopulation) {
                 components.add(Messenger.m(null, String.format(
@@ -207,7 +225,7 @@ public class PopulationHelper {
                 log((options, components) -> {
                     if (options.shouldLogWorld(world) && options.shouldLogAsyncPopulation) {
                         components.add(Messenger.m(null, String.format(
-                                "Async population of chunk (%d, %d) started! ", pos.x, pos.z)));
+                                "Async population of chunk (%d, %d) started! Async population will not be logged for technical purposes. ", pos.x, pos.z)));
                     }
                 });
             });

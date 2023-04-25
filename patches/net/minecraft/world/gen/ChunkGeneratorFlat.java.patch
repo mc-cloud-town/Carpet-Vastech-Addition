@@ -10,7 +10,17 @@
  public class ChunkGeneratorFlat implements IChunkGenerator
  {
      private final World field_73163_a;
-@@ -243,4 +246,15 @@
+@@ -119,7 +122,8 @@
+         }
+ 
+         p_i2004_1_.func_181544_b(j);
+-        this.field_82697_g = flag && this.field_82699_e.func_82648_a() != Biome.func_185362_a(Biomes.field_185440_P) ? false : this.field_82699_e.func_82644_b().containsKey("decoration");
++//        this.hasDecoration = flag && this.flatWorldGenInfo.getBiome() != Biome.getIdForBiome(Biomes.VOID) ? false : this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
++        this.field_82697_g = (!flag || this.field_82699_e.func_82648_a() == Biome.func_185362_a(Biomes.field_185440_P)) && this.field_82699_e.func_82644_b().containsKey("decoration");
+     }
+ 
+     public Chunk func_185932_a(int p_185932_1_, int p_185932_2_)
+@@ -243,4 +247,15 @@
              mapgenstructure.func_186125_a(this.field_73163_a, p_180514_2_, p_180514_3_, (ChunkPrimer)null);
          }
      }

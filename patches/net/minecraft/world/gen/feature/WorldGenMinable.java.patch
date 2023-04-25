@@ -1,0 +1,47 @@
+--- ../src-base/minecraft/net/minecraft/world/gen/feature/WorldGenMinable.java
++++ ../src-work/minecraft/net/minecraft/world/gen/feature/WorldGenMinable.java
+@@ -27,15 +27,15 @@
+         this.field_175919_c = p_i45631_3_;
+     }
+ 
+-    public boolean func_180709_b(World p_180709_1_, Random p_180709_2_, BlockPos p_180709_3_)
++    public boolean generate_vanilla(World worldIn, Random rand, BlockPos position)
+     {
+-        float f = p_180709_2_.nextFloat() * (float)Math.PI;
+-        double d0 = (double)((float)(p_180709_3_.func_177958_n() + 8) + MathHelper.func_76126_a(f) * (float)this.field_76541_b / 8.0F);
+-        double d1 = (double)((float)(p_180709_3_.func_177958_n() + 8) - MathHelper.func_76126_a(f) * (float)this.field_76541_b / 8.0F);
+-        double d2 = (double)((float)(p_180709_3_.func_177952_p() + 8) + MathHelper.func_76134_b(f) * (float)this.field_76541_b / 8.0F);
+-        double d3 = (double)((float)(p_180709_3_.func_177952_p() + 8) - MathHelper.func_76134_b(f) * (float)this.field_76541_b / 8.0F);
+-        double d4 = (double)(p_180709_3_.func_177956_o() + p_180709_2_.nextInt(3) - 2);
+-        double d5 = (double)(p_180709_3_.func_177956_o() + p_180709_2_.nextInt(3) - 2);
++        float f = rand.nextFloat() * (float)Math.PI;
++        double d0 = (double)((float)(position.func_177958_n() + 8) + MathHelper.func_76126_a(f) * (float)this.field_76541_b / 8.0F);
++        double d1 = (double)((float)(position.func_177958_n() + 8) - MathHelper.func_76126_a(f) * (float)this.field_76541_b / 8.0F);
++        double d2 = (double)((float)(position.func_177952_p() + 8) + MathHelper.func_76134_b(f) * (float)this.field_76541_b / 8.0F);
++        double d3 = (double)((float)(position.func_177952_p() + 8) - MathHelper.func_76134_b(f) * (float)this.field_76541_b / 8.0F);
++        double d4 = (double)(position.func_177956_o() + rand.nextInt(3) - 2);
++        double d5 = (double)(position.func_177956_o() + rand.nextInt(3) - 2);
+ 
+         for (int i = 0; i < this.field_76541_b; ++i)
+         {
+@@ -43,7 +43,7 @@
+             double d6 = d0 + (d1 - d0) * (double)f1;
+             double d7 = d4 + (d5 - d4) * (double)f1;
+             double d8 = d2 + (d3 - d2) * (double)f1;
+-            double d9 = p_180709_2_.nextDouble() * (double)this.field_76541_b / 16.0D;
++            double d9 = rand.nextDouble() * (double)this.field_76541_b / 16.0D;
+             double d10 = (double)(MathHelper.func_76126_a((float)Math.PI * f1) + 1.0F) * d9 + 1.0D;
+             double d11 = (double)(MathHelper.func_76126_a((float)Math.PI * f1) + 1.0F) * d9 + 1.0D;
+             int j = MathHelper.func_76128_c(d6 - d10 / 2.0D);
+@@ -73,9 +73,9 @@
+                                 {
+                                     BlockPos blockpos = new BlockPos(l1, i2, j2);
+ 
+-                                    if (this.field_175919_c.apply(p_180709_1_.func_180495_p(blockpos)))
++                                    if (this.field_175919_c.apply(worldIn.func_180495_p(blockpos)))
+                                     {
+-                                        p_180709_1_.func_180501_a(blockpos, this.field_175920_a, 2);
++                                        worldIn.func_180501_a(blockpos, this.field_175920_a, 2);
+                                     }
+                                 }
+                             }

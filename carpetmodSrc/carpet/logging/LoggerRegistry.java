@@ -1,11 +1,10 @@
 package carpet.logging;
 
 import carpet.CarpetSettings;
-import carpet.logging.logHelpers.LoggerFreeOptions;
+import carpet.logging.logHelpers.LoggerWithFreeOptions;
 import com.google.common.base.Charsets;
 import com.google.gson.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.server.MinecraftServer;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -13,11 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class LoggerRegistry
 {
@@ -55,6 +51,7 @@ public class LoggerRegistry
     public static boolean __carefulBreak;
     public static boolean __normalCameraVision;
     public static boolean __liquidPocket;
+    public static boolean __population;
 
     public static void initLoggers(MinecraftServer server)
     {
@@ -71,7 +68,7 @@ public class LoggerRegistry
         registerLogger("rng", new Logger(server, "rng", null, null, LogHandler.CHAT));
         registerLogger("explosions", new Logger(server, "explosions", "compact", new String[]{"brief", "full", "compact"}, LogHandler.CHAT));
         registerLogger("liquidPocket", new Logger(server, "liquidPocket", null, null, LogHandler.HUD));
-        registerLogger("population", new LoggerFreeOptions(server, "population", LogHandler.CHAT));
+        registerLogger("population", new LoggerWithFreeOptions(server, "population", LogHandler.CHAT));
 
         registerLogger("autosave", new Logger(server, "autosave", null, null, LogHandler.HUD));
         registerLogger("tps", new Logger(server, "tps", null, null, LogHandler.HUD));
