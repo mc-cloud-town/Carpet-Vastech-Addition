@@ -93,13 +93,14 @@ public abstract class PopulationConstants {
         return options;
     }
 
-    private static final Pattern CATEGORY_PATTERN = Pattern.compile("(?<category>([*]+))\\((?<args>([*]+))\\)");
+    private static final Pattern CATEGORY_PATTERN = Pattern.compile("(?<category>.+)\\((?<args>(.+))\\)");
     private static PopulationHelper.PopulationLoggerOptions resolveOptionsByString0(String optionString) {
+        System.out.println("Trying to resolve option " + optionString);
         PopulationHelper.PopulationLoggerOptions result = new PopulationHelper.PopulationLoggerOptions();
         String[] categoryOptions = optionString.split("\\+");
         for (String categoryOption: categoryOptions) {
             Matcher matcher = CATEGORY_PATTERN.matcher(categoryOption);
-            if (matcher.groupCount() < 2) return result;
+            if (!matcher.find()) return result;
             String category = matcher.group("category");
             List<String> args = Arrays.stream(matcher.group("args").split(" "))
                     .map(s -> s.replace(" ", ""))

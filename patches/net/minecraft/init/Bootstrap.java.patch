@@ -52,13 +52,17 @@
          for (EnumDyeColor enumdyecolor : EnumDyeColor.values())
          {
              BlockDispenser.field_149943_a.func_82595_a(Item.func_150898_a(BlockShulkerBox.func_190952_a(enumdyecolor)), new Bootstrap.BehaviorDispenseShulkerBox());
-@@ -486,6 +492,10 @@
+@@ -486,6 +492,14 @@
      {
          if (!field_151355_a)
          {
 +            // Fix the crash report without carpet rule. DON'T PUT A GOD-DAMN CARPET RULE FOR THIS OR I WILL GET MAD!
 +            // Mojang even added this in 16. CARPET-XCOM
-+            CrashReport.func_85055_a(new Exception(), "Dummy");
++            // VasCM - Put a goddamn carpet rule for this so that Xcom can get mad
++            // This rule defaults to true, and by the time of this line of code, carpet rules are not initialized
++            // so regardless of the value of this rule set in carpets.conf, this crash report fix will work anyway
++            // That is, I can annoy people without causing any real trouble.
++            if (CarpetSettings.goddamnCarpetRule) CrashReport.func_85055_a(new Exception(), "Dummy");
 +
              field_151355_a = true;
              func_179868_d();

@@ -801,6 +801,9 @@ public class CarpetSettings
     @Rule(desc = "Enables skyblock on 1.12, all blocks but end portal frames will be removed in newly generated chunks.", category = FEATURE, extra = "WARNING! Don't turn on if not planning to play skyblock.")
     public static boolean skyblock;
 
+    @Rule(desc = "Disable spider spawning so that string duplicators are not available early game. ", category = FEATURE)
+    public static boolean disableSpiderSpawning = false;
+
     @Rule(desc = "Removes the dimension loading where after 300 gameticks all entitys freeze without players.", category = FEATURE)
     public static boolean dimensionLoading;
 
@@ -1015,13 +1018,21 @@ public class CarpetSettings
     @Rule(desc = "Removes tnt applying velocity to other entities.", category = CREATIVE)
     public static boolean removeTNTVelocity = false;
 
-    // VasCM rules
+    /*
+     * ==============================
+     * Carpet Vastech Additions rules
+     * ==============================
+     */
+
     @Rule(desc = "Move the action of fake players from EU phase to NU phase", category = FEATURE)
     public static boolean fakePlayerInNUPhase = false;
 
     @Rule(desc = "Disable the large stacktrace output of update suppression and convert to a single line of output, to lower the pressure of MCDR and lower log file size. ", category = FIX)
     public static boolean disableUpdateSuppressionLogging = false;
 
+    @Rule(desc = "DON'T PUT A GOD-DAMN CARPET RULE FOR THIS OR I WILL GET MAD!\n" +
+            "Mojang even added this in 16. CARPET-XCOM", category = CREATIVE)
+    public static boolean goddamnCarpetRule = true;
 
     // ===== API ===== //
 
