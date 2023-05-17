@@ -171,6 +171,7 @@ public class ClusterHelper {
                     optimalReport = report.clone();
             }
         }
+        lastOptimalClusteringReport = optimalReport;
         return optimalReport;
     }
 
@@ -190,7 +191,9 @@ public class ClusterHelper {
                 accumulatedSize += currList.size();
                 clusterChunksExtractCache.addAll(currList);
             }
-            if (accumulatedSize <= iterations) return null;
+            if (accumulatedSize <= iterations) {
+                return null;
+            }
             iterations ++;
             hash = (hash + 1) & mask;
         }
