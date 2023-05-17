@@ -1038,6 +1038,9 @@ public class CarpetSettings
             "but 1.12 carpet doesn't. Here is a fix for that. ", category = EXPERIMENTAL)
     public static boolean freezeBlockEventsOnTickFreeze = true;
 
+    @Rule(desc = "/tick commands other than /tick health and /tick entities require admin permission to run", category = FIX)
+    public static boolean mostTickCommandsRequireAdmin = true;
+
     // ===== API ===== //
 
     /**

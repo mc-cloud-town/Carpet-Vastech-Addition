@@ -45,6 +45,16 @@ public class CommandTick extends CommandCarpetBase
         {
             throw new WrongUsageException(getUsage(sender));
         }
+        // VasCM - mostTickCommandsRequireAdmin
+        if (CarpetSettings.mostTickCommandsRequireAdmin) {
+            if (sender.canUseCommand(2, "gamemode") &&
+                    !"health".equalsIgnoreCase(args[0]) &&
+                    !"entities".equalsIgnoreCase(args[0])) {
+                notifyCommandListener(sender, this,
+                        "You don't have permission to use /tick commands other than /tick health and /tick entities! ");
+                return;
+            }
+        }
         if ("rate".equalsIgnoreCase(args[0]))
         {
             if (args.length == 2)

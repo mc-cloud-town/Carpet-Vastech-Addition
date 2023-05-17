@@ -23,8 +23,11 @@ public class CommandWriteBlock extends CommandExtendedSetBlockBase {
     public boolean setBlockState(World world, BlockPos pos, IBlockState state, int flags) {
         Chunk chunk = world.getChunk(pos);
         IBlockState state1 = chunk.getBlockState(pos);
+        if (state == state1) return false;
         ExtendedBlockStorage storage = chunk.getBlockStorageArray()[pos.getY() >> 4];
         storage.set(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15, state);
-        return state1 != chunk.getBlockState(pos);
+        IBlockState state2 = chunk.getBlockState(pos);
+        world.notifyBlockUpdate(pos, state1, state2, 2);
+        return state1 != state2;
     }
 }
