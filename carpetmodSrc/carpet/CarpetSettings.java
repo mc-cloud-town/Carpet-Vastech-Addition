@@ -1034,6 +1034,10 @@ public class CarpetSettings
             "Mojang even added this in 16. CARPET-XCOM", category = CREATIVE)
     public static boolean goddamnCarpetRule = true;
 
+    @Rule(desc = "It is inconsistent that all modern carpet versions freezes block events on /tick freeze " +
+            "but 1.12 carpet doesn't. Here is a fix for that. ", category = EXPERIMENTAL)
+    public static boolean freezeBlockEventsOnTickFreeze = true;
+
     // ===== API ===== //
 
     /**
