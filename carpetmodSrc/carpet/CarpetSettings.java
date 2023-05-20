@@ -46,7 +46,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String carpetVersion = "Carpet Vastech Addition - v0.1.0";
+    public static final String carpetVersion = "Carpet Vastech Addition - v0.1.1";
     public static final String minecraftVersion = "1.12.2";
     public static final String mcpMappings = "39-1.12";
 
@@ -1040,6 +1040,15 @@ public class CarpetSettings
 
     @Rule(desc = "/tick commands other than /tick health and /tick entities require admin permission to run", category = FIX)
     public static boolean mostTickCommandsRequireAdmin = true;
+
+    @Rule(desc = "Enables /cluster command", category = COMMANDS)
+    public static boolean commandCluster = false;
+
+    @Rule(desc = "Disables village ticking", category = CREATIVE)
+    public static boolean tickVillages = true;
+
+    @Rule(desc = "Disables pressure plates, detector rails, frosted ice, string and repeating command blocks on ITT", category = CREATIVE)
+    public static boolean calmITTCrashers = true;
 
     // ===== API ===== //
 

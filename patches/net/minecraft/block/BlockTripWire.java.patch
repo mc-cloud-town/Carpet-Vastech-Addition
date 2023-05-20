@@ -1,6 +1,15 @@
 --- ../src-base/minecraft/net/minecraft/block/BlockTripWire.java
 +++ ../src-work/minecraft/net/minecraft/block/BlockTripWire.java
-@@ -23,7 +23,9 @@
+@@ -3,6 +3,8 @@
+ import java.util.List;
+ import java.util.Random;
+ import javax.annotation.Nullable;
++
++import carpet.CarpetSettings;
+ import net.minecraft.block.material.Material;
+ import net.minecraft.block.properties.IProperty;
+ import net.minecraft.block.properties.PropertyBool;
+@@ -23,7 +25,9 @@
  import net.minecraft.world.IBlockAccess;
  import net.minecraft.world.World;
  
@@ -11,7 +20,15 @@
  {
      public static final PropertyBool field_176293_a = PropertyBool.func_177716_a("powered");
      public static final PropertyBool field_176294_M = PropertyBool.func_177716_a("attached");
-@@ -266,4 +268,10 @@
+@@ -146,6 +150,7 @@
+     {
+         if (!p_180650_1_.field_72995_K)
+         {
++            if (CarpetSettings.calmITTCrashers && p_180650_1_.field_72999_e) return;
+             if (((Boolean)p_180650_1_.func_180495_p(p_180650_2_).func_177229_b(field_176293_a)).booleanValue())
+             {
+                 this.func_176288_d(p_180650_1_, p_180650_2_);
+@@ -266,4 +271,10 @@
      {
          return BlockFaceShape.UNDEFINED;
      }

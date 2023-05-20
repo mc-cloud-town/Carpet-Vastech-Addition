@@ -1,6 +1,13 @@
 --- ../src-base/minecraft/net/minecraft/block/BlockRailDetector.java
 +++ ../src-work/minecraft/net/minecraft/block/BlockRailDetector.java
-@@ -23,7 +23,10 @@
+@@ -1,5 +1,6 @@
+ package net.minecraft.block;
+ 
++import carpet.CarpetSettings;
+ import com.google.common.base.Predicate;
+ import java.util.List;
+ import java.util.Random;
+@@ -23,7 +24,10 @@
  import net.minecraft.world.IBlockAccess;
  import net.minecraft.world.World;
  
@@ -12,7 +19,15 @@
  {
      public static final PropertyEnum<BlockRailBase.EnumRailDirection> field_176573_b = PropertyEnum.<BlockRailBase.EnumRailDirection>func_177708_a("shape", BlockRailBase.EnumRailDirection.class, new Predicate<BlockRailBase.EnumRailDirection>()
      {
-@@ -220,6 +223,14 @@
+@@ -70,6 +74,7 @@
+     {
+         if (!p_180650_1_.field_72995_K && ((Boolean)p_180650_3_.func_177229_b(field_176574_M)).booleanValue())
+         {
++            if (CarpetSettings.calmITTCrashers && p_180650_1_.field_72999_e) return;
+             this.func_176570_e(p_180650_1_, p_180650_2_, p_180650_3_);
+         }
+     }
+@@ -220,6 +225,14 @@
  
                  switch ((BlockRailBase.EnumRailDirection)p_185499_1_.func_177229_b(field_176573_b))
                  {
@@ -27,7 +42,7 @@
                      case ASCENDING_EAST:
                          return p_185499_1_.func_177226_a(field_176573_b, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
                      case ASCENDING_WEST:
-@@ -352,4 +363,16 @@
+@@ -352,4 +365,16 @@
      {
          return new BlockStateContainer(this, new IProperty[] {field_176573_b, field_176574_M});
      }
