@@ -113,7 +113,7 @@
              if (!this.field_70170_p.field_72995_K)
              {
                  BlockPos blockpos1 = new BlockPos(this);
-@@ -168,6 +234,24 @@
+@@ -168,13 +234,33 @@
                      this.field_70179_y *= 0.699999988079071D;
                      this.field_70181_x *= -0.5D;
  
@@ -138,7 +138,17 @@
                      if (iblockstate.func_177230_c() != Blocks.field_180384_M)
                      {
                          this.func_70106_y();
-@@ -356,4 +440,12 @@
+ 
+                         if (!this.field_145808_f)
+                         {
+-                            if (this.field_70170_p.func_190527_a(block, blockpos1, true, EnumFacing.UP, (Entity)null) && (flag1 || !BlockFalling.func_185759_i(this.field_70170_p.func_180495_p(blockpos1.func_177977_b()))) && this.field_70170_p.func_180501_a(blockpos1, this.field_175132_d, 3))
++                            if (this.field_70170_p.func_190527_a(block, blockpos1, true, EnumFacing.UP, (Entity)null)
++                                    && (flag1 || !BlockFalling.func_185759_i(this.field_70170_p.func_180495_p(blockpos1.func_177977_b())))
++                                    && this.field_70170_p.func_180501_a(blockpos1, this.field_175132_d, 3))
+                             {
+                                 if (block instanceof BlockFalling)
+                                 {
+@@ -356,4 +442,12 @@
      {
          return true;
      }

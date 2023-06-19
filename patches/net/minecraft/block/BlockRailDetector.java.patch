@@ -3,7 +3,7 @@
 @@ -1,5 +1,6 @@
  package net.minecraft.block;
  
-+import carpet.CarpetSettings;
++import carpet.helpers.ITTCrasher;
  import com.google.common.base.Predicate;
  import java.util.List;
  import java.util.Random;
@@ -15,19 +15,11 @@
 +import redstone.multimeter.block.Meterable;
 +import redstone.multimeter.block.PowerSource;
 +
-+public class BlockRailDetector extends BlockRailBase implements Meterable /* RSMM */, PowerSource /* RSMM */
++public class BlockRailDetector extends BlockRailBase implements Meterable /* RSMM */, PowerSource /* RSMM */, ITTCrasher /* VasCM - calmITTCrashers */
  {
      public static final PropertyEnum<BlockRailBase.EnumRailDirection> field_176573_b = PropertyEnum.<BlockRailBase.EnumRailDirection>func_177708_a("shape", BlockRailBase.EnumRailDirection.class, new Predicate<BlockRailBase.EnumRailDirection>()
      {
-@@ -70,6 +74,7 @@
-     {
-         if (!p_180650_1_.field_72995_K && ((Boolean)p_180650_3_.func_177229_b(field_176574_M)).booleanValue())
-         {
-+            if (CarpetSettings.calmITTCrashers && p_180650_1_.field_72999_e) return;
-             this.func_176570_e(p_180650_1_, p_180650_2_, p_180650_3_);
-         }
-     }
-@@ -220,6 +225,14 @@
+@@ -220,6 +224,14 @@
  
                  switch ((BlockRailBase.EnumRailDirection)p_185499_1_.func_177229_b(field_176573_b))
                  {
@@ -42,7 +34,7 @@
                      case ASCENDING_EAST:
                          return p_185499_1_.func_177226_a(field_176573_b, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
                      case ASCENDING_WEST:
-@@ -352,4 +365,16 @@
+@@ -352,4 +364,22 @@
      {
          return new BlockStateContainer(this, new IProperty[] {field_176573_b, field_176574_M});
      }
@@ -57,5 +49,11 @@
 +    @Override
 +    public int getPowerLevel(World world, BlockPos pos, IBlockState state) {
 +        return state.func_177229_b(field_176574_M) ? MAX_POWER : MIN_POWER;
++    }
++
++    @Override
++    public boolean wouldCrash(World world, BlockPos pos, IBlockState state) {
++        List<?> list = this.func_176571_a(world, pos, EntityMinecart.class);
++        return !list.isEmpty();
 +    }
  }

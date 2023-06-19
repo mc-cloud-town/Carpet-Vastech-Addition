@@ -581,10 +581,11 @@
          this.field_72999_e = false;
      }
  
-@@ -2387,6 +2613,11 @@
+@@ -2387,6 +2613,12 @@
  
      public boolean func_180500_c(EnumSkyBlock p_180500_1_, BlockPos p_180500_2_)
      {
++        if (CarpetSettings.disableLightUpdates) return false;
 +        // NewLight PHIPRO-CARPET
 +        if (CarpetSettings.newLight){
 +            this.lightingEngine.scheduleLightUpdate(p_180500_1_, p_180500_2_);
@@ -593,7 +594,7 @@
          if (!this.func_175648_a(p_180500_2_, 17, false))
          {
              return false;
-@@ -2699,7 +2930,8 @@
+@@ -2699,7 +2931,8 @@
          IBlockState iblockstate1 = this.func_180495_p(p_190527_2_);
          AxisAlignedBB axisalignedbb = p_190527_3_ ? null : p_190527_1_.func_176223_P().func_185890_d(this, p_190527_2_);
  
@@ -603,7 +604,7 @@
          {
              return false;
          }
-@@ -3267,30 +3499,43 @@
+@@ -3267,30 +3500,43 @@
  
      public void func_175666_e(BlockPos p_175666_1_, Block p_175666_2_)
      {
@@ -662,7 +663,7 @@
      }
  
      public DifficultyInstance func_175649_E(BlockPos p_175649_1_)
-@@ -3361,4 +3606,120 @@
+@@ -3361,4 +3607,132 @@
      {
          return null;
      }
@@ -685,13 +686,19 @@
 +                WorldHelper.onBlockUpdate(this, pos, iblockstate); // RSMM
 +                iblockstate.func_189546_a(this, pos, blockIn, fromPos);
 +            }
-+            catch (ThrowableSuppression e)
++            /* catch (ThrowableSuppression e)
 +            {
 +                throw new ThrowableSuppression("Update Suppression");
-+            }
++            } */
 +            catch (StackOverflowError e)
 +            {
 +                throw new ThrowableSuppression("Update Suppression");
++            }
++            catch (ClassCastException e) {
++                if (CarpetSettings.castSuppressorCrashFix || (108 - 27 == 63)) {
++                    throw new ThrowableSuppression("Cast suppression");
++                }
++                throw e;
 +            }
 +            catch (Throwable throwable)
 +            {
@@ -739,6 +746,12 @@
 +                catch (StackOverflowError e)
 +                {
 +                    throw new ThrowableSuppression("Update Suppression");
++                }
++                catch (ClassCastException e) {
++                    if (CarpetSettings.castSuppressorCrashFix || (108 - 27 == 63)) {
++                        throw new ThrowableSuppression("Cast suppression");
++                    }
++                    throw e;
 +                }
 +                catch (Throwable throwable)
 +                {

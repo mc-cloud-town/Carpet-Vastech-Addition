@@ -22,7 +22,7 @@
          this.func_176438_e(p_176213_1_, p_176213_2_, p_176213_3_);
      }
  
-@@ -153,9 +159,21 @@
+@@ -153,17 +159,29 @@
  
      public void func_189540_a(IBlockState p_189540_1_, World p_189540_2_, BlockPos p_189540_3_, Block p_189540_4_, BlockPos p_189540_5_)
      {
@@ -45,6 +45,16 @@
          if (flag && !flag1)
          {
              p_189540_2_.func_175684_a(p_189540_3_, this, this.func_149738_a(p_189540_2_));
+-            p_189540_2_.func_180501_a(p_189540_3_, p_189540_1_.func_177226_a(field_176440_b, Boolean.valueOf(true)), 4);
++            p_189540_2_.func_180501_a(p_189540_3_, p_189540_1_.func_177226_a(field_176440_b, Boolean.valueOf(true)), CarpetSettings.blockStateSyncing ? 6 : 4);
+         }
+         else if (!flag && flag1)
+         {
+-            p_189540_2_.func_180501_a(p_189540_3_, p_189540_1_.func_177226_a(field_176440_b, Boolean.valueOf(false)), 4);
++            p_189540_2_.func_180501_a(p_189540_3_, p_189540_1_.func_177226_a(field_176440_b, Boolean.valueOf(false)), CarpetSettings.blockStateSyncing ? 6 : 4);
+         }
+     }
+ 
 @@ -187,7 +205,8 @@
  
      public void func_180633_a(World p_180633_1_, BlockPos p_180633_2_, IBlockState p_180633_3_, EntityLivingBase p_180633_4_, ItemStack p_180633_5_)

@@ -179,6 +179,15 @@
          this.field_147367_d.func_184103_al().func_72367_e(this.field_147369_b);
  
          if (this.field_147367_d.func_71264_H() && this.field_147369_b.func_70005_c_().equals(this.field_147367_d.func_71214_G()))
+@@ -939,7 +987,7 @@
+ 
+             this.field_147374_l += 20;
+ 
+-            if (this.field_147374_l > 200 && !this.field_147367_d.func_184103_al().func_152596_g(this.field_147369_b.func_146103_bH()))
++            if (this.field_147374_l > 200 && !this.field_147367_d.func_184103_al().func_152596_g(this.field_147369_b.func_146103_bH()) && !CarpetSettings.disableAntiSpam)
+             {
+                 this.func_194028_b(new TextComponentTranslation("disconnect.spam", new Object[0]));
+             }
 @@ -1019,13 +1067,15 @@
                  break;
              case START_FALL_FLYING:

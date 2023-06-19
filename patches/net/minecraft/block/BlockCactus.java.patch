@@ -21,3 +21,18 @@
  import net.minecraft.util.DamageSource;
  import net.minecraft.util.EnumFacing;
  import net.minecraft.util.math.AxisAlignedBB;
+@@ -52,12 +58,12 @@
+                 {
+                     p_180650_1_.func_175656_a(blockpos, this.func_176223_P());
+                     IBlockState iblockstate = p_180650_3_.func_177226_a(field_176587_a, Integer.valueOf(0));
+-                    p_180650_1_.func_180501_a(p_180650_2_, iblockstate, 4);
++                    p_180650_1_.func_180501_a(p_180650_2_, iblockstate, CarpetSettings.blockStateSyncing ? 6 : 4);
+                     iblockstate.func_189546_a(p_180650_1_, blockpos, this, p_180650_2_);
+                 }
+                 else
+                 {
+-                    p_180650_1_.func_180501_a(p_180650_2_, p_180650_3_.func_177226_a(field_176587_a, Integer.valueOf(j + 1)), 4);
++                    p_180650_1_.func_180501_a(p_180650_2_, p_180650_3_.func_177226_a(field_176587_a, Integer.valueOf(j + 1)), CarpetSettings.blockStateSyncing ? 6 : 4);
+                 }
+             }
+         }

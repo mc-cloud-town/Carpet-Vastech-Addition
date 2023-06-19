@@ -1,6 +1,15 @@
 --- ../src-base/minecraft/net/minecraft/world/gen/feature/WorldGenBlockBlob.java
 +++ ../src-work/minecraft/net/minecraft/world/gen/feature/WorldGenBlockBlob.java
-@@ -18,20 +18,20 @@
+@@ -1,6 +1,8 @@
+ package net.minecraft.world.gen.feature;
+ 
+ import java.util.Random;
++
++import carpet.CarpetSettings;
+ import net.minecraft.block.Block;
+ import net.minecraft.init.Blocks;
+ import net.minecraft.util.math.BlockPos;
+@@ -18,20 +20,20 @@
          this.field_150544_b = p_i45450_2_;
      }
  
@@ -25,7 +34,7 @@
  
                      if (block != Blocks.field_150349_c && block != Blocks.field_150346_d && block != Blocks.field_150348_b)
                      {
-@@ -39,7 +39,7 @@
+@@ -39,7 +41,7 @@
                      }
                  }
  
@@ -34,7 +43,7 @@
                  {
                      return false;
                  }
-@@ -48,25 +48,25 @@
+@@ -48,25 +50,25 @@
  
                  for (int i = 0; i1 >= 0 && i < 3; ++i)
                  {
@@ -53,7 +62,7 @@
 +                        if (blockpos.func_177951_i(position) <= (double)(f * f))
                          {
 -                            p_180709_1_.func_180501_a(blockpos, this.field_150545_a.func_176223_P(), 4);
-+                            worldIn.func_180501_a(blockpos, this.field_150545_a.func_176223_P(), 4);
++                            worldIn.func_180501_a(blockpos, this.field_150545_a.func_176223_P(), CarpetSettings.blockStateSyncing ? 6 : 4);
                          }
                      }
  

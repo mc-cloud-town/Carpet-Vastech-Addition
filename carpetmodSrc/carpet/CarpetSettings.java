@@ -19,15 +19,18 @@ import java.util.stream.Collectors;
 
 import carpet.carpetclient.CarpetClientChunkLogger;
 import carpet.carpetclient.CarpetClientRuleChanger;
+import carpet.helpers.DisabledSnooper;
 import carpet.helpers.RandomTickOptimization;
 import carpet.helpers.ScoreboardDelta;
 import carpet.patches.BlockWool;
 import carpet.utils.Messenger;
 import carpet.utils.TickingArea;
 import carpet.worldedit.WorldEditBridge;
-import net.minecraft.block.BlockFalling;
+import com.google.common.collect.Sets;
+import net.minecraft.block.*;
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.init.Blocks;
+import net.minecraft.profiler.Snooper;
 import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.ChunkPos;
@@ -306,7 +309,7 @@ public class CarpetSettings
     public static boolean redstoneMultimeterLegacy = false;
 
     @Rule(desc = "Enables integration with the new Redstone Multimeter mod", category = {CREATIVE, SURVIVAL, COMMANDS}, extra = {
-    		"To use, the new Redstone Multimeter mod must be installed client-side as well"
+            "To use, the new Redstone Multimeter mod must be installed client-side as well"
     })
     public static boolean redstoneMultimeter = false;
 
@@ -1044,11 +1047,99 @@ public class CarpetSettings
     @Rule(desc = "Enables /cluster command", category = COMMANDS)
     public static boolean commandCluster = false;
 
-    @Rule(desc = "Disables village ticking", category = CREATIVE)
+    @Rule(desc = "Enables/disables village ticking", category = CREATIVE)
     public static boolean tickVillages = true;
 
-    @Rule(desc = "Disables pressure plates, detector rails, frosted ice, string and repeating command blocks on ITT", category = CREATIVE)
+    @Rule(desc = "Let pressure plates, detector rails, frosted ice, " +
+            "string and repeating command blocks scheduled normally timed tile ticks on ITT", category = CREATIVE)
     public static boolean calmITTCrashers = true;
+
+    @Rule(desc = "Disables snooper that collects data from your server to Mojang", category = FIX, validator = "validateDisableSnooper")
+    public static boolean disableSnooper = true;
+
+    @Rule(desc = "Disables serverside antispam", category = FIX)
+    public static boolean disableAntiSpam = false;
+
+    @Rule(desc = "Shamelessly copied from carpet-extra to VasCM by me. " +
+            "Properly notifies the client of some changes like dispensers, droppers and hoppers being powered, " +
+            "which are not notified to client by default, causing redstone display packs " +
+            "to fail at displaying those. ",
+    extra = "Huge thanks to Enxulansis for making a blue redstone display resource pack for 1.12! " +
+            "And for reminding me to add this rule. ",
+    category = {FIX, FEATURE})
+    public static boolean blockStateSyncing = false;
+
+    @Rule(desc = "When a CCE suppression happens for a non-player update, we catch the exception " +
+            "instead of crashing the server. ",
+    extra = "Void was still playing Minecraft days before his final exam, and even made a major discovery" +
+            " - CCE suppression a mere three days before the exam, by using a shulker box with a " +
+            "jukebox or lectern tile entity that throws a ClassCastException when its " +
+            "comparator output is being measured. \n" +
+            "In his Algebra-2 exam in 2023/6/15, he happily completed all the problems 5 minutes before " +
+            "the exam ends, and starts confidently counting the number of letters in the exam rules " +
+            "on the cover page of the answer paper. He counted precisely 589 letters before the exam ends. \n" +
+            "After the exam, when he was checking the answers with his classmates, he found out that " +
+            "he has written down 108-27=63 on the exam paper, and thus concluded a certain extension " +
+            "of the rational field contained in the rationals with a ninth root of unity adjoined " +
+            "has Galois group S_3, as if S_3 is a quotient of C_6. \n" +
+            "These lines are here in the settings about CCE suppression " +
+            "to keep him alert of this story. - Void, 2023/6/15",
+    category = FEATURE)
+    public static boolean castSuppressorCrashFix = false;
+
+    @Rule(desc = "Does what its name suggests",
+    extra = "May help with lag reduction when testing flying machines. ",
+    category = FEATURE)
+    public static boolean disableLightUpdates = false;
+
+    @Rule(desc = "Make redstone signals no longer prime TNTs. ", category = FEATURE)
+    public static boolean TNTdoesNotPrime = false;
+
+    private static Snooper oldSnooper = null;
+    private static Field snooperField = null;
+
+    private static void getAroundPrivateFinal(Field field) {
+        // get around private final
+        try {
+            field.setAccessible(true);
+            Field modifierField = Field.class.getDeclaredField("modifiers");
+            modifierField.setAccessible(true);
+            modifierField.setInt(snooperField, snooperField.getModifiers() & ~Modifier.FINAL);
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError(e);
+        }
+    }
+    public boolean validateDisableSnooper(boolean value) {
+        if (snooperField == null) {
+            for (Field field: MinecraftServer.class.getDeclaredFields()) {
+                if (field.getType() == Snooper.class) {
+                    snooperField = field;
+                    break;
+                }
+            }
+        }
+        if (snooperField == null) return true;
+        getAroundPrivateFinal(snooperField);
+        MinecraftServer mc;
+        if ((mc = CarpetServer.minecraft_server) == null) return true;
+        if (value) {;
+            try {
+                oldSnooper = (Snooper) snooperField.get(mc);
+                snooperField.set(mc, new DisabledSnooper());
+            } catch (ReflectiveOperationException e) {
+                throw new AssertionError(e);
+            }
+        } else if (oldSnooper != null) {
+            try {
+                snooperField.set(mc, oldSnooper);
+            } catch (ReflectiveOperationException e) {
+                throw new AssertionError(e);
+            }
+        }
+        return true;
+    }
+
+    public static final long ONE_ONE_FOUR_FIVE_ONE_FOUR = 1145141919810L;
 
     // ===== API ===== //
 
