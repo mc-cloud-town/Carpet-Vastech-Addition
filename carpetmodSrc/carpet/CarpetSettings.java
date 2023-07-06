@@ -1236,7 +1236,7 @@ public class CarpetSettings
     public static boolean TNTdoesNotPrime = false;
 
     private static Snooper oldSnooper = null;
-    public boolean validateDisableSnooper(boolean value) {
+    public static boolean validateDisableSnooper(boolean value) {
         if (value) {
             oldSnooper = CarpetServer.minecraft_server.usageSnooper;
             CarpetServer.minecraft_server.usageSnooper = new DisabledSnooper();
