@@ -1,6 +1,6 @@
 --- ../src-base/minecraft/net/minecraft/village/Village.java
 +++ ../src-work/minecraft/net/minecraft/village/Village.java
-@@ -73,17 +73,24 @@
+@@ -73,17 +73,21 @@
  
          int i = this.field_75588_h / 10;
  
@@ -9,11 +9,8 @@
 +        if (this.field_75587_j < i && this.field_75584_b.size() > 20)
          {
 -            Vec3d vec3d = this.func_179862_a(this.field_75582_d, 2, 4, 2);
-+            int g = this.field_75586_a.field_73012_v.nextInt(7000);
-+            System.out.println("Golem check = " + g + ", tick = " + this.field_75586_a.func_72912_H().func_82573_f());
-+            if (g == 0) {
++            if (this.field_75586_a.field_73012_v.nextInt(7000) == 0) {
 +                Vec3d vec3d = this.func_179862_a(this.field_75582_d, 2, 4, 2);
-+                System.out.println(vec3d);
  
 -            if (vec3d != null)
 -            {
@@ -33,7 +30,7 @@
          }
      }
  
-@@ -368,6 +375,7 @@
+@@ -368,6 +372,7 @@
                  flag = true;
                  villagedoorinfo.func_179853_a(true);
                  iterator.remove();
@@ -41,7 +38,7 @@
              }
          }
  
-@@ -379,7 +387,7 @@
+@@ -379,7 +384,7 @@
  
      private boolean func_179860_f(BlockPos p_179860_1_)
      {

@@ -34,7 +34,7 @@
  
      protected boolean func_146066_aG()
      {
-+        if(CarpetSettings.duplicationFixPortalEntitys && field_70128_L) return false; // Fixes duplication when entity's are set to be removed and can still drop items.
++        if(CarpetSettings.duplicationFixPortalEntity && field_70128_L) return false; // Fixes duplication when entity's are set to be removed and can still drop items.
          return !this.func_70631_g_();
      }
  

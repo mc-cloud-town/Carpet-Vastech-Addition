@@ -323,7 +323,8 @@ public class LightingEngine {
 
             final long nChunkIdentifier = nLongPos & mChunk;
 
-            final Chunk nChunk = this.neighborsChunk[i] = nChunkIdentifier == this.curChunkIdentifier ? this.curChunk : this.posToChunk(nPos);
+            final Chunk nChunk = this.neighborsChunk[i] =
+                    nChunkIdentifier == this.curChunkIdentifier ? this.curChunk : this.posToChunk(nPos);
 
             if (nChunk != null) {
                 this.neighborsLight[i] = this.posToCachedLight(nPos, nChunk);

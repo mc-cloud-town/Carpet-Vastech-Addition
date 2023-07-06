@@ -22,7 +22,7 @@ public class CarpetClientRandomtickingIndexing {
     public static void enableUpdate(EntityPlayerMP player) {
         if (!enableUpdates) return;
         int dimention = player.world.provider.getDimensionType().getId() + 1;
-        updates[dimention] = CarpetSettings.randomtickingChunkUpdates;
+        updates[dimention] = CarpetSettings.randomTickingChunkUpdates;
     }
 
     public static boolean sendUpdates(World world) {
@@ -43,7 +43,7 @@ public class CarpetClientRandomtickingIndexing {
         players.add(sender);
         enableUpdates = true;
         int dimention = sender.world.provider.getDimensionType().getId() + 1;
-        updates[dimention] = CarpetSettings.randomtickingChunkUpdates;
+        updates[dimention] = CarpetSettings.randomTickingChunkUpdates;
     }
 
     public static void unregisterPlayer(EntityPlayerMP player) {

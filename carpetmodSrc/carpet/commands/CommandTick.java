@@ -47,7 +47,7 @@ public class CommandTick extends CommandCarpetBase
         }
         // VasCM - mostTickCommandsRequireAdmin
         if (CarpetSettings.mostTickCommandsRequireAdmin) {
-            if (sender.canUseCommand(2, "gamemode") &&
+            if (!sender.canUseCommand(2, "gamemode") &&
                     !"health".equalsIgnoreCase(args[0]) &&
                     !"entities".equalsIgnoreCase(args[0])) {
                 notifyCommandListener(sender, this,

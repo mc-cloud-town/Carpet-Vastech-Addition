@@ -581,7 +581,7 @@
          this.field_72999_e = false;
      }
  
-@@ -2387,6 +2613,12 @@
+@@ -2387,69 +2613,221 @@
  
      public boolean func_180500_c(EnumSkyBlock p_180500_1_, BlockPos p_180500_2_)
      {
@@ -594,7 +594,332 @@
          if (!this.func_175648_a(p_180500_2_, 17, false))
          {
              return false;
-@@ -2699,7 +2931,8 @@
+         }
+         else
+         {
++            int checkedPosition = 0;
++            int toCheckCount = 0;
++            this.field_72984_F.func_76320_a("getBrightness");
++            int storedLight = this.func_175642_b(p_180500_1_, p_180500_2_);
++            int rawLight = this.func_175638_a(p_180500_2_, p_180500_1_);
++            int pX = p_180500_2_.func_177958_n();
++            int pY = p_180500_2_.func_177956_o();
++            int pZ = p_180500_2_.func_177952_p();
++
++            if (rawLight > storedLight)
++            {
++                this.field_72994_J[toCheckCount++] = 0b100000_100000_100000;
++            }
++            else if (rawLight < storedLight)
++            {
++                this.field_72994_J[toCheckCount++] = 0b100000_100000_100000 | storedLight << 18;
++
++                while (checkedPosition < toCheckCount)
++                {
++                    int packedPos = this.field_72994_J[checkedPosition++];
++                    int qX = (packedPos & 63) - 32 + pX;
++                    int qY = (packedPos >> 6 & 63) - 32 + pY;
++                    int qZ = (packedPos >> 12 & 63) - 32 + pZ;
++                    int qL = packedPos >> 18 & 15;
++                    BlockPos qPos = new BlockPos(qX, qY, qZ);
++                    int qStoredLight = this.func_175642_b(p_180500_1_, qPos);
++
++                    if (qStoredLight == qL)
++                    {
++                        this.func_175653_a(p_180500_1_, qPos, 0);
++
++                        if (qL > 0)
++                        {
++                            int offX = MathHelper.func_76130_a(qX - pX);
++                            int offY = MathHelper.func_76130_a(qY - pY);
++                            int offZ = MathHelper.func_76130_a(qZ - pZ);
++
++                            if (offX + offY + offZ < 17)
++                            {
++                                BlockPos.PooledMutableBlockPos rPos = BlockPos.PooledMutableBlockPos.func_185346_s();
++
++                                for (EnumFacing enumfacing : EnumFacing.values())
++                                {
++                                    int rX = qX + enumfacing.func_82601_c();
++                                    int rY = qY + enumfacing.func_96559_d();
++                                    int rZ = qZ + enumfacing.func_82599_e();
++                                    rPos.func_181079_c(rX, rY, rZ);
++                                    int rOpacity = Math.max(1, this.func_180495_p(rPos).func_185891_c());
++                                    qStoredLight = this.func_175642_b(p_180500_1_, rPos);
++
++                                    if (qStoredLight == qL - rOpacity && toCheckCount < this.field_72994_J.length)
++                                    {
++                                        this.field_72994_J[toCheckCount++] = rX - pX + 32 | rY - pY + 32 << 6 | rZ - pZ + 32 << 12 | qL - rOpacity << 18;
++                                    }
++                                }
++
++                                rPos.func_185344_t();
++                            }
++                        }
++                    }
++                }
++
++                checkedPosition = 0;
++            }
++
++            this.field_72984_F.func_76319_b();
++            this.field_72984_F.func_76320_a("checkedPosition < toCheckCount");
++
++            while (checkedPosition < toCheckCount)
++            {
++                int packedPos = this.field_72994_J[checkedPosition++];
++                int qX = (packedPos & 63) - 32 + pX;
++                int qY = (packedPos >> 6 & 63) - 32 + pY;
++                int qZ = (packedPos >> 12 & 63) - 32 + pZ;
++                BlockPos qPos = new BlockPos(qX, qY, qZ);
++                int qStoredLight = this.func_175642_b(p_180500_1_, qPos);
++                int qRawLight = this.func_175638_a(qPos, p_180500_1_);
++
++                if (qRawLight != qStoredLight)
++                {
++                    this.func_175653_a(p_180500_1_, qPos, qRawLight);
++
++                    if (qRawLight > qStoredLight)
++                    {
++                        int offX = Math.abs(qX - pX);
++                        int offY = Math.abs(qY - pY);
++                        int offZ = Math.abs(qZ - pZ);
++                        boolean hasSpaceLeft = toCheckCount < this.field_72994_J.length - 6;
++
++                        if (offX + offY + offZ < 17 && hasSpaceLeft)
++                        {
++                            if (this.func_175642_b(p_180500_1_, qPos.func_177976_e()) < qRawLight)
++                            {
++                                this.field_72994_J[toCheckCount++] = qX - 1 - pX + 32 + (qY - pY + 32 << 6) + (qZ - pZ + 32 << 12);
++                            }
++
++                            if (this.func_175642_b(p_180500_1_, qPos.func_177974_f()) < qRawLight)
++                            {
++                                this.field_72994_J[toCheckCount++] = qX + 1 - pX + 32 + (qY - pY + 32 << 6) + (qZ - pZ + 32 << 12);
++                            }
++
++                            if (this.func_175642_b(p_180500_1_, qPos.func_177977_b()) < qRawLight)
++                            {
++                                this.field_72994_J[toCheckCount++] = qX - pX + 32 + (qY - 1 - pY + 32 << 6) + (qZ - pZ + 32 << 12);
++                            }
++
++                            if (this.func_175642_b(p_180500_1_, qPos.func_177984_a()) < qRawLight)
++                            {
++                                this.field_72994_J[toCheckCount++] = qX - pX + 32 + (qY + 1 - pY + 32 << 6) + (qZ - pZ + 32 << 12);
++                            }
++
++                            if (this.func_175642_b(p_180500_1_, qPos.func_177978_c()) < qRawLight)
++                            {
++                                this.field_72994_J[toCheckCount++] = qX - pX + 32 + (qY - pY + 32 << 6) + (qZ - 1 - pZ + 32 << 12);
++                            }
++
++                            if (this.func_175642_b(p_180500_1_, qPos.func_177968_d()) < qRawLight)
++                            {
++                                this.field_72994_J[toCheckCount++] = qX - pX + 32 + (qY - pY + 32 << 6) + (qZ + 1 - pZ + 32 << 12);
++                            }
++                        }
++                    }
++                }
++            }
++
++            this.field_72984_F.func_76319_b();
++            return true;
++        }
++    }
++
++    /*
++    Commented out for renaming variables for better reading
++    public boolean checkLightFor(EnumSkyBlock lightType, BlockPos pos)
++    {
++        if (CarpetSettings.disableLightUpdates) return false;
++        // NewLight PHIPRO-CARPET
++        if (CarpetSettings.newLight){
++            this.lightingEngine.scheduleLightUpdate(lightType, pos);
++            return true;
++        }
++        if (!this.isAreaLoaded(pos, 17, false))
++        {
++            return false;
++        }
++        else
++        {
+             int j2 = 0;
+             int k2 = 0;
+-            this.field_72984_F.func_76320_a("getBrightness");
+-            int l2 = this.func_175642_b(p_180500_1_, p_180500_2_);
+-            int i3 = this.func_175638_a(p_180500_2_, p_180500_1_);
+-            int j3 = p_180500_2_.func_177958_n();
+-            int k3 = p_180500_2_.func_177956_o();
+-            int l3 = p_180500_2_.func_177952_p();
++            this.profiler.startSection("getBrightness");
++            int l2 = this.getLightFor(lightType, pos);
++            int i3 = this.getRawLight(pos, lightType);
++            int j3 = pos.getX();
++            int k3 = pos.getY();
++            int l3 = pos.getZ();
+ 
+             if (i3 > l2)
+             {
+-                this.field_72994_J[k2++] = 133152;
++                this.lightUpdateBlockList[k2++] = 133152;
+             }
+             else if (i3 < l2)
+             {
+-                this.field_72994_J[k2++] = 133152 | l2 << 18;
++                this.lightUpdateBlockList[k2++] = 133152 | l2 << 18;
+ 
+                 while (j2 < k2)
+                 {
+-                    int i4 = this.field_72994_J[j2++];
++                    int i4 = this.lightUpdateBlockList[j2++];
+                     int j4 = (i4 & 63) - 32 + j3;
+                     int k4 = (i4 >> 6 & 63) - 32 + k3;
+                     int l4 = (i4 >> 12 & 63) - 32 + l3;
+                     int i5 = i4 >> 18 & 15;
+                     BlockPos blockpos1 = new BlockPos(j4, k4, l4);
+-                    int j5 = this.func_175642_b(p_180500_1_, blockpos1);
++                    int j5 = this.getLightFor(lightType, blockpos1);
+ 
+                     if (j5 == i5)
+                     {
+-                        this.func_175653_a(p_180500_1_, blockpos1, 0);
++                        this.setLightFor(lightType, blockpos1, 0);
+ 
+                         if (i5 > 0)
+                         {
+-                            int k5 = MathHelper.func_76130_a(j4 - j3);
+-                            int l5 = MathHelper.func_76130_a(k4 - k3);
+-                            int i6 = MathHelper.func_76130_a(l4 - l3);
++                            int k5 = MathHelper.abs(j4 - j3);
++                            int l5 = MathHelper.abs(k4 - k3);
++                            int i6 = MathHelper.abs(l4 - l3);
+ 
+                             if (k5 + l5 + i6 < 17)
+                             {
+-                                BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.func_185346_s();
++                                BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
+ 
+                                 for (EnumFacing enumfacing : EnumFacing.values())
+                                 {
+-                                    int j6 = j4 + enumfacing.func_82601_c();
+-                                    int k6 = k4 + enumfacing.func_96559_d();
+-                                    int l6 = l4 + enumfacing.func_82599_e();
+-                                    blockpos$pooledmutableblockpos.func_181079_c(j6, k6, l6);
+-                                    int i7 = Math.max(1, this.func_180495_p(blockpos$pooledmutableblockpos).func_185891_c());
+-                                    j5 = this.func_175642_b(p_180500_1_, blockpos$pooledmutableblockpos);
++                                    int j6 = j4 + enumfacing.getXOffset();
++                                    int k6 = k4 + enumfacing.getYOffset();
++                                    int l6 = l4 + enumfacing.getZOffset();
++                                    blockpos$pooledmutableblockpos.setPos(j6, k6, l6);
++                                    int i7 = Math.max(1, this.getBlockState(blockpos$pooledmutableblockpos).getLightOpacity());
++                                    j5 = this.getLightFor(lightType, blockpos$pooledmutableblockpos);
+ 
+-                                    if (j5 == i5 - i7 && k2 < this.field_72994_J.length)
++                                    if (j5 == i5 - i7 && k2 < this.lightUpdateBlockList.length)
+                                     {
+-                                        this.field_72994_J[k2++] = j6 - j3 + 32 | k6 - k3 + 32 << 6 | l6 - l3 + 32 << 12 | i5 - i7 << 18;
++                                        this.lightUpdateBlockList[k2++] = j6 - j3 + 32 | k6 - k3 + 32 << 6 | l6 - l3 + 32 << 12 | i5 - i7 << 18;
+                                     }
+                                 }
+ 
+-                                blockpos$pooledmutableblockpos.func_185344_t();
++                                blockpos$pooledmutableblockpos.release();
+                             }
+                         }
+                     }
+@@ -2458,70 +2836,71 @@
+                 j2 = 0;
+             }
+ 
+-            this.field_72984_F.func_76319_b();
+-            this.field_72984_F.func_76320_a("checkedPosition < toCheckCount");
++            this.profiler.endSection();
++            this.profiler.startSection("checkedPosition < toCheckCount");
+ 
+             while (j2 < k2)
+             {
+-                int j7 = this.field_72994_J[j2++];
++                int j7 = this.lightUpdateBlockList[j2++];
+                 int k7 = (j7 & 63) - 32 + j3;
+                 int l7 = (j7 >> 6 & 63) - 32 + k3;
+                 int i8 = (j7 >> 12 & 63) - 32 + l3;
+                 BlockPos blockpos2 = new BlockPos(k7, l7, i8);
+-                int j8 = this.func_175642_b(p_180500_1_, blockpos2);
+-                int k8 = this.func_175638_a(blockpos2, p_180500_1_);
++                int j8 = this.getLightFor(lightType, blockpos2);
++                int k8 = this.getRawLight(blockpos2, lightType);
+ 
+                 if (k8 != j8)
+                 {
+-                    this.func_175653_a(p_180500_1_, blockpos2, k8);
++                    this.setLightFor(lightType, blockpos2, k8);
+ 
+                     if (k8 > j8)
+                     {
+                         int l8 = Math.abs(k7 - j3);
+                         int i9 = Math.abs(l7 - k3);
+                         int j9 = Math.abs(i8 - l3);
+-                        boolean flag = k2 < this.field_72994_J.length - 6;
++                        boolean flag = k2 < this.lightUpdateBlockList.length - 6;
+ 
+                         if (l8 + i9 + j9 < 17 && flag)
+                         {
+-                            if (this.func_175642_b(p_180500_1_, blockpos2.func_177976_e()) < k8)
++                            if (this.getLightFor(lightType, blockpos2.west()) < k8)
+                             {
+-                                this.field_72994_J[k2++] = k7 - 1 - j3 + 32 + (l7 - k3 + 32 << 6) + (i8 - l3 + 32 << 12);
++                                this.lightUpdateBlockList[k2++] = k7 - 1 - j3 + 32 + (l7 - k3 + 32 << 6) + (i8 - l3 + 32 << 12);
+                             }
+ 
+-                            if (this.func_175642_b(p_180500_1_, blockpos2.func_177974_f()) < k8)
++                            if (this.getLightFor(lightType, blockpos2.east()) < k8)
+                             {
+-                                this.field_72994_J[k2++] = k7 + 1 - j3 + 32 + (l7 - k3 + 32 << 6) + (i8 - l3 + 32 << 12);
++                                this.lightUpdateBlockList[k2++] = k7 + 1 - j3 + 32 + (l7 - k3 + 32 << 6) + (i8 - l3 + 32 << 12);
+                             }
+ 
+-                            if (this.func_175642_b(p_180500_1_, blockpos2.func_177977_b()) < k8)
++                            if (this.getLightFor(lightType, blockpos2.down()) < k8)
+                             {
+-                                this.field_72994_J[k2++] = k7 - j3 + 32 + (l7 - 1 - k3 + 32 << 6) + (i8 - l3 + 32 << 12);
++                                this.lightUpdateBlockList[k2++] = k7 - j3 + 32 + (l7 - 1 - k3 + 32 << 6) + (i8 - l3 + 32 << 12);
+                             }
+ 
+-                            if (this.func_175642_b(p_180500_1_, blockpos2.func_177984_a()) < k8)
++                            if (this.getLightFor(lightType, blockpos2.up()) < k8)
+                             {
+-                                this.field_72994_J[k2++] = k7 - j3 + 32 + (l7 + 1 - k3 + 32 << 6) + (i8 - l3 + 32 << 12);
++                                this.lightUpdateBlockList[k2++] = k7 - j3 + 32 + (l7 + 1 - k3 + 32 << 6) + (i8 - l3 + 32 << 12);
+                             }
+ 
+-                            if (this.func_175642_b(p_180500_1_, blockpos2.func_177978_c()) < k8)
++                            if (this.getLightFor(lightType, blockpos2.north()) < k8)
+                             {
+-                                this.field_72994_J[k2++] = k7 - j3 + 32 + (l7 - k3 + 32 << 6) + (i8 - 1 - l3 + 32 << 12);
++                                this.lightUpdateBlockList[k2++] = k7 - j3 + 32 + (l7 - k3 + 32 << 6) + (i8 - 1 - l3 + 32 << 12);
+                             }
+ 
+-                            if (this.func_175642_b(p_180500_1_, blockpos2.func_177968_d()) < k8)
++                            if (this.getLightFor(lightType, blockpos2.south()) < k8)
+                             {
+-                                this.field_72994_J[k2++] = k7 - j3 + 32 + (l7 - k3 + 32 << 6) + (i8 + 1 - l3 + 32 << 12);
++                                this.lightUpdateBlockList[k2++] = k7 - j3 + 32 + (l7 - k3 + 32 << 6) + (i8 + 1 - l3 + 32 << 12);
+                             }
+                         }
+                     }
+                 }
+             }
+ 
+-            this.field_72984_F.func_76319_b();
++            this.profiler.endSection();
+             return true;
+         }
+     }
++     */
+ 
+     public boolean func_72955_a(boolean p_72955_1_)
+     {
+@@ -2699,7 +3078,8 @@
          IBlockState iblockstate1 = this.func_180495_p(p_190527_2_);
          AxisAlignedBB axisalignedbb = p_190527_3_ ? null : p_190527_1_.func_176223_P().func_185890_d(this, p_190527_2_);
  
@@ -604,7 +929,7 @@
          {
              return false;
          }
-@@ -3267,30 +3500,43 @@
+@@ -3267,30 +3647,43 @@
  
      public void func_175666_e(BlockPos p_175666_1_, Block p_175666_2_)
      {
@@ -663,7 +988,7 @@
      }
  
      public DifficultyInstance func_175649_E(BlockPos p_175649_1_)
-@@ -3361,4 +3607,132 @@
+@@ -3361,4 +3754,132 @@
      {
          return null;
      }
