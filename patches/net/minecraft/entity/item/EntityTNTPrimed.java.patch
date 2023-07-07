@@ -1,6 +1,15 @@
 --- ../src-base/minecraft/net/minecraft/entity/item/EntityTNTPrimed.java
 +++ ../src-work/minecraft/net/minecraft/entity/item/EntityTNTPrimed.java
-@@ -11,17 +11,43 @@
+@@ -1,6 +1,8 @@
+ package net.minecraft.entity.item;
+ 
+ import javax.annotation.Nullable;
++
++import carpet.logging.logHelpers.TrajectoryLogHelper;
+ import net.minecraft.entity.Entity;
+ import net.minecraft.entity.EntityLivingBase;
+ import net.minecraft.entity.MoverType;
+@@ -11,17 +13,45 @@
  import net.minecraft.util.EnumParticleTypes;
  import net.minecraft.world.World;
  
@@ -21,6 +30,8 @@
 +    private int mergedTNT;
 +    private boolean mergeBool;
  
++    private TrajectoryLogHelper trajectoryLogHelper;
++
 +    public static Random randAngle = new Random();
 +
 +    // ----- Carpet Start ----- //
@@ -45,7 +56,7 @@
          this.field_70156_m = true;
          this.field_70178_ae = true;
          this.func_70105_a(0.98F, 0.98F);
-@@ -31,11 +57,27 @@
+@@ -31,11 +61,27 @@
      {
          this(p_i1730_1_);
          this.func_70107_b(p_i1730_2_, p_i1730_4_, p_i1730_6_);
@@ -78,7 +89,7 @@
          this.field_70169_q = p_i1730_2_;
          this.field_70167_r = p_i1730_4_;
          this.field_70166_s = p_i1730_6_;
-@@ -68,18 +110,73 @@
+@@ -68,18 +114,73 @@
              this.field_70181_x -= 0.03999999910593033D;
          }
  
@@ -153,7 +164,17 @@
          --this.field_70516_a;
  
          if (this.field_70516_a <= 0)
-@@ -100,8 +197,14 @@
+@@ -96,12 +197,24 @@
+             this.func_70072_I();
+             this.field_70170_p.func_175688_a(EnumParticleTypes.SMOKE_NORMAL, this.field_70165_t, this.field_70163_u + 0.5D, this.field_70161_v, 0.0D, 0.0D, 0.0D);
+         }
++
++        // CM start //
++        if (LoggerRegistry.__tnt && logHelper != null) {
++            logHelper.onTick(field_70165_t, field_70163_u, field_70161_v, field_70159_w, field_70181_x, field_70179_y);
++        }
++        // CM end //
+     }
  
      private void func_70515_d()
      {
@@ -169,7 +190,7 @@
      }
  
      protected void func_70014_b(NBTTagCompound p_70014_1_)
-@@ -148,4 +251,12 @@
+@@ -148,4 +261,12 @@
      {
          return this.field_70516_a;
      }

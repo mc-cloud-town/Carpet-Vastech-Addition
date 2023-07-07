@@ -1,5 +1,6 @@
 package carpet.helpers;
 
+import carpet.CarpetServer;
 import carpet.CarpetSettings;
 import carpet.utils.Messenger;
 import com.google.gson.JsonArray;
@@ -18,7 +19,8 @@ import java.util.zip.ZipOutputStream;
 
 public class CarpetUpdater {
     static private String serverURL = "https://launcher.mojang.com/mc/game/1.12.2/server/886945bfb2b978778c3a0288fd7fab09d315b25f/server.jar";
-    static private String githubURL = "https://api.github.com/repos/gnembon/carpetmod112/releases/latest";
+    // VasCM - replaced this with VasCM fork
+    static private String githubURL = "https://api.github.com/repos/Void-Skeleton/Carpet-Vastech-Addition/releases/latest";
     static private String vanillaJar = "update/MinecraftServer.1.12.2.jar";
     private static String carpetFileName = "update/Carpet.";
     private static final byte[] BUFFER = new byte[4096 * 1024];
@@ -94,6 +96,28 @@ public class CarpetUpdater {
         return file.exists();
     }
 
+    /**
+     * @return true if the first param is strictly greater than the second
+     */
+    private static boolean compareTagVersions(String[] tagVersions1, String[] tagVersions2) {
+        int i1, i2;
+        int l1 = tagVersions1.length;
+        int l2 = tagVersions2.length;
+        int lim = Math.min(l1, l2);
+        for (int j = 0; j < lim; j ++) {
+            i1 = (i2 = 0);
+            try {
+                i1 = Integer.parseInt(tagVersions1[j]);
+            } catch (Throwable ignore) {}
+            try {
+                i2 = Integer.parseInt(tagVersions2[j]);
+            } catch (Throwable ignore) {}
+            if (i1 > i2) return true;
+            if (i1 < i2) return false;
+        }
+        return l1 > l2;
+    }
+
     private static String getCarpetFiles(MinecraftServer server) throws Exception {
         String name = null;
         URL url = new URL(githubURL);
@@ -105,9 +129,19 @@ public class CarpetUpdater {
         JsonObject rootobj = root.getAsJsonObject();
         String tag = rootobj.get("tag_name").getAsString();
 
-        name = carpetFileName + tag;
+        name = "VasCM_" + tag;
+        // VasCM - version check
+        String[] tagVersions = tag.substring(tag.indexOf("_") + 1).replace("v", "").split("\\.");
+        String[] currentTagVersions = CarpetSettings.tagVersion.replace("v", "").split("\\.");
+        if (!compareTagVersions(tagVersions, currentTagVersions)) {
+            Messenger.print_server_message(server, "Already at the lastest VasCM version " + CarpetSettings.tagVersion);
+            return null;
+        } else {
+            Messenger.print_server_message(server, "Current VasCM version: " + CarpetSettings.tagVersion);
+            Messenger.print_server_message(server, "Latest VasCM version: " + tag.substring(tag.indexOf("_" + 1)));
+        }
 
-        if (checkVersion(tag)) return null;
+//        if (checkVersion(tag)) return null;
         if (checkFile(name + ".zip")) return name;
 
         JsonArray array = rootobj.get("assets").getAsJsonArray();
@@ -115,7 +149,7 @@ public class CarpetUpdater {
         JsonObject assets = arrayElement.getAsJsonObject();
         String urlcarpet = assets.get("browser_download_url").getAsString();
 
-        Messenger.print_server_message(server, "Downloading Carpet files");
+        Messenger.print_server_message(server, "Downloading latest carpet version...");
         downloadUsingStream(urlcarpet, name + ".zip");
 
         return name;

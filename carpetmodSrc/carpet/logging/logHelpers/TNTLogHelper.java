@@ -4,9 +4,15 @@ import carpet.logging.LoggerRegistry;
 import carpet.utils.Messenger;
 import net.minecraft.util.text.ITextComponent;
 
-public class TNTLogHelper
+public class TNTLogHelper extends TrajectoryLogHelper
 {
     private double primedX, primedY, primedZ, primedAngle;
+
+    public TNTLogHelper() {
+        super("tnt");
+    }
+
+
     /**
      * Runs when the TNT is primed. Expects the position and motion angle of the TNT.
      */
@@ -22,6 +28,7 @@ public class TNTLogHelper
      */
     public void onExploded(double x, double y, double z)
     {
+        this.onFinish();
         LoggerRegistry.getLogger("tnt").log( (option) -> {
             switch (option)
             {
