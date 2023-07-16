@@ -41,7 +41,7 @@ public class CommandPlayer extends CommandCarpetBase
      */
     public String getUsage(ICommandSender sender)
     {
-        return "player <spawn|kill|stop|drop|swapHands|mount|dismount> <player_name>  OR /player <use|attack|jump> <player_name> <once|continuous|interval.. ticks>";
+        return "player <spawn|kill|stop|drop|swapHands|mount|dismount|swapStack> <player_name>  OR /player <use|attack|jump> <player_name> <once|continuous|interval.. ticks>";
     }
 
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
@@ -306,6 +306,17 @@ public class CommandPlayer extends CommandCarpetBase
             EntityPlayerMPFake.create(playerName, server);
             return;
         }
+        if ("swapStack".equalsIgnoreCase(action)) {
+            if (sender instanceof EntityPlayer)
+            {
+                EntityPlayer sendingPlayer = getCommandSenderAsPlayer(sender);
+                if (!player.actionPack.swapStack(sendingPlayer))
+                    throw new CommandException("You can only swap stack with a player at most 2.5 blocks away");
+            } else {
+                throw new WrongUsageException("/player <name> swapStack can only be used by an actual player");
+            }
+            return;
+        }
         throw new WrongUsageException("unknown action: "+action);
     }
 
@@ -335,7 +346,7 @@ public class CommandPlayer extends CommandCarpetBase
             return getListOfStringsMatchingLastWord(args,
                     "spawn","kill","attack","use","jump","stop","shadow",
                     "swapHands","drop","mount","dismount",
-                    "move","sneak","sprint","look", "despawn", "respawn");
+                    "move","sneak","sprint","look", "despawn", "respawn", "swapStack");
         }
         if (args.length == 3 && (args[1].matches("^(?:use|attack|jump)$")))
         {

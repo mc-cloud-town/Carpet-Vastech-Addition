@@ -1234,8 +1234,13 @@ public class CarpetSettings
     category = FEATURE)
     public static boolean disableLightUpdates = false;
 
-    @Rule(desc = "Make redstone signals no longer prime TNTs. ", category = FEATURE)
+    @Rule(desc = "Make redstone signals no longer prime TNTs. ", category = CREATIVE)
     public static boolean TNTdoesNotPrime = false;
+
+    @Rule(desc = "Make fake players drop their items on leaving, effectively removing the unfair fake player delivery",
+    category = SURVIVAL)
+    @SurvivalDefault
+    public static boolean fairFakePlayers = true;
 
     private static Snooper oldSnooper = null;
     public static boolean validateDisableSnooper(boolean value) {

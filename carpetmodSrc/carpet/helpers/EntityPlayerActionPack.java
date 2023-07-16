@@ -460,6 +460,14 @@ public class EntityPlayerActionPack implements Runnable // VasCM - implements Ru
         return false;
     }
 
+    public boolean swapStack(EntityPlayer player) {
+        if (this.player.getDistanceSq(player) >= 6.25) return false;
+        ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+        player.setHeldItem(EnumHand.MAIN_HAND, this.player.getHeldItem(EnumHand.MAIN_HAND));
+        this.player.setHeldItem(EnumHand.MAIN_HAND, stack);
+        return true;
+    }
+
     private RayTraceResult rayTraceBlocks(double blockReachDistance)
     {
         Vec3d eyeVec = player.getPositionEyes(1.0F);

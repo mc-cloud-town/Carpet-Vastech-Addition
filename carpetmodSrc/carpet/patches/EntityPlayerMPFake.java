@@ -156,6 +156,7 @@ public class EntityPlayerMPFake extends EntityPlayerMP
     @Override
     public void onKillCommand()
     {
+        if (CarpetSettings.fairFakePlayers) this.onDeath(DamageSource.OUT_OF_WORLD);
         logout();
     }
 
