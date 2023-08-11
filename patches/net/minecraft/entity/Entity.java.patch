@@ -266,10 +266,55 @@
      protected void func_184200_o(Entity p_184200_1_)
      {
          if (p_184200_1_.func_184187_bx() != this)
-@@ -2398,7 +2496,10 @@
+@@ -2357,13 +2455,13 @@
+             this.field_70170_p.field_72984_F.func_76320_a("changeDimension");
+             MinecraftServer minecraftserver = this.func_184102_h();
+             int i = this.field_71093_bK;
+-            WorldServer worldserver = minecraftserver.func_71218_a(i);
+-            WorldServer worldserver1 = minecraftserver.func_71218_a(p_184204_1_);
++            WorldServer worldFrom = minecraftserver.func_71218_a(i);
++            WorldServer worldTo = minecraftserver.func_71218_a(p_184204_1_);
+             this.field_71093_bK = p_184204_1_;
+ 
+             if (i == 1 && p_184204_1_ == 1)
+             {
+-                worldserver1 = minecraftserver.func_71218_a(0);
++                worldTo = minecraftserver.func_71218_a(0);
+                 this.field_71093_bK = 0;
+             }
+ 
+@@ -2374,7 +2472,7 @@
+ 
+             if (p_184204_1_ == 1)
+             {
+-                blockpos = worldserver1.func_180504_m();
++                blockpos = worldTo.func_180504_m();
+             }
+             else
+             {
+@@ -2384,27 +2482,30 @@
+ 
+                 if (p_184204_1_ == -1)
+                 {
+-                    d0 = MathHelper.func_151237_a(d0 / 8.0D, worldserver1.func_175723_af().func_177726_b() + 16.0D, worldserver1.func_175723_af().func_177728_d() - 16.0D);
+-                    d1 = MathHelper.func_151237_a(d1 / 8.0D, worldserver1.func_175723_af().func_177736_c() + 16.0D, worldserver1.func_175723_af().func_177733_e() - 16.0D);
++                    d0 = MathHelper.func_151237_a(d0 / 8.0D, worldTo.func_175723_af().func_177726_b() + 16.0D, worldTo.func_175723_af().func_177728_d() - 16.0D);
++                    d1 = MathHelper.func_151237_a(d1 / 8.0D, worldTo.func_175723_af().func_177736_c() + 16.0D, worldTo.func_175723_af().func_177733_e() - 16.0D);
+                 }
+                 else if (p_184204_1_ == 0)
+                 {
+-                    d0 = MathHelper.func_151237_a(d0 * 8.0D, worldserver1.func_175723_af().func_177726_b() + 16.0D, worldserver1.func_175723_af().func_177728_d() - 16.0D);
+-                    d1 = MathHelper.func_151237_a(d1 * 8.0D, worldserver1.func_175723_af().func_177736_c() + 16.0D, worldserver1.func_175723_af().func_177733_e() - 16.0D);
++                    d0 = MathHelper.func_151237_a(d0 * 8.0D, worldTo.func_175723_af().func_177726_b() + 16.0D, worldTo.func_175723_af().func_177728_d() - 16.0D);
++                    d1 = MathHelper.func_151237_a(d1 * 8.0D, worldTo.func_175723_af().func_177736_c() + 16.0D, worldTo.func_175723_af().func_177733_e() - 16.0D);
+                 }
+ 
+                 d0 = (double)MathHelper.func_76125_a((int)d0, -29999872, 29999872);
+                 d1 = (double)MathHelper.func_76125_a((int)d1, -29999872, 29999872);
                  float f = this.field_70177_z;
                  this.func_70012_b(d0, this.field_70163_u, d1, 90.0F, 0.0F);
-                 Teleporter teleporter = worldserver1.func_85176_s();
+-                Teleporter teleporter = worldserver1.func_85176_s();
++                Teleporter teleporter = worldTo.func_85176_s();
 +                if(carpet.carpetclient.CarpetClientChunkLogger.logger.enabled)
 +                    carpet.carpetclient.CarpetClientChunkLogger.setReason("Entity going through nether portal: " + func_70005_c_());
                  teleporter.func_180620_b(this, f);
@@ -277,6 +322,43 @@
                  blockpos = new BlockPos(this);
              }
  
+-            worldserver.func_72866_a(this, false);
++            worldFrom.func_72866_a(this, false);
+             this.field_70170_p.field_72984_F.func_76318_c("reloading");
+-            Entity entity = EntityList.func_191304_a(this.getClass(), worldserver1);
++            Entity entity = EntityList.func_191304_a(this.getClass(), worldTo);
+ 
+             if (entity != null)
+             {
+@@ -2412,7 +2513,7 @@
+ 
+                 if (i == 1 && p_184204_1_ == 1)
+                 {
+-                    BlockPos blockpos1 = worldserver1.func_175672_r(worldserver1.func_175694_M());
++                    BlockPos blockpos1 = worldTo.func_175672_r(worldTo.func_175694_M());
+                     entity.func_174828_a(blockpos1, entity.field_70177_z, entity.field_70125_A);
+                 }
+                 else
+@@ -2422,15 +2523,15 @@
+ 
+                 boolean flag = entity.field_98038_p;
+                 entity.field_98038_p = true;
+-                worldserver1.func_72838_d(entity);
++                worldTo.func_72838_d(entity);
+                 entity.field_98038_p = flag;
+-                worldserver1.func_72866_a(entity, false);
++                worldTo.func_72866_a(entity, false);
+             }
+ 
+             this.field_70128_L = true;
+             this.field_70170_p.field_72984_F.func_76319_b();
+-            worldserver.func_82742_i();
+-            worldserver1.func_82742_i();
++            worldFrom.func_82742_i();
++            worldTo.func_82742_i();
+             this.field_70170_p.field_72984_F.func_76319_b();
+             return entity;
+         }
 @@ -2578,6 +2679,10 @@
  
      public EnumFacing func_174811_aO()

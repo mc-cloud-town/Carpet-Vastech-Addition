@@ -680,7 +680,7 @@
          while (!this.field_147490_S[this.field_147489_T].isEmpty())
          {
              int i = this.field_147489_T;
-@@ -1150,19 +1445,33 @@
+@@ -1150,19 +1445,41 @@
  
              for (BlockEventData blockeventdata : this.field_147490_S[i])
              {
@@ -688,7 +688,16 @@
 +                    carpet.carpetclient.CarpetClientChunkLogger.setReason("Queued block event: " + blockeventdata);
                  if (this.func_147485_a(blockeventdata))
                  {
-                     this.field_73061_a.func_184103_al().func_148543_a((EntityPlayer)null, (double)blockeventdata.func_180328_a().func_177958_n(), (double)blockeventdata.func_180328_a().func_177956_o(), (double)blockeventdata.func_180328_a().func_177952_p(), 64.0D, this.field_73011_w.func_186058_p().func_186068_a(), new SPacketBlockAction(blockeventdata.func_180328_a(), blockeventdata.func_151337_f(), blockeventdata.func_151339_d(), blockeventdata.func_151338_e()));
+-                    this.field_73061_a.func_184103_al().func_148543_a((EntityPlayer)null, (double)blockeventdata.func_180328_a().func_177958_n(), (double)blockeventdata.func_180328_a().func_177956_o(), (double)blockeventdata.func_180328_a().func_177952_p(), 64.0D, this.field_73011_w.func_186058_p().func_186068_a(), new SPacketBlockAction(blockeventdata.func_180328_a(), blockeventdata.func_151337_f(), blockeventdata.func_151339_d(), blockeventdata.func_151338_e()));
++                    this.field_73061_a.func_184103_al().func_148543_a((EntityPlayer)null,
++                            (double)blockeventdata.func_180328_a().func_177958_n(),
++                            (double)blockeventdata.func_180328_a().func_177956_o(),
++                            (double)blockeventdata.func_180328_a().func_177952_p(),
++                            CarpetSettings.blockEventRange /* VasCM - blockEventRange*/,
++                            this.field_73011_w.func_186058_p().func_186068_a(),
++                            new SPacketBlockAction(blockeventdata.func_180328_a(),
++                                    blockeventdata.func_151337_f(), blockeventdata.func_151339_d(),
++                                    blockeventdata.func_151338_e()));
                  }
              }
 +            carpet.carpetclient.CarpetClientChunkLogger.resetReason();
@@ -714,7 +723,7 @@
          return iblockstate.func_177230_c() == p_147485_1_.func_151337_f() ? iblockstate.func_189547_a(this, p_147485_1_.func_180328_a(), p_147485_1_.func_151339_d(), p_147485_1_.func_151338_e()) : false;
      }
  
-@@ -1173,6 +1482,8 @@
+@@ -1173,6 +1490,8 @@
  
      protected void func_72979_l()
      {
@@ -723,7 +732,7 @@
          boolean flag = this.func_72896_J();
          super.func_72979_l();
  
-@@ -1200,6 +1511,8 @@
+@@ -1200,6 +1519,8 @@
              this.field_73061_a.func_184103_al().func_148540_a(new SPacketChangeGameState(7, this.field_73004_o));
              this.field_73061_a.func_184103_al().func_148540_a(new SPacketChangeGameState(8, this.field_73017_q));
          }
@@ -732,7 +741,7 @@
      }
  
      @Nullable
-@@ -1299,4 +1612,19 @@
+@@ -1299,4 +1620,19 @@
              {
              }
          }

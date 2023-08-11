@@ -50,7 +50,6 @@ public class LoggerRegistry
     public static boolean __invisDebug;
     public static boolean __carefulBreak;
     public static boolean __normalCameraVision;
-    public static boolean __liquidPocket;
     public static boolean __population;
 
     public static void initLoggers(MinecraftServer server)

@@ -45,7 +45,18 @@
  
          p_70014_1_.func_74757_a("LeftHanded", this.func_184638_cS());
  
-@@ -1414,4 +1429,33 @@
+@@ -821,7 +836,9 @@
+ 
+     public boolean func_70058_J()
+     {
+-        return !this.field_70170_p.func_72953_d(this.func_174813_aQ()) && this.field_70170_p.func_184144_a(this, this.func_174813_aQ()).isEmpty() && this.field_70170_p.func_72917_a(this.func_174813_aQ(), this);
++        return !this.field_70170_p.func_72953_d(this.func_174813_aQ())
++                && this.field_70170_p.func_184144_a(this, this.func_174813_aQ()).isEmpty()
++                && this.field_70170_p.func_72917_a(this.func_174813_aQ(), this);
+     }
+ 
+     public int func_70641_bl()
+@@ -1414,4 +1431,33 @@
          IN_AIR,
          IN_WATER;
      }

@@ -15,7 +15,15 @@
  public abstract class EntityPlayer extends EntityLivingBase
  {
      private static final DataParameter<Float> field_184829_a = EntityDataManager.<Float>func_187226_a(EntityPlayer.class, DataSerializers.field_187193_c);
-@@ -364,6 +372,15 @@
+@@ -174,6 +182,7 @@
+     public void func_70071_h_()
+     {
+         this.field_70145_X = this.func_175149_v();
++        if (CarpetSettings.creativeNoClip) this.field_70145_X |= this.func_184812_l_();
+ 
+         if (this.func_175149_v())
+         {
+@@ -364,6 +373,15 @@
  
      public int func_82145_z()
      {
@@ -31,7 +39,7 @@
          return this.field_71075_bZ.field_75102_a ? 1 : 80;
      }
  
-@@ -530,7 +547,9 @@
+@@ -530,7 +548,9 @@
          this.func_192028_j(this.func_192023_dk());
          this.func_192028_j(this.func_192025_dl());
  
@@ -42,7 +50,7 @@
          {
              this.func_192030_dh();
          }
-@@ -692,7 +711,7 @@
+@@ -692,7 +712,7 @@
              {
                  if (!itemstack.func_190926_b())
                  {
@@ -51,7 +59,7 @@
                  }
  
                  this.func_71029_a(StatList.field_75952_v);
-@@ -908,10 +927,23 @@
+@@ -908,10 +928,23 @@
                      this.func_70999_a(true, true, false);
                  }
  
@@ -76,7 +84,7 @@
                      if (this.field_70170_p.func_175659_aa() == EnumDifficulty.PEACEFUL)
                      {
                          p_70097_2_ = 0.0F;
-@@ -926,6 +958,7 @@
+@@ -926,6 +959,7 @@
                      {
                          p_70097_2_ = p_70097_2_ * 3.0F / 2.0F;
                      }
@@ -84,7 +92,7 @@
                  }
  
                  return p_70097_2_ == 0.0F ? false : super.func_70097_a(p_70097_1_, p_70097_2_);
-@@ -1008,16 +1041,22 @@
+@@ -1008,16 +1042,22 @@
      {
          if (!this.func_180431_b(p_70665_1_))
          {
@@ -107,7 +115,7 @@
                  this.func_70606_j(this.func_110143_aJ() - p_70665_2_);
                  this.func_110142_aN().func_94547_a(p_70665_1_, f1, p_70665_2_);
  
-@@ -1027,6 +1066,12 @@
+@@ -1027,6 +1067,12 @@
                  }
              }
          }
@@ -120,7 +128,7 @@
      }
  
      public void func_175141_a(TileEntitySign p_175141_1_)
-@@ -1227,19 +1272,33 @@
+@@ -1227,19 +1273,33 @@
                          {
                              float f3 = 1.0F + EnchantmentHelper.func_191527_a(this) * f;
  
@@ -154,7 +162,7 @@
                          if (p_71059_1_ instanceof EntityPlayerMP && p_71059_1_.field_70133_I)
                          {
                              ((EntityPlayerMP)p_71059_1_).field_71135_a.func_147359_a(new SPacketEntityVelocity(p_71059_1_));
-@@ -1333,6 +1392,13 @@
+@@ -1333,6 +1393,13 @@
                      }
                  }
              }
@@ -168,7 +176,7 @@
          }
      }
  
-@@ -1495,7 +1561,7 @@
+@@ -1495,7 +1562,7 @@
  
          if (this.field_71081_bT != null && iblockstate.func_177230_c() == Blocks.field_150324_C)
          {
@@ -177,7 +185,7 @@
              BlockPos blockpos = BlockBed.func_176468_a(this.field_70170_p, this.field_71081_bT, 0);
  
              if (blockpos == null)
-@@ -1911,6 +1977,10 @@
+@@ -1911,6 +1978,10 @@
          {
              return false;
          }
@@ -188,7 +196,7 @@
          else
          {
              BlockPos blockpos = p_175151_1_.func_177972_a(p_175151_2_.func_176734_d());
-@@ -2044,6 +2114,20 @@
+@@ -2044,6 +2115,20 @@
          this.func_192031_i(new NBTTagCompound());
      }
  
@@ -209,7 +217,7 @@
      private void func_192026_k(@Nullable NBTTagCompound p_192026_1_)
      {
          if (!this.field_70170_p.field_72995_K && !p_192026_1_.func_82582_d())
-@@ -2307,6 +2391,13 @@
+@@ -2307,6 +2392,13 @@
      {
          return this.field_71075_bZ.field_75098_d && this.func_70003_b(2, "");
      }
@@ -223,7 +231,7 @@
  
      public static enum EnumChatVisibility
      {
-@@ -2333,11 +2424,11 @@
+@@ -2333,11 +2425,11 @@
          }
      }
  

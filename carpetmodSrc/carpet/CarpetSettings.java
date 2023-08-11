@@ -45,7 +45,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.3";
+    public static final String tagVersion = "v0.1.3.2";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -178,6 +178,10 @@ public class CarpetSettings
          |_____||_| |_| \__||___/
      */
     // INTS - This sections contains all the integer fields
+
+    @Rule(desc = "Changes the range for block events to be sent to clients to this value. May be useful when testing flying machines or tree farms",
+          category = {OPTIMIZATIONS}, options = {"64"}, validator = "validatePositive")
+    public static int blockEventRange = 64;
 
     @Rule(desc = "Combines the duration of potions when drinking out of a bottle. The combined duration capped by this carpet rule in gameticks.", options = {"0", "18000", "36000", "72000"}, category = FEATURE)
     public static int combinePotionDuration = 0;
