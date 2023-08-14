@@ -175,7 +175,15 @@
                  {
                      return true;
                  }
-@@ -240,7 +329,11 @@
+@@ -180,6 +269,7 @@
+     {
+         EnumFacing enumfacing = (EnumFacing)p_189539_1_.func_177229_b(field_176387_N);
+ 
++        // id 0 = extension, id 1 = retraction
+         if (!p_189539_2_.field_72995_K)
+         {
+             boolean flag = this.func_176318_b(p_189539_2_, p_189539_3_, enumfacing);
+@@ -240,7 +330,11 @@
                          }
                      }
                  }
@@ -188,7 +196,7 @@
                  if (!flag1 && iblockstate.func_185904_a() != Material.field_151579_a && func_185646_a(iblockstate, p_189539_2_, blockpos, enumfacing.func_176734_d(), false, enumfacing) && (iblockstate.func_185905_o() == EnumPushReaction.NORMAL || block == Blocks.field_150331_J || block == Blocks.field_150320_F))
                  {
                      this.func_176319_a(p_189539_2_, p_189539_3_, enumfacing, false);
-@@ -307,7 +400,15 @@
+@@ -307,7 +401,15 @@
                      return false;
                  }
  
@@ -205,7 +213,7 @@
              }
              else
              {
-@@ -319,6 +420,14 @@
+@@ -319,6 +421,14 @@
              return false;
          }
      }
@@ -220,7 +228,7 @@
  
      private boolean func_176319_a(World p_176319_1_, BlockPos p_176319_2_, EnumFacing p_176319_3_, boolean p_176319_4_)
      {
-@@ -342,6 +451,7 @@
+@@ -342,6 +452,7 @@
              {
                  BlockPos blockpos = list.get(i);
                  list1.add(p_176319_1_.func_180495_p(blockpos).func_185899_b(p_176319_1_, blockpos));
@@ -228,7 +236,7 @@
              }
  
              List<BlockPos> list2 = blockpistonstructurehelper.func_177252_d();
-@@ -358,15 +468,56 @@
+@@ -358,15 +469,56 @@
                  --k;
                  aiblockstate[k] = iblockstate;
              }
@@ -286,7 +294,7 @@
                  --k;
                  aiblockstate[k] = iblockstate2;
              }
-@@ -397,6 +548,8 @@
+@@ -397,6 +549,8 @@
                  p_176319_1_.func_175685_c(blockpos2, Blocks.field_150332_K, false);
              }
  
@@ -295,7 +303,7 @@
              return true;
          }
      }
-@@ -439,4 +592,27 @@
+@@ -439,4 +593,27 @@
          p_193383_2_ = this.func_176221_a(p_193383_2_, p_193383_1_, p_193383_3_);
          return p_193383_2_.func_177229_b(field_176387_N) != p_193383_4_.func_176734_d() && ((Boolean)p_193383_2_.func_177229_b(field_176320_b)).booleanValue() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
      }

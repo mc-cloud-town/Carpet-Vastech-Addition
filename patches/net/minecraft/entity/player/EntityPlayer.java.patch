@@ -19,7 +19,7 @@
      public void func_70071_h_()
      {
          this.field_70145_X = this.func_175149_v();
-+        if (CarpetSettings.creativeNoClip) this.field_70145_X |= this.func_184812_l_();
++        if (CarpetSettings.creativeNoClip) this.field_70145_X |= this.func_184812_l_() && this.field_71075_bZ.field_75100_b;
  
          if (this.func_175149_v())
          {

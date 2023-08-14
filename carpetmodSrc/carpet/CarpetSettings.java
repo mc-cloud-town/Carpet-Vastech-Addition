@@ -45,7 +45,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.3.2";
+    public static final String tagVersion = "v0.1.3.3";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -305,6 +305,22 @@ public class CarpetSettings
     })
     public static String customMOTD = "_";
 
+    @Rule(desc = "Hoppers does not consume items when transfering based on the mode", category = CREATIVE,
+            extra = {
+                    "off = vanilla behavior",
+                    "wool = dispensers above wool blocks no longer consume items",
+                    "all = all hoppers no longer consume items"
+            })
+    public static HopperCounters dispenserNoItemCost = HopperCounters.off;
+
+    @Rule(desc = "Hoppers does not consume items when transfering based on the mode", category = CREATIVE,
+            extra = {
+                    "off = vanilla behavior",
+                    "wool = droppers above wool blocks no longer consume items",
+                    "all = all hoppers no longer consume items"
+            })
+    public static HopperCounters dropperNoItemCost = HopperCounters.off;
+
     public static enum HopperCounters { off, wool, all }
     @Rule(desc = "Count items passing through hoppers", category = {COMMANDS, CREATIVE, SURVIVAL}, extra = {
             "wool: Hoppers pointing to wool will count items passing through them",
@@ -318,6 +334,14 @@ public class CarpetSettings
     @CreativeDefault
     @SurvivalDefault
     public static HopperCounters hopperCounters = HopperCounters.off;
+
+    @Rule(desc = "Hoppers does not consume items when transfering based on the mode", category = CREATIVE,
+    extra = {
+            "off = vanilla behavior",
+            "wool = hoppers below wool blocks no longer consume items",
+            "all = all hoppers no longer consume items"
+    })
+    public static HopperCounters hopperNoItemCost = HopperCounters.off;
 
     public static enum LeashFix { off, casual, cool }
     @Rule(desc = "Fixes to leashes.", category = FIX)
