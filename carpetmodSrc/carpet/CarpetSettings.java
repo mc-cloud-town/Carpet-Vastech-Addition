@@ -45,7 +45,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.3.3";
+    public static final String tagVersion = "v0.1.4";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -106,6 +106,9 @@ public class CarpetSettings
     })
     public static boolean commandEntityInfo = true;
 
+    @Rule(desc = "Enables /fill13 command, which is a /fill with grammar of 1.13", category = COMMANDS)
+    public static boolean commandFill13 = false;
+
     @Rule(desc = "Enables /fillbiome command to change the biome of an area", category = COMMANDS)
     public static boolean commandFillBiome = true;
 
@@ -151,6 +154,9 @@ public class CarpetSettings
 
     @Rule(desc = "Enables /rng command to manipulate and query rng", category = COMMANDS)
     public static boolean commandRNG = true;
+
+    @Rule(desc = "Enables /setblock13 command, which is a /setblock with grammar of 1.13", category = COMMANDS)
+    public static boolean commandSetblock13 = false;
 
     @Rule(desc = "Enables /spawn command for spawn tracking", category = COMMANDS)
     public static boolean commandSpawn = true;
