@@ -22,6 +22,7 @@ public class BlockStateFlatteningMap {
     private static final Pattern BBS_PATTERN = Pattern.compile("(?<block>[a-zA-z:_]+)(\\[(?<props>.+)\\])");
     private static final Pattern PROP_PATTERN = Pattern.compile("(?<key>[a-zA-z:_]+)=(?<value>[a-zA-z:_]+)");
 
+    /*
     public static String toDefaultPropertyValue(String value) {
         switch (value) {
             // boolean properties
@@ -47,6 +48,25 @@ public class BlockStateFlatteningMap {
     public static boolean isDefaultValue(String value) {
         return Objects.equals(value, toDefaultPropertyValue(value));
     }
+     */
+
+    public static int getDistanceFromDefault(String value) {
+        boolean isInt = true;
+        for (int i = 0; i < value.length(); i ++) {
+            if (!Character.isDigit(value.charAt(i))) {
+                isInt = false;
+                break;
+            }
+        }
+        // default int property - prefer smallest int values
+        if (isInt) return 1 + Integer.parseInt(value);
+        switch (value) {
+            case "false": // default value for boolean
+            case "south": // default value for direction
+                return 1;
+        }
+        return 32;
+    }
 
     private static int getBlockStateMapDistance(Map<String, String> from, Map<String, String> to) {
         // 2147483647 distance for different block
@@ -60,21 +80,17 @@ public class BlockStateFlatteningMap {
             if (to.containsKey(key)) {
                 // value comparison - both have this key
                 // present identical: +0
-                // present different: +16
-                if (!Objects.equals(from.get(key), to.get(key))) distance += 16;
+                // present different: +32
+                if (!Objects.equals(from.get(key), to.get(key))) distance += 32;
             } else {
                 // default value check
-                // default vs missing: +1
-                if (isDefaultValue(from.get(key))) distance += 1;
-                // non-default vs missing: +16
-                else distance += 16;
+                distance += getDistanceFromDefault(from.get(key));
             }
         }
         for (String key: to.keySet()) {
             if (key == null || from.containsKey(key)) continue; // already checked in previous loop
             // missing vs value
-            if (isDefaultValue(to.get(key))) distance += 1;
-            else distance += 16;
+            distance += getDistanceFromDefault(to.get(key));
         }
         return distance;
     }

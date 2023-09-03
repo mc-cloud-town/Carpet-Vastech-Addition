@@ -44,17 +44,17 @@ public class CommandDebugCarpet extends CommandCarpetBase {
                 }
             }
         }
-        if("entitys".equalsIgnoreCase(args[0])) {
+        if("entities".equalsIgnoreCase(args[0])) {
             for(Entity e : sender.getEntityWorld().loadedEntityList){
                 sender.sendMessage(Messenger.s(sender, e.toString()));
             }
         }
-        if("tileEntitys1".equalsIgnoreCase(args[0])) {
+        if("loadedTEs".equalsIgnoreCase(args[0])) {
             for(TileEntity e : sender.getEntityWorld().loadedTileEntityList){
                 sender.sendMessage(Messenger.s(sender, e.toString() + " " + e.getPos()));
             }
         }
-        if("tileEntitys2".equalsIgnoreCase(args[0])) {
+        if("tickableTEs".equalsIgnoreCase(args[0])) {
             for(TileEntity e : sender.getEntityWorld().tickableTileEntities){
                 sender.sendMessage(Messenger.s(sender, e.toString() + " " + e.getPos()));
             }
@@ -74,7 +74,7 @@ public class CommandDebugCarpet extends CommandCarpetBase {
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos)
     {
         if(args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, "tracker", "entitys", "trackedToMe", "tileEntitys1", "tileEntitys2", "playerEntities", "pendingTickListEntriesTreeSet");
+            return getListOfStringsMatchingLastWord(args, "tracker", "entities", "trackedToMe", "loadedTEs", "tickableTEs", "playerEntities", "pendingTickListEntriesTreeSet");
         }
         return Collections.<String>emptyList();
     }

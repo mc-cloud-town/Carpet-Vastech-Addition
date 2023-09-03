@@ -266,7 +266,33 @@
      protected void func_184200_o(Entity p_184200_1_)
      {
          if (p_184200_1_.func_184187_bx() != this)
-@@ -2357,13 +2455,13 @@
+@@ -2024,13 +2122,19 @@
+             if (!this.field_70170_p.field_72995_K && !p_181015_1_.equals(this.field_181016_an))
+             {
+                 this.field_181016_an = new BlockPos(p_181015_1_);
+-                BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.field_150427_aO.func_181089_f(this.field_70170_p, this.field_181016_an);
+-                double d0 = blockpattern$patternhelper.func_177669_b().func_176740_k() == EnumFacing.Axis.X ? (double)blockpattern$patternhelper.func_181117_a().func_177952_p() : (double)blockpattern$patternhelper.func_181117_a().func_177958_n();
+-                double d1 = blockpattern$patternhelper.func_177669_b().func_176740_k() == EnumFacing.Axis.X ? this.field_70161_v : this.field_70165_t;
+-                d1 = Math.abs(MathHelper.func_181160_c(d1 - (double)(blockpattern$patternhelper.func_177669_b().func_176746_e().func_176743_c() == EnumFacing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double)blockpattern$patternhelper.func_181118_d()));
+-                double d2 = MathHelper.func_181160_c(this.field_70163_u - 1.0D, (double)blockpattern$patternhelper.func_181117_a().func_177956_o(), (double)(blockpattern$patternhelper.func_181117_a().func_177956_o() - blockpattern$patternhelper.func_181119_e()));
++                BlockPattern.PatternHelper patternHelper = Blocks.field_150427_aO.func_181089_f(this.field_70170_p, this.field_181016_an);
++                double d0 = patternHelper.func_177669_b().func_176740_k() == EnumFacing.Axis.X ?
++                        (double) patternHelper.func_181117_a().func_177952_p() :
++                        (double) patternHelper.func_181117_a().func_177958_n();
++                double d1 = patternHelper.func_177669_b().func_176740_k() == EnumFacing.Axis.X ?
++                        this.field_70161_v : this.field_70165_t;
++                d1 = Math.abs(MathHelper.func_181160_c(
++                        d1 - (double)(patternHelper.func_177669_b().func_176746_e().func_176743_c() == EnumFacing.AxisDirection.NEGATIVE ? 1 : 0),
++                        d0, d0 - (double)patternHelper.func_181118_d()));
++                double d2 = MathHelper.func_181160_c(this.field_70163_u - 1.0D, (double)patternHelper.func_181117_a().func_177956_o(),
++                        (double)(patternHelper.func_181117_a().func_177956_o() - patternHelper.func_181119_e()));
+                 this.field_181017_ao = new Vec3d(d1, d2, 0.0D);
+-                this.field_181018_ap = blockpattern$patternhelper.func_177669_b();
++                this.field_181018_ap = patternHelper.func_177669_b();
+             }
+ 
+             this.field_71087_bX = true;
+@@ -2357,13 +2461,13 @@
              this.field_70170_p.field_72984_F.func_76320_a("changeDimension");
              MinecraftServer minecraftserver = this.func_184102_h();
              int i = this.field_71093_bK;
@@ -283,7 +309,7 @@
                  this.field_71093_bK = 0;
              }
  
-@@ -2374,7 +2472,7 @@
+@@ -2374,7 +2478,7 @@
  
              if (p_184204_1_ == 1)
              {
@@ -292,7 +318,7 @@
              }
              else
              {
-@@ -2384,27 +2482,30 @@
+@@ -2384,27 +2488,30 @@
  
                  if (p_184204_1_ == -1)
                  {
@@ -330,7 +356,7 @@
  
              if (entity != null)
              {
-@@ -2412,7 +2513,7 @@
+@@ -2412,7 +2519,7 @@
  
                  if (i == 1 && p_184204_1_ == 1)
                  {
@@ -339,7 +365,7 @@
                      entity.func_174828_a(blockpos1, entity.field_70177_z, entity.field_70125_A);
                  }
                  else
-@@ -2422,15 +2523,15 @@
+@@ -2422,15 +2529,15 @@
  
                  boolean flag = entity.field_98038_p;
                  entity.field_98038_p = true;
@@ -359,7 +385,7 @@
              this.field_70170_p.field_72984_F.func_76319_b();
              return entity;
          }
-@@ -2578,6 +2679,10 @@
+@@ -2578,6 +2685,10 @@
  
      public EnumFacing func_174811_aO()
      {
@@ -370,7 +396,7 @@
          return EnumFacing.func_176731_b(MathHelper.func_76128_c((double)(this.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3);
      }
  
-@@ -2886,4 +2991,14 @@
+@@ -2886,4 +2997,14 @@
      {
          return 1;
      }

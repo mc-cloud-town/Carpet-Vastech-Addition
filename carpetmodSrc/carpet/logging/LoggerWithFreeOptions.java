@@ -1,4 +1,4 @@
-package carpet.logging.logHelpers;
+package carpet.logging;
 
 import carpet.logging.LogHandler;
 import carpet.logging.Logger;

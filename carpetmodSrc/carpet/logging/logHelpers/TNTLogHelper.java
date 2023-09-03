@@ -28,7 +28,6 @@ public class TNTLogHelper extends TrajectoryLogHelper
      */
     public void onExploded(double x, double y, double z)
     {
-        this.onFinish();
         LoggerRegistry.getLogger("tnt").log( (option) -> {
             switch (option)
             {
@@ -37,6 +36,7 @@ public class TNTLogHelper extends TrajectoryLogHelper
                             "l P ",Messenger.dblt("l",primedX,primedY,primedZ,primedAngle),
                             "r  E ",Messenger.dblt("r",x, y, z))};
                 case "full":
+                    this.onFinish();
                     return new ITextComponent[]{Messenger.m(null, "l P ",Messenger.dblf("l",primedX,primedY,primedZ,primedAngle),
                             "r  E ",Messenger.dblf("r",x, y, z))};
             }

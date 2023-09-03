@@ -183,17 +183,22 @@
  
                          if (this.field_70123_F && this.func_70617_f_())
                          {
-@@ -2306,6 +2356,9 @@
+@@ -2306,8 +2356,13 @@
  
      protected void func_85033_bc()
      {
+-        List<Entity> list = this.field_70170_p.func_175674_a(this, this.func_174813_aQ(), EntitySelectors.func_188442_a(this));
 +        // Collision calculations are cancelled if canBePushed() is false. Return here to lag optimize the collision code. CARPET-XCOM
-+        if(CarpetSettings.optimizedCollisionCancellations && !func_70104_M() && !(this instanceof net.minecraft.entity.boss.EntityDragon)) return;
-+
-         List<Entity> list = this.field_70170_p.func_175674_a(this, this.func_174813_aQ(), EntitySelectors.func_188442_a(this));
++        if(CarpetSettings.optimizedCollisionCancellations && !func_70104_M() &&
++                !(this instanceof net.minecraft.entity.boss.EntityDragon)) return;
  
++        List<Entity> list = this.field_70170_p.func_175674_a(this, this.func_174813_aQ(),
++                EntitySelectors.func_188442_a(this));
++
          if (!list.isEmpty())
-@@ -2330,8 +2383,13 @@
+         {
+             int i = this.field_70170_p.func_82736_K().func_180263_c("maxEntityCramming");
+@@ -2330,8 +2385,13 @@
                  }
              }
  
@@ -208,7 +213,7 @@
                  Entity entity = list.get(l);
                  this.func_82167_n(entity);
              }
-@@ -2366,6 +2424,11 @@
+@@ -2366,6 +2426,11 @@
      {
          this.field_70703_bu = p_70637_1_;
      }

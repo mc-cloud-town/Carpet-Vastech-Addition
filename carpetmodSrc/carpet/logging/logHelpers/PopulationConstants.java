@@ -3,7 +3,6 @@ package carpet.logging.logHelpers;
 import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceArrayMap;
-import javafx.util.Pair;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
 
@@ -71,7 +70,7 @@ public abstract class PopulationConstants {
     }
 
     public static final int CACHED_OPTIONS_COUNT = 16;
-    public static final Deque<Pair<String, PopulationHelper.PopulationLoggerOptions>> cachedOptions = new ArrayDeque<>();
+    public static final Deque<Map.Entry<String, PopulationHelper.PopulationLoggerOptions>> cachedOptions = new ArrayDeque<>();
     public static final PopulationHelper.PopulationLoggerOptions EMPTY_OPTIONS = new PopulationHelper.PopulationLoggerOptions();
 
     /**
@@ -82,14 +81,14 @@ public abstract class PopulationConstants {
      *                     will log placement of liquid pockets and population suppression in the overworld
      */
     public static PopulationHelper.PopulationLoggerOptions resolveOptionsByString(String optionString) {
-        for (Pair<String, PopulationHelper.PopulationLoggerOptions> pair: cachedOptions) {
+        for (Map.Entry<String, PopulationHelper.PopulationLoggerOptions> pair: cachedOptions) {
             if (pair.getKey().equals(optionString)) return pair.getValue();
         }
         PopulationHelper.PopulationLoggerOptions options = resolveOptionsByString0(optionString);
         while (cachedOptions.size() >= CACHED_OPTIONS_COUNT) {
             cachedOptions.pollFirst();
         }
-        cachedOptions.addLast(new Pair<>(optionString, options));
+        cachedOptions.addLast(new AbstractMap.SimpleEntry<>(optionString, options));
         return options;
     }
 

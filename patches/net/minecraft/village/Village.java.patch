@@ -30,7 +30,17 @@
          }
      }
  
-@@ -368,6 +372,7 @@
+@@ -91,7 +95,8 @@
+     {
+         for (int i = 0; i < 10; ++i)
+         {
+-            BlockPos blockpos = p_179862_1_.func_177982_a(this.field_75586_a.field_73012_v.nextInt(16) - 8, this.field_75586_a.field_73012_v.nextInt(6) - 3, this.field_75586_a.field_73012_v.nextInt(16) - 8);
++            BlockPos blockpos = p_179862_1_.func_177982_a(this.field_75586_a.field_73012_v.nextInt(16) - 8,
++                    this.field_75586_a.field_73012_v.nextInt(6) - 3, this.field_75586_a.field_73012_v.nextInt(16) - 8);
+ 
+             if (this.func_179866_a(blockpos) && this.func_179861_a(new BlockPos(p_179862_2_, p_179862_3_, p_179862_4_), blockpos))
+             {
+@@ -368,6 +373,7 @@
                  flag = true;
                  villagedoorinfo.func_179853_a(true);
                  iterator.remove();
@@ -38,7 +48,7 @@
              }
          }
  
-@@ -379,7 +384,7 @@
+@@ -379,7 +385,7 @@
  
      private boolean func_179860_f(BlockPos p_179860_1_)
      {

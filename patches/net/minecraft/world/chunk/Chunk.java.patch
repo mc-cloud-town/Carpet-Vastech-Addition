@@ -294,7 +294,7 @@
          int l = k << 4 | i;
  
          if (j >= this.field_76638_b[l] - 1)
-@@ -492,15 +536,15 @@
+@@ -492,22 +536,22 @@
          }
  
          int i1 = this.field_76634_f[l];
@@ -309,11 +309,20 @@
          else
          {
 -            Block block = p_177436_2_.func_177230_c();
-+            Block block = state.func_177230_c();
-             Block block1 = iblockstate.func_177230_c();
+-            Block block1 = iblockstate.func_177230_c();
++            Block newBlock = state.func_177230_c();
++            Block oldBlock = iblockstate.func_177230_c();
              ExtendedBlockStorage extendedblockstorage = this.field_76652_q[j >> 4];
              boolean flag = false;
-@@ -515,19 +559,29 @@
+ 
+             if (extendedblockstorage == field_186036_a)
+             {
+-                if (block == Blocks.field_150350_a)
++                if (newBlock == Blocks.field_150350_a)
+                 {
+                     return null;
+                 }
+@@ -515,35 +559,45 @@
                  extendedblockstorage = new ExtendedBlockStorage(j >> 4 << 4, this.field_76637_e.field_73011_w.func_191066_m());
                  this.field_76652_q[j >> 4] = extendedblockstorage;
                  flag = j >= i1;
@@ -326,28 +335,33 @@
 -            extendedblockstorage.func_177484_a(i, j & 15, k, p_177436_2_);
 +            extendedblockstorage.func_177484_a(i, j & 15, k, state);
  
+-            if (block1 != block)
 +            // RSMM start
 +            if (CarpetSettings.redstoneMultimeter && !field_76637_e.field_72995_K) {
 +                WorldHelper.getMultimeter().onBlockChange(field_76637_e, pos, iblockstate, state);
 +            }
 +            // RSMM end
 +
-             if (block1 != block)
++            if (oldBlock != newBlock)
              {
 -                if (!this.field_76637_e.field_72995_K)
 +                if (!skip_updates && !this.field_76637_e.field_72995_K)
                  {
 -                    block1.func_180663_b(this.field_76637_e, p_177436_1_, iblockstate);
-+                    block1.func_180663_b(this.field_76637_e, pos, iblockstate);
++                    oldBlock.func_180663_b(this.field_76637_e, pos, iblockstate);
                  }
-                 else if (block1 instanceof ITileEntityProvider)
+-                else if (block1 instanceof ITileEntityProvider)
++                else if (oldBlock instanceof ITileEntityProvider)
                  {
 -                    this.field_76637_e.func_175713_t(p_177436_1_);
 +                    this.field_76637_e.func_175713_t(pos);
                  }
              }
  
-@@ -537,13 +591,13 @@
+-            if (extendedblockstorage.func_177485_a(i, j & 15, k).func_177230_c() != block)
++            if (extendedblockstorage.func_177485_a(i, j & 15, k).func_177230_c() != newBlock)
+             {
+                 return null;
              }
              else
              {
@@ -379,7 +393,8 @@
 +	                }
                  }
  
-                 if (block1 instanceof ITileEntityProvider)
+-                if (block1 instanceof ITileEntityProvider)
++                if (oldBlock instanceof ITileEntityProvider)
                  {
 -                    TileEntity tileentity = this.func_177424_a(p_177436_1_, Chunk.EnumCreateEntityType.CHECK);
 +                    TileEntity tileentity = this.func_177424_a(pos, Chunk.EnumCreateEntityType.CHECK);
@@ -392,13 +407,14 @@
  
 -                if (!this.field_76637_e.field_72995_K && block1 != block)
 +                //if (!this.worldObj.isRemote && block1 != block) //CM replaced
-+                if (!skip_updates && !this.field_76637_e.field_72995_K && block1 != block)
++                if (!skip_updates && !this.field_76637_e.field_72995_K && oldBlock != newBlock)
                  {
 -                    block.func_176213_c(this.field_76637_e, p_177436_1_, p_177436_2_);
-+                    block.func_176213_c(this.field_76637_e, pos, state);
++                    newBlock.func_176213_c(this.field_76637_e, pos, state);
                  }
  
-                 if (block instanceof ITileEntityProvider)
+-                if (block instanceof ITileEntityProvider)
++                if (newBlock instanceof ITileEntityProvider)
                  {
 -                    TileEntity tileentity1 = this.func_177424_a(p_177436_1_, Chunk.EnumCreateEntityType.CHECK);
 +                    TileEntity tileentity1;
@@ -417,7 +433,7 @@
                      {
 -                        tileentity1 = ((ITileEntityProvider)block).func_149915_a(this.field_76637_e, block.func_176201_c(p_177436_2_));
 -                        this.field_76637_e.func_175690_a(p_177436_1_, tileentity1);
-+                        tileentity1 = ((ITileEntityProvider)block).func_149915_a(this.field_76637_e, block.func_176201_c(state));
++                        tileentity1 = ((ITileEntityProvider)newBlock).func_149915_a(this.field_76637_e, newBlock.func_176201_c(state));
 +                        this.field_76637_e.func_175690_a(pos, tileentity1);
                      }
  
