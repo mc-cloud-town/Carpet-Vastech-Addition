@@ -227,7 +227,17 @@
      public static IInventory func_145884_b(IHopper p_145884_0_)
      {
          return func_145893_b(p_145884_0_.func_145831_w(), p_145884_0_.func_96107_aA(), p_145884_0_.func_96109_aB() + 1.0D, p_145884_0_.func_96108_aC());
-@@ -546,7 +660,7 @@
+@@ -535,7 +649,8 @@
+ 
+         if (iinventory == null)
+         {
+-            List<Entity> list = p_145893_0_.func_175674_a((Entity)null, new AxisAlignedBB(p_145893_1_ - 0.5D, p_145893_3_ - 0.5D, p_145893_5_ - 0.5D, p_145893_1_ + 0.5D, p_145893_3_ + 0.5D, p_145893_5_ + 0.5D), EntitySelectors.field_96566_b);
++            List<Entity> list = p_145893_0_.func_175674_a((Entity)null,
++                    new AxisAlignedBB(p_145893_1_ - 0.5D, p_145893_3_ - 0.5D, p_145893_5_ - 0.5D, p_145893_1_ + 0.5D, p_145893_3_ + 0.5D, p_145893_5_ + 0.5D), EntitySelectors.field_96566_b);
+ 
+             if (!list.isEmpty())
+             {
+@@ -546,7 +661,7 @@
          return iinventory;
      }
  
@@ -236,7 +246,7 @@
      {
          if (p_145894_0_.func_77973_b() != p_145894_1_.func_77973_b())
          {
-@@ -611,4 +725,15 @@
+@@ -611,4 +726,15 @@
      {
          return this.field_145900_a;
      }

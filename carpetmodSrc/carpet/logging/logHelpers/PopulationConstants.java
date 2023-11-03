@@ -1,15 +1,17 @@
 package carpet.logging.logHelpers;
 
-import com.google.common.collect.Maps;
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
-import it.unimi.dsi.fastutil.objects.Object2ReferenceArrayMap;
-import net.minecraft.world.World;
+import carpet.CarpetServer;
+import carpet.utils.Messenger;
+import net.minecraft.nbt.JsonToNBT;
+import net.minecraft.nbt.NBTException;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.gen.feature.*;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public abstract class PopulationConstants {
     private static class FeatureToNameMap extends HashMap<Class<? extends WorldGenerator>, String> {
@@ -70,41 +72,48 @@ public abstract class PopulationConstants {
     }
 
     public static final int CACHED_OPTIONS_COUNT = 16;
-    public static final Deque<Map.Entry<String, PopulationHelper.PopulationLoggerOptions>> cachedOptions = new ArrayDeque<>();
+    public static final LinkedHashMap<String, PopulationHelper.PopulationLoggerOptions> cachedOptions = new LinkedHashMap<>();
     public static final PopulationHelper.PopulationLoggerOptions EMPTY_OPTIONS = new PopulationHelper.PopulationLoggerOptions();
 
     /**
-     * @param optionString a string encoded to contain all the info for population logger
-     *                     the string would look like category(key1,key2,...)+category(key1,key2,...)+...
-     *                     the keys could be a name, or -name to exclude a name, or all to add all
-     *                     for example, world(overworld)+feature(spring)+flag(all)+suppression()
-     *                     will log placement of liquid pockets and population suppression in the overworld
+     * @param optionString an NBT string encoding things to log
+     *                     Example: {world:[overworld],flags:[ITT,IF],suppression:1b,features:[spring]}
      */
     public static PopulationHelper.PopulationLoggerOptions resolveOptionsByString(String optionString) {
-        for (Map.Entry<String, PopulationHelper.PopulationLoggerOptions> pair: cachedOptions) {
-            if (pair.getKey().equals(optionString)) return pair.getValue();
+        if (cachedOptions.containsKey(optionString)) return cachedOptions.get(optionString);
+        try {
+            PopulationHelper.PopulationLoggerOptions options = resolveOptionsByString0(optionString);
+            for (Iterator<?> iterator = cachedOptions.entrySet().iterator();
+                 cachedOptions.size() >= CACHED_OPTIONS_COUNT && iterator.hasNext(); iterator.next()) {
+                iterator.remove();
+            }
+            cachedOptions.put(optionString, options);
+            return options;
+        } catch (Exception exception) {
+            Messenger.print_server_message(CarpetServer.minecraft_server, "An exception occurred while parsing options of /log population!!");
+            Messenger.print_server_message(CarpetServer.minecraft_server, "Stack trace: ");
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter);
+            exception.printStackTrace(printWriter);
+            Messenger.print_server_message(CarpetServer.minecraft_server, stringWriter.toString());
+            try {
+                stringWriter.close();
+                printWriter.close();
+            } catch (IOException e) {
+                Messenger.print_server_message(CarpetServer.minecraft_server, "114514 1919810");
+            }
         }
-        PopulationHelper.PopulationLoggerOptions options = resolveOptionsByString0(optionString);
-        while (cachedOptions.size() >= CACHED_OPTIONS_COUNT) {
-            cachedOptions.pollFirst();
-        }
-        cachedOptions.addLast(new AbstractMap.SimpleEntry<>(optionString, options));
-        return options;
+        return EMPTY_OPTIONS;
     }
 
-    private static final Pattern CATEGORY_PATTERN = Pattern.compile("(?<category>.+)\\((?<args>(.+))\\)");
-    private static PopulationHelper.PopulationLoggerOptions resolveOptionsByString0(String optionString) {
+    private static PopulationHelper.PopulationLoggerOptions resolveOptionsByString0(String optionString) throws NBTException {
         System.out.println("Trying to resolve option " + optionString);
         PopulationHelper.PopulationLoggerOptions result = new PopulationHelper.PopulationLoggerOptions();
-        String[] categoryOptions = optionString.split("\\+");
-        for (String categoryOption: categoryOptions) {
-            Matcher matcher = CATEGORY_PATTERN.matcher(categoryOption);
-            if (!matcher.find()) return result;
-            String category = matcher.group("category");
-            List<String> args = Arrays.stream(matcher.group("args").split(" "))
-                    .map(s -> s.replace(" ", ""))
-                    .filter(s -> s.length() > 0)
-                    .collect(Collectors.toList());
+        NBTTagCompound optionNBT = JsonToNBT.getTagFromJson(optionString);
+        for (String category: optionNBT.getKeySet()) {
+            NBTTagList tagList = optionNBT.getTagList(category, 8 /* string 8 */);
+            List<String> args = new ArrayList<>();
+            for (int i = 0; i < tagList.tagCount(); i ++) args.add(tagList.getStringTagAt(i));
             switch (category) {
                 case "world": {
                     result.worldsToLog.addAll(args);

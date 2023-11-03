@@ -1289,6 +1289,12 @@ public class CarpetSettings
 
     public static final long ONE_ONE_FOUR_FIVE_ONE_FOUR = 1145141919810L;
 
+    @Rule(desc = "Make the penetration of every blast ray as weak as possible to detect problems with blast chambers",
+    category = CREATIVE)
+    public static boolean unluckyExplosions = false;
+
+    @Rule(desc = "Optimize calls for getting entities that intersects with a large AABB", category = OPTIMIZATIONS)
+    public static boolean optimizeLargeAreaEntityFetch = false;
 
 
     // ===== API ===== //

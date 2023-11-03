@@ -74,6 +74,15 @@
          Set<BlockPos> set = Sets.<BlockPos>newHashSet();
          int i = 16;
  
+@@ -72,7 +97,7 @@
+                         d0 = d0 / d3;
+                         d1 = d1 / d3;
+                         d2 = d2 / d3;
+-                        float f = this.field_77280_f * (0.7F + this.field_77287_j.field_73012_v.nextFloat() * 0.6F);
++                        float f = this.field_77280_f * (0.7F + (CarpetSettings.unluckyExplosions ? 0 : this.field_77287_j.field_73012_v.nextFloat()) * 0.6F);
+                         double d4 = this.field_77284_b;
+                         double d6 = this.field_77285_c;
+                         double d8 = this.field_77282_d;
 @@ -102,7 +127,13 @@
              }
          }

@@ -23,11 +23,13 @@
      private static final ThreadLocal<EnumFacing> field_190613_i = new ThreadLocal<EnumFacing>()
      {
          protected EnumFacing initialValue()
-@@ -34,7 +44,7 @@
+@@ -33,8 +43,8 @@
+             return null;
          }
      };
-     private float field_145873_m;
+-    private float field_145873_m;
 -    private float field_145870_n;
++    public float field_145873_m; // VasCM - change access for visualticker
 +    public float field_145870_n; // [CM] Change access to public for piston ghost blocks fix
  
      public TileEntityPiston()

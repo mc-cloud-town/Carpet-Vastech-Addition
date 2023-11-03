@@ -1,9 +1,9 @@
 package carpet.commands;
 
 import carpet.CarpetSettings;
-import carpet.helpers.ClusterHelper;
-import carpet.helpers.ClusterHelper.ClusterChunksReport;
-import carpet.helpers.ClusterHelper.OptimalClusteringReport;
+import carpet.helpers.ClusterHelper_old;
+import carpet.helpers.ClusterHelper_old.ClusterChunksReport;
+import carpet.helpers.ClusterHelper_old.OptimalClusteringReport;
 import net.minecraft.block.BlockDropper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.command.CommandException;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommandCluster extends CommandCarpetBase {
-    private final ClusterHelper clusterHelper = new ClusterHelper();
+    private final ClusterHelper_old clusterHelper = new ClusterHelper_old();
 
     @Override
     public String getName() {
@@ -144,7 +144,7 @@ public class CommandCluster extends CommandCarpetBase {
                         notifyCommandListener(sender, this, "Cluster chunks has been generated");
                         ChunkPos target = optimalClusteringReport.target;
                         for (int hashStart: clusterChunksReport.hashStartToClusterChunks.keySet()) {
-                            int suboptimalClustering = ClusterHelper.getTotalClustering(target, optimalClusteringReport.preloadedChunks,
+                            int suboptimalClustering = ClusterHelper_old.getTotalClustering(target, optimalClusteringReport.preloadedChunks,
                                     hashStart, clusterHelper.getClusterSize(), clusterHelper.getHashSize() - 1);
                             notifyCommandListener(sender, this, String.format("Hash start %d with total clustering %d and cluster grid length %d",
                                     hashStart, suboptimalClustering, clusterChunksReport.hashStartToMaxZ.get(hashStart) - clusterHelper.getClusterSearchStart().z + 1));
