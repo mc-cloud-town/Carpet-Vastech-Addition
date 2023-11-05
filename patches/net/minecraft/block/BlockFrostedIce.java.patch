@@ -18,14 +18,13 @@
  {
      public static final PropertyInteger field_185682_a = PropertyInteger.func_177719_a("age", 0, 3);
  
-@@ -113,4 +115,10 @@
+@@ -113,4 +115,9 @@
      {
          return ItemStack.field_190927_a;
      }
 +
 +    @Override
 +    public boolean wouldCrash(World worldIn, BlockPos pos, IBlockState state) {
-+        return !(this.func_185680_c(worldIn, pos) < 4
-+                && worldIn.func_175671_l(pos) > (11 - state.func_177229_b(field_185682_a) - state.func_185891_c()));
++        return !(worldIn.func_175671_l(pos) > 11 - state.func_177229_b(field_185682_a) - state.func_185891_c());
 +    }
  }
