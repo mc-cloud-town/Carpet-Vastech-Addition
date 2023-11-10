@@ -127,8 +127,8 @@ public class PopulationHelper {
     public void logFeature(WorldGenerator feature, World world, BlockPos pos) {
         log((options, components) -> {
             if (options.shouldLogWorld(world) && options.shouldLogFeature(feature)) {
-                components.add(Messenger.m(null,
-                        String.format("w Placed a %s feature in world %s at position %s"
+                components.add(Messenger.s(null,
+                        String.format("Feature %s placed in world %s at position %s"
                                 , featureToName.get(feature.getClass())
                                 , world.provider.getDimensionType().getName()
                                 , blockPosToString(pos))));
@@ -141,10 +141,20 @@ public class PopulationHelper {
 
     // Part 3: Population start and end
     public void logPopulationStart(World world, ChunkPos pos) {
-        if (tryLogAsyncPopulation(world, pos)) return;
+        if (isOnBeaconThread()) {
+            world.getMinecraftServer().addScheduledTask(() -> {
+                log((options, components) -> {
+                    if (options.shouldLogWorld(world) && options.shouldLogAsyncPopulation) {
+                        components.add(Messenger.s(null, String.format(
+                                "Async population of chunk (%d, %d) started! Async population will not be logged for technical purposes. ", pos.x, pos.z)));
+                    }
+                });
+            });
+            return;
+        }
         log((options, components) -> {
-            if (options.shouldLogWorld(world) && options.shouldLogAsyncPopulation) {
-                components.add(Messenger.m(null, String.format(
+            if (options.shouldLogWorld(world)) {
+                components.add(Messenger.s(null, String.format(
                         "Population of chunk (%d, %d) started! ", pos.x, pos.z)));
             }
         });
@@ -154,8 +164,8 @@ public class PopulationHelper {
     public void logPopulationEnd(World world, ChunkPos pos) {
         logFlagToggle(null, PopulationFlag.IF, false);
         log((options, components) -> {
-            if (options.shouldLogWorld(world) && options.shouldLogAsyncPopulation) {
-                components.add(Messenger.m(null, String.format(
+            if (options.shouldLogWorld(world)) {
+                components.add(Messenger.s(null, String.format(
                         "Population of chunk (%d, %d) returned! ", pos.x, pos.z)));
             }
         });
@@ -167,13 +177,13 @@ public class PopulationHelper {
             if (options.shouldLogFlag(world, flag)) {
                 String msg = "";
                 if (flag.isWorldDependent()) {
-                    msg = String.format("w Toggled the %s flag to %s in world %s",
-                            flag.getName(), Boolean.toString(value), world.provider.getDimensionType().getName());
+                    msg = String.format("Toggled the %s flag to %s in world %s",
+                            flag.getName(), value, world.provider.getDimensionType().getName());
                 } else {
-                    msg = String.format("w Toggled the %s flag to %s",
-                            flag.getName(), Boolean.toString(value));
+                    msg = String.format("Toggled the %s flag to %s",
+                            flag.getName(), value);
                 }
-                components.add(Messenger.m(null, msg));
+                components.add(Messenger.s(null, msg));
             }
         });
     }
@@ -183,20 +193,20 @@ public class PopulationHelper {
         return target != null && !target.isTerrainPopulated() && neighbor1 != null && neighbor2 != null && neighbor3 != null;
     }
     public ITextComponent getInvisChunkLog(int x, int z) {
-        return Messenger.m(null, "w Chunk (%d, %d) is now an invisible chunk. ", x, z);
+        return Messenger.s(null, String.format("Chunk (%d, %d) is now an invisible chunk. ", x, z));
     }
 
     public void logPopulationSuppressed(World world, ChunkPos suppressedPos) {
         log((options, components) -> {
            if (options.shouldLogWorld(world) && options.shouldLogPopulationSuppression) {
-               components.add(Messenger.m(null, String.format(
-                       "w Population of chunk (%d, %d) is suppressed",
+               components.add(Messenger.s(null, String.format(
+                       "Population of chunk (%d, %d) is suppressed",
                        suppressedPos.x, suppressedPos.z)));
-               StringBuilder flagLog = new StringBuilder("w Current flags: ");
+               StringBuilder flagLog = new StringBuilder("Current flags: ");
                for (PopulationFlag flag: PopulationFlag.values()) {
                    flagLog.append(flag.getName()).append(" = ").append(flag.getValue(world)).append("; ");
                }
-               components.add(Messenger.m(null, flagLog.toString()));
+               components.add(Messenger.s(null, flagLog.toString()));
                int x = suppressedPos.x;
                int z = suppressedPos.z;
                Chunk c00 = world.getChunkProvider().getLoadedChunk(x, z);
@@ -219,18 +229,4 @@ public class PopulationHelper {
         return Thread.currentThread().getName().startsWith("Downloader");
     }
 
-    public boolean tryLogAsyncPopulation(World world, ChunkPos pos) {
-        if (isOnBeaconThread()) {
-            world.getMinecraftServer().addScheduledTask(() -> {
-                log((options, components) -> {
-                    if (options.shouldLogWorld(world) && options.shouldLogAsyncPopulation) {
-                        components.add(Messenger.m(null, String.format(
-                                "Async population of chunk (%d, %d) started! Async population will not be logged for technical purposes. ", pos.x, pos.z)));
-                    }
-                });
-            });
-            return true;
-        }
-        return false;
-    }
 }

@@ -9,19 +9,21 @@
  public enum EnumFacing implements IStringSerializable
  {
      DOWN(0, 1, -1, "down", EnumFacing.AxisDirection.NEGATIVE, EnumFacing.Axis.Y, new Vec3i(0, -1, 0)),
-@@ -28,9 +30,9 @@
+@@ -28,10 +30,10 @@
      private final String field_176757_j;
      private final EnumFacing.Axis field_176758_k;
      private final EnumFacing.AxisDirection field_176755_l;
 -    private final Vec3i field_176756_m;
 -    private static final EnumFacing[] field_82609_l = new EnumFacing[6];
 -    private static final EnumFacing[] field_176754_o = new EnumFacing[4];
+-    private static final Map<String, EnumFacing> field_176761_p = Maps.<String, EnumFacing>newHashMap();
 +    public final Vec3i field_176756_m;
 +    public static final EnumFacing[] field_82609_l = new EnumFacing[6];
 +    public static final EnumFacing[] field_176754_o = new EnumFacing[4];
-     private static final Map<String, EnumFacing> field_176761_p = Maps.<String, EnumFacing>newHashMap();
++    public static final Map<String, EnumFacing> field_176761_p = Maps.<String, EnumFacing>newHashMap(); // VasCM - changed access
  
      private EnumFacing(int p_i46016_3_, int p_i46016_4_, int p_i46016_5_, String p_i46016_6_, EnumFacing.AxisDirection p_i46016_7_, EnumFacing.Axis p_i46016_8_, Vec3i p_i46016_9_)
+     {
 @@ -179,11 +181,15 @@
  
              if (d0 - (double)p_190914_0_.func_177956_o() > 2.0D)

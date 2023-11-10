@@ -45,7 +45,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.4.3";
+    public static final String tagVersion = "v0.1.5";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -1295,6 +1295,9 @@ public class CarpetSettings
 
     @Rule(desc = "Optimize calls for getting entities that intersects with a large AABB", category = OPTIMIZATIONS)
     public static boolean optimizeLargeAreaEntityFetch = false;
+
+    @Rule(desc = "Fixes the crash loops related to ArrayIndexOutOfBounds when trying to freezing dragons", category = FIX)
+    public static boolean dragonFreezingCrashFix = false;
 
 
     // ===== API ===== //
