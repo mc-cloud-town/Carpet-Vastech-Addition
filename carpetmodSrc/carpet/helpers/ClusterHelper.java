@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.HashCommon;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockHopper;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -241,6 +242,9 @@ public class ClusterHelper {
             }
         }
 //        System.err.println("A total of " + remainingGridChunks + " chunks are left disconnected from the loader!!!");
+        for (ChunkPos pos: optimalClusterChunks) {
+            addHopper(world, y, buildingBlock, pos);
+        }
     }
 
     public void buildBridge(World world, int y, IBlockState buildingBlock, ChunkPos chunk, EnumFacing dir) {
@@ -258,6 +262,31 @@ public class ClusterHelper {
             pos.setPos((chunk.x << 4) + 8, y, (chunk.z << 4) + 8);
             world.setBlockState(pos, Blocks.HOPPER.getDefaultState().withProperty(BlockHopper.FACING, dir)
                     .withProperty(BlockHopper.ENABLED, true), 2);
+            world.setBlockState(pos.up(), Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.UP));
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if (!(tileEntity instanceof TileEntityHopper))
+                Messenger.print_server_message(CarpetServer.minecraft_server, "Missing hopper tile entity!!");
+            else {
+                TileEntityHopper hopper = (TileEntityHopper) tileEntity;
+                for (int i = 0; i < 5; i ++) {
+                    hopper.setInventorySlotContents(i, new ItemStack(Items.SHEARS, 1));
+                }
+            }
+        }
+    }
+
+    public static void addHopper(World world, int y, IBlockState buildingBlock, ChunkPos chunk) {
+        BlockPos pos = chunk.getBlock(8, y, 8);
+        if (!(world.getBlockState(pos).getBlock() == Blocks.HOPPER)) {
+            EnumFacing dir = EnumFacing.DOWN;
+            for (EnumFacing facing: EnumFacing.HORIZONTALS) {
+                if (world.getBlockState(pos.offset(facing)).getBlock() == buildingBlock.getBlock()) {
+                    dir = facing;
+                }
+            }
+            world.setBlockState(pos, Blocks.HOPPER.getDefaultState().withProperty(BlockHopper.FACING, dir)
+                    .withProperty(BlockHopper.ENABLED, true), 2);
+            world.setBlockState(pos.up(), Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.UP));
             TileEntity tileEntity = world.getTileEntity(pos);
             if (!(tileEntity instanceof TileEntityHopper))
                 Messenger.print_server_message(CarpetServer.minecraft_server, "Missing hopper tile entity!!");
