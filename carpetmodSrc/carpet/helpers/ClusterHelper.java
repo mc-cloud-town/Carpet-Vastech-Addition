@@ -316,11 +316,11 @@ public class ClusterHelper {
             currentHash = (currentHash + 1) & mask;
         }
         Object2IntOpenHashMap<ChunkPos> curMap;
-        for (int hash = hashStart; hash < currentHash; hash = (hash + 1) & mask) {
+        for (int hash = hashStart; hash != currentHash; hash = (hash + 1) & mask) {
             if ((curMap = hashChunkToHeight[hash]) != null) {
                 int finalRequiredHeight = requiredHeight;
                 curMap.forEach((cp, h) -> {
-                    if (h < finalRequiredHeight) clusterChunks.add(cp);
+                    if (h <= finalRequiredHeight) clusterChunks.add(cp);
                 });
             }
         }
