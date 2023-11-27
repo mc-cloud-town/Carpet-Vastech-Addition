@@ -67,7 +67,7 @@
          Block block = this.field_175132_d.func_177230_c();
  
          if (this.field_175132_d.func_185904_a() == Material.field_151579_a)
-@@ -122,8 +152,44 @@
+@@ -122,29 +152,65 @@
                  this.field_70181_x -= 0.03999999910593033D;
              }
  
@@ -112,42 +112,104 @@
 +            
              if (!this.field_70170_p.field_72995_K)
              {
-                 BlockPos blockpos1 = new BlockPos(this);
-@@ -168,13 +234,33 @@
+-                BlockPos blockpos1 = new BlockPos(this);
+-                boolean flag = this.field_175132_d.func_177230_c() == Blocks.field_192444_dS;
+-                boolean flag1 = flag && this.field_70170_p.func_180495_p(blockpos1).func_185904_a() == Material.field_151586_h;
++                BlockPos curPos = new BlockPos(this);
++                boolean concrete = this.field_175132_d.func_177230_c() == Blocks.field_192444_dS;
++                boolean concreteInWater = concrete && this.field_70170_p.func_180495_p(curPos).func_185904_a() == Material.field_151586_h;
+                 double d0 = this.field_70159_w * this.field_70159_w + this.field_70181_x * this.field_70181_x + this.field_70179_y * this.field_70179_y;
+ 
+-                if (flag && d0 > 1.0D)
++                if (concrete && d0 > 1.0D)
+                 {
+                     RayTraceResult raytraceresult = this.field_70170_p.func_72901_a(new Vec3d(this.field_70169_q, this.field_70167_r, this.field_70166_s), new Vec3d(this.field_70165_t, this.field_70163_u, this.field_70161_v), true);
+ 
+                     if (raytraceresult != null && this.field_70170_p.func_180495_p(raytraceresult.func_178782_a()).func_185904_a() == Material.field_151586_h)
+                     {
+-                        blockpos1 = raytraceresult.func_178782_a();
+-                        flag1 = true;
++                        curPos = raytraceresult.func_178782_a();
++                        concreteInWater = true;
+                     }
+                 }
+ 
+-                if (!this.field_70122_E && !flag1)
++                if (!this.field_70122_E && !concreteInWater)
+                 {
+-                    if (this.field_145812_b > 100 && !this.field_70170_p.field_72995_K && (blockpos1.func_177956_o() < 1 || blockpos1.func_177956_o() > 256) || this.field_145812_b > 600)
++                    if (this.field_145812_b > 100 && !this.field_70170_p.field_72995_K && (curPos.func_177956_o() < 1 || curPos.func_177956_o() > 256) || this.field_145812_b > 600)
+                     {
+                         if (this.field_145813_c && this.field_70170_p.func_82736_K().func_82766_b("doEntityDrops"))
+                         {
+@@ -156,9 +222,9 @@
+                 }
+                 else
+                 {
+-                    IBlockState iblockstate = this.field_70170_p.func_180495_p(blockpos1);
++                    IBlockState curState = this.field_70170_p.func_180495_p(curPos);
+ 
+-                    if (!flag1 && BlockFalling.func_185759_i(this.field_70170_p.func_180495_p(new BlockPos(this.field_70165_t, this.field_70163_u - 0.009999999776482582D, this.field_70161_v))))
++                    if (!concreteInWater && BlockFalling.func_185759_i(this.field_70170_p.func_180495_p(new BlockPos(this.field_70165_t, this.field_70163_u - 0.009999999776482582D, this.field_70161_v))))
+                     {
+                         this.field_70122_E = false;
+                         return;
+@@ -168,22 +234,42 @@
                      this.field_70179_y *= 0.699999988079071D;
                      this.field_70181_x *= -0.5D;
  
+-                    if (iblockstate.func_177230_c() != Blocks.field_180384_M)
 +                    if (block == Blocks.field_150467_bQ &&
 +                            CarpetSettings.renewablePackedIce &&
 +                            this.field_70170_p.func_180495_p(new BlockPos(this.field_70165_t, this.field_70163_u - 0.059999999776482582D, this.field_70161_v)).func_177230_c()==Blocks.field_150432_aD  )
-+                    {
+                     {
 +                        if (iceCount < 2)
 +                        {
-+                            field_70170_p.func_175655_b(blockpos1.func_177977_b(), false);
++                            field_70170_p.func_175655_b(curPos.func_177977_b(), false);
 +                            this.field_70122_E = false;
 +                            iceCount++;
 +                            return;
 +                        }
 +                        else
 +                        {
-+                            field_70170_p.func_180501_a(blockpos1.func_177977_b(),Blocks.field_150403_cj.func_176223_P(),3);
-+                            field_70170_p.func_175718_b(2001,blockpos1.func_177977_b(),Block.func_149682_b(Blocks.field_150403_cj));
++                            field_70170_p.func_180501_a(curPos.func_177977_b(),Blocks.field_150403_cj.func_176223_P(),3);
++                            field_70170_p.func_175718_b(2001,curPos.func_177977_b(),Block.func_149682_b(Blocks.field_150403_cj));
 +                        }
 +                    }
 +
-                     if (iblockstate.func_177230_c() != Blocks.field_180384_M)
-                     {
++                    if (curState.func_177230_c() != Blocks.field_180384_M)
++                    {
                          this.func_70106_y();
  
                          if (!this.field_145808_f)
                          {
 -                            if (this.field_70170_p.func_190527_a(block, blockpos1, true, EnumFacing.UP, (Entity)null) && (flag1 || !BlockFalling.func_185759_i(this.field_70170_p.func_180495_p(blockpos1.func_177977_b()))) && this.field_70170_p.func_180501_a(blockpos1, this.field_175132_d, 3))
-+                            if (this.field_70170_p.func_190527_a(block, blockpos1, true, EnumFacing.UP, (Entity)null)
-+                                    && (flag1 || !BlockFalling.func_185759_i(this.field_70170_p.func_180495_p(blockpos1.func_177977_b())))
-+                                    && this.field_70170_p.func_180501_a(blockpos1, this.field_175132_d, 3))
++                            if (this.field_70170_p.func_190527_a(block, curPos, true, EnumFacing.UP, (Entity)null)
++                                    && (concreteInWater || !BlockFalling.func_185759_i(this.field_70170_p.func_180495_p(curPos.func_177977_b())))
++                                    && this.field_70170_p.func_180501_a(curPos, this.field_175132_d, 3))
                              {
                                  if (block instanceof BlockFalling)
                                  {
+-                                    ((BlockFalling)block).func_176502_a_(this.field_70170_p, blockpos1, this.field_175132_d, iblockstate);
++                                    ((BlockFalling)block).func_176502_a_(this.field_70170_p, curPos, this.field_175132_d, curState);
+                                 }
+ 
+                                 if (this.field_145810_d != null && block instanceof ITileEntityProvider)
+                                 {
+-                                    TileEntity tileentity = this.field_70170_p.func_175625_s(blockpos1);
++                                    TileEntity tileentity = this.field_70170_p.func_175625_s(curPos);
+ 
+                                     if (tileentity != null)
+                                     {
+@@ -211,7 +297,7 @@
+                         }
+                         else if (block instanceof BlockFalling)
+                         {
+-                            ((BlockFalling)block).func_190974_b(this.field_70170_p, blockpos1);
++                            ((BlockFalling)block).func_190974_b(this.field_70170_p, curPos);
+                         }
+                     }
+                 }
 @@ -356,4 +442,12 @@
      {
          return true;

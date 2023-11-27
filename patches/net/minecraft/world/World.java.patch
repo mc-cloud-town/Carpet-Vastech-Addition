@@ -299,6 +299,253 @@
          }
      }
  
+@@ -801,168 +912,168 @@
+         {
+             if (!Double.isNaN(p_147447_2_.field_72450_a) && !Double.isNaN(p_147447_2_.field_72448_b) && !Double.isNaN(p_147447_2_.field_72449_c))
+             {
+-                int i = MathHelper.func_76128_c(p_147447_2_.field_72450_a);
+-                int j = MathHelper.func_76128_c(p_147447_2_.field_72448_b);
+-                int k = MathHelper.func_76128_c(p_147447_2_.field_72449_c);
+-                int l = MathHelper.func_76128_c(p_147447_1_.field_72450_a);
+-                int i1 = MathHelper.func_76128_c(p_147447_1_.field_72448_b);
+-                int j1 = MathHelper.func_76128_c(p_147447_1_.field_72449_c);
+-                BlockPos blockpos = new BlockPos(l, i1, j1);
+-                IBlockState iblockstate = this.func_180495_p(blockpos);
+-                Block block = iblockstate.func_177230_c();
++                int sxi = MathHelper.func_76128_c(p_147447_2_.field_72450_a);
++                int syi = MathHelper.func_76128_c(p_147447_2_.field_72448_b);
++                int szi = MathHelper.func_76128_c(p_147447_2_.field_72449_c);
++                int exi = MathHelper.func_76128_c(p_147447_1_.field_72450_a);
++                int eyi = MathHelper.func_76128_c(p_147447_1_.field_72448_b);
++                int ezi = MathHelper.func_76128_c(p_147447_1_.field_72449_c);
++                BlockPos endFloor = new BlockPos(exi, eyi, ezi);
++                IBlockState endState = this.func_180495_p(endFloor);
++                Block block = endState.func_177230_c();
+ 
+-                if ((!p_147447_4_ || iblockstate.func_185890_d(this, blockpos) != Block.field_185506_k) && block.func_176209_a(iblockstate, p_147447_3_))
++                if ((!p_147447_4_ || endState.func_185890_d(this, endFloor) != Block.field_185506_k) && block.func_176209_a(endState, p_147447_3_))
+                 {
+-                    RayTraceResult raytraceresult = iblockstate.func_185910_a(this, blockpos, p_147447_1_, p_147447_2_);
++                    RayTraceResult endStateResult = endState.func_185910_a(this, endFloor, p_147447_1_, p_147447_2_);
+ 
+-                    if (raytraceresult != null)
++                    if (endStateResult != null)
+                     {
+-                        return raytraceresult;
++                        return endStateResult;
+                     }
+                 }
+ 
+-                RayTraceResult raytraceresult2 = null;
+-                int k1 = 200;
++                RayTraceResult result = null;
++                int stepsRemaining = 200;
+ 
+-                while (k1-- >= 0)
++                while (stepsRemaining-- >= 0)
+                 {
+                     if (Double.isNaN(p_147447_1_.field_72450_a) || Double.isNaN(p_147447_1_.field_72448_b) || Double.isNaN(p_147447_1_.field_72449_c))
+                     {
+                         return null;
+                     }
+ 
+-                    if (l == i && i1 == j && j1 == k)
++                    if (exi == sxi && eyi == syi && ezi == szi)
+                     {
+-                        return p_147447_5_ ? raytraceresult2 : null;
++                        return p_147447_5_ ? result : null;
+                     }
+ 
+-                    boolean flag2 = true;
+-                    boolean flag = true;
+-                    boolean flag1 = true;
+-                    double d0 = 999.0D;
+-                    double d1 = 999.0D;
+-                    double d2 = 999.0D;
++                    boolean xUnequal = true;
++                    boolean yUnequal = true;
++                    boolean zUnequal = true;
++                    double endFaceX = 999.0D;
++                    double endFaceY = 999.0D;
++                    double endFaceZ = 999.0D;
+ 
+-                    if (i > l)
++                    if (sxi > exi)
+                     {
+-                        d0 = (double)l + 1.0D;
++                        endFaceX = (double)exi + 1.0D;
+                     }
+-                    else if (i < l)
++                    else if (sxi < exi)
+                     {
+-                        d0 = (double)l + 0.0D;
++                        endFaceX = (double)exi + 0.0D;
+                     }
+                     else
+                     {
+-                        flag2 = false;
++                        xUnequal = false;
+                     }
+ 
+-                    if (j > i1)
++                    if (syi > eyi)
+                     {
+-                        d1 = (double)i1 + 1.0D;
++                        endFaceY = (double)eyi + 1.0D;
+                     }
+-                    else if (j < i1)
++                    else if (syi < eyi)
+                     {
+-                        d1 = (double)i1 + 0.0D;
++                        endFaceY = (double)eyi + 0.0D;
+                     }
+                     else
+                     {
+-                        flag = false;
++                        yUnequal = false;
+                     }
+ 
+-                    if (k > j1)
++                    if (szi > ezi)
+                     {
+-                        d2 = (double)j1 + 1.0D;
++                        endFaceZ = (double)ezi + 1.0D;
+                     }
+-                    else if (k < j1)
++                    else if (szi < ezi)
+                     {
+-                        d2 = (double)j1 + 0.0D;
++                        endFaceZ = (double)ezi + 0.0D;
+                     }
+                     else
+                     {
+-                        flag1 = false;
++                        zUnequal = false;
+                     }
+ 
+-                    double d3 = 999.0D;
+-                    double d4 = 999.0D;
+-                    double d5 = 999.0D;
+-                    double d6 = p_147447_2_.field_72450_a - p_147447_1_.field_72450_a;
+-                    double d7 = p_147447_2_.field_72448_b - p_147447_1_.field_72448_b;
+-                    double d8 = p_147447_2_.field_72449_c - p_147447_1_.field_72449_c;
++                    double dirX = 999.0D;
++                    double dirY = 999.0D;
++                    double dirZ = 999.0D;
++                    double diffX = p_147447_2_.field_72450_a - p_147447_1_.field_72450_a;
++                    double diffY = p_147447_2_.field_72448_b - p_147447_1_.field_72448_b;
++                    double diffZ = p_147447_2_.field_72449_c - p_147447_1_.field_72449_c;
+ 
+-                    if (flag2)
++                    if (xUnequal)
+                     {
+-                        d3 = (d0 - p_147447_1_.field_72450_a) / d6;
++                        dirX = (endFaceX - p_147447_1_.field_72450_a) / diffX;
+                     }
+ 
+-                    if (flag)
++                    if (yUnequal)
+                     {
+-                        d4 = (d1 - p_147447_1_.field_72448_b) / d7;
++                        dirY = (endFaceY - p_147447_1_.field_72448_b) / diffY;
+                     }
+ 
+-                    if (flag1)
++                    if (zUnequal)
+                     {
+-                        d5 = (d2 - p_147447_1_.field_72449_c) / d8;
++                        dirZ = (endFaceZ - p_147447_1_.field_72449_c) / diffZ;
+                     }
+ 
+-                    if (d3 == -0.0D)
++                    if (dirX == -0.0D)
+                     {
+-                        d3 = -1.0E-4D;
++                        dirX = -1.0E-4D;
+                     }
+ 
+-                    if (d4 == -0.0D)
++                    if (dirY == -0.0D)
+                     {
+-                        d4 = -1.0E-4D;
++                        dirY = -1.0E-4D;
+                     }
+ 
+-                    if (d5 == -0.0D)
++                    if (dirZ == -0.0D)
+                     {
+-                        d5 = -1.0E-4D;
++                        dirZ = -1.0E-4D;
+                     }
+ 
+                     EnumFacing enumfacing;
+ 
+-                    if (d3 < d4 && d3 < d5)
++                    if (dirX < dirY && dirX < dirZ)
+                     {
+-                        enumfacing = i > l ? EnumFacing.WEST : EnumFacing.EAST;
+-                        p_147447_1_ = new Vec3d(d0, p_147447_1_.field_72448_b + d7 * d3, p_147447_1_.field_72449_c + d8 * d3);
++                        enumfacing = sxi > exi ? EnumFacing.WEST : EnumFacing.EAST;
++                        p_147447_1_ = new Vec3d(endFaceX, p_147447_1_.field_72448_b + diffY * dirX, p_147447_1_.field_72449_c + diffZ * dirX);
+                     }
+-                    else if (d4 < d5)
++                    else if (dirY < dirZ)
+                     {
+-                        enumfacing = j > i1 ? EnumFacing.DOWN : EnumFacing.UP;
+-                        p_147447_1_ = new Vec3d(p_147447_1_.field_72450_a + d6 * d4, d1, p_147447_1_.field_72449_c + d8 * d4);
++                        enumfacing = syi > eyi ? EnumFacing.DOWN : EnumFacing.UP;
++                        p_147447_1_ = new Vec3d(p_147447_1_.field_72450_a + diffX * dirY, endFaceY, p_147447_1_.field_72449_c + diffZ * dirY);
+                     }
+                     else
+                     {
+-                        enumfacing = k > j1 ? EnumFacing.NORTH : EnumFacing.SOUTH;
+-                        p_147447_1_ = new Vec3d(p_147447_1_.field_72450_a + d6 * d5, p_147447_1_.field_72448_b + d7 * d5, d2);
++                        enumfacing = szi > ezi ? EnumFacing.NORTH : EnumFacing.SOUTH;
++                        p_147447_1_ = new Vec3d(p_147447_1_.field_72450_a + diffX * dirZ, p_147447_1_.field_72448_b + diffY * dirZ, endFaceZ);
+                     }
+ 
+-                    l = MathHelper.func_76128_c(p_147447_1_.field_72450_a) - (enumfacing == EnumFacing.EAST ? 1 : 0);
+-                    i1 = MathHelper.func_76128_c(p_147447_1_.field_72448_b) - (enumfacing == EnumFacing.UP ? 1 : 0);
+-                    j1 = MathHelper.func_76128_c(p_147447_1_.field_72449_c) - (enumfacing == EnumFacing.SOUTH ? 1 : 0);
+-                    blockpos = new BlockPos(l, i1, j1);
+-                    IBlockState iblockstate1 = this.func_180495_p(blockpos);
+-                    Block block1 = iblockstate1.func_177230_c();
++                    exi = MathHelper.func_76128_c(p_147447_1_.field_72450_a) - (enumfacing == EnumFacing.EAST ? 1 : 0);
++                    eyi = MathHelper.func_76128_c(p_147447_1_.field_72448_b) - (enumfacing == EnumFacing.UP ? 1 : 0);
++                    ezi = MathHelper.func_76128_c(p_147447_1_.field_72449_c) - (enumfacing == EnumFacing.SOUTH ? 1 : 0);
++                    endFloor = new BlockPos(exi, eyi, ezi);
++                    IBlockState endState2 = this.func_180495_p(endFloor);
++                    Block block1 = endState2.func_177230_c();
+ 
+-                    if (!p_147447_4_ || iblockstate1.func_185904_a() == Material.field_151567_E || iblockstate1.func_185890_d(this, blockpos) != Block.field_185506_k)
++                    if (!p_147447_4_ || endState2.func_185904_a() == Material.field_151567_E || endState2.func_185890_d(this, endFloor) != Block.field_185506_k)
+                     {
+-                        if (block1.func_176209_a(iblockstate1, p_147447_3_))
++                        if (block1.func_176209_a(endState2, p_147447_3_))
+                         {
+-                            RayTraceResult raytraceresult1 = iblockstate1.func_185910_a(this, blockpos, p_147447_1_, p_147447_2_);
++                            RayTraceResult endStateResult2 = endState2.func_185910_a(this, endFloor, p_147447_1_, p_147447_2_);
+ 
+-                            if (raytraceresult1 != null)
++                            if (endStateResult2 != null)
+                             {
+-                                return raytraceresult1;
++                                return endStateResult2;
+                             }
+                         }
+                         else
+                         {
+-                            raytraceresult2 = new RayTraceResult(RayTraceResult.Type.MISS, p_147447_1_, enumfacing, blockpos);
++                            result = new RayTraceResult(RayTraceResult.Type.MISS, p_147447_1_, enumfacing, endFloor);
+                         }
+                     }
+                 }
+ 
+-                return p_147447_5_ ? raytraceresult2 : null;
++                return p_147447_5_ ? result : null;
+             }
+             else
+             {
 @@ -1076,6 +1187,18 @@
  
      public void func_72900_e(Entity p_72900_1_)
