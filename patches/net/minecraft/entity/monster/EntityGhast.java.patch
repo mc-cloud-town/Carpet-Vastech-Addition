@@ -73,9 +73,12 @@
      static class AIFireballAttack extends EntityAIBase
          {
              private final EntityGhast field_179470_b;
-@@ -180,7 +230,28 @@
+@@ -178,9 +228,30 @@
+                 this.field_179470_b = p_i45837_1_;
+             }
  
-             public boolean func_75250_a()
+-            public boolean func_75250_a()
++            public boolean shouldStart()
              {
 -                return this.field_179470_b.func_70638_az() != null;
 +                //return this.parentEntity.getAttackTarget() != null;
@@ -103,7 +106,7 @@
              }
  
              public void func_75249_e()
-@@ -191,6 +262,11 @@
+@@ -191,9 +262,14 @@
              public void func_75251_c()
              {
                  this.field_179470_b.func_175454_a(false);
@@ -114,4 +117,41 @@
 +                }
              }
  
-             public void func_75246_d()
+-            public void func_75246_d()
++            public void tick()
+             {
+                 EntityLivingBase entitylivingbase = this.field_179470_b.func_70638_az();
+                 double d0 = 64.0D;
+@@ -244,12 +320,12 @@
+                 this.func_75248_a(2);
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 return true;
+             }
+ 
+-            public void func_75246_d()
++            public void tick()
+             {
+                 if (this.field_179472_a.func_70638_az() == null)
+                 {
+@@ -282,7 +358,7 @@
+                 this.func_75248_a(1);
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 EntityMoveHelper entitymovehelper = this.field_179454_a.func_70605_aq();
+ 
+@@ -300,7 +376,7 @@
+                 }
+             }
+ 
+-            public boolean func_75253_b()
++            public boolean shouldContinue()
+             {
+                 return false;
+             }

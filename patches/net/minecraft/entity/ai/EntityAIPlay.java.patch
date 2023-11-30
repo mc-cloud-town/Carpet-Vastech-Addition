@@ -1,5 +1,32 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIPlay.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIPlay.java
+@@ -19,7 +19,7 @@
+         this.func_75248_a(1);
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         if (this.field_75262_a.func_70874_b() >= 0)
+         {
+@@ -62,7 +62,7 @@
+         }
+     }
+ 
+-    public boolean func_75253_b()
++    public boolean shouldContinue()
+     {
+         return this.field_75259_d > 0;
+     }
+@@ -83,7 +83,7 @@
+         this.field_75260_b = null;
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
+     {
+         --this.field_75259_d;
+ 
 @@ -106,4 +106,9 @@
              this.field_75262_a.func_70661_as().func_75492_a(vec3d.field_72450_a, vec3d.field_72448_b, vec3d.field_72449_c, this.field_75261_c);
          }

@@ -132,7 +132,16 @@
          p_82448_3_.field_72984_F.func_76319_b();
  
          if (p_82448_2_ != 1)
-@@ -1097,4 +1127,26 @@
+@@ -1049,6 +1079,8 @@
+         if (playeradvancements == null)
+         {
+             File file1 = new File(this.field_72400_f.func_71218_a(0).func_72860_G().func_75765_b(), "advancements");
++            UUID fileUUID = CarpetSettings.useOfflineUUIDForPlayerData ?
++                    EntityPlayer.func_175147_b(p_192054_1_.func_70005_c_()) : uuid;
+             File file2 = new File(file1, uuid + ".json");
+             playeradvancements = new PlayerAdvancements(this.field_72400_f, file2, p_192054_1_);
+             this.field_192055_p.put(uuid, playeradvancements);
+@@ -1097,4 +1129,26 @@
              playeradvancements.func_193766_b();
          }
      }

@@ -1,5 +1,29 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIOcelotSit.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIOcelotSit.java
+@@ -20,9 +20,9 @@
+         this.field_151493_a = p_i45315_1_;
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+-        return this.field_151493_a.func_70909_n() && !this.field_151493_a.func_70906_o() && super.func_75250_a();
++        return this.field_151493_a.func_70909_n() && !this.field_151493_a.func_70906_o() && super.shouldStart();
+     }
+ 
+     public void func_75249_e()
+@@ -37,9 +37,9 @@
+         this.field_151493_a.func_70904_g(false);
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
+     {
+-        super.func_75246_d();
++        super.tick();
+         this.field_151493_a.func_70907_r().func_75270_a(false);
+ 
+         if (!this.func_179487_f())
 @@ -88,4 +88,9 @@
              return false;
          }

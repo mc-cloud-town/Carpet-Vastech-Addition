@@ -1,6 +1,6 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAITasks.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAITasks.java
-@@ -60,6 +60,8 @@
+@@ -60,22 +60,25 @@
          {
              for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry : this.field_75782_a)
              {
@@ -8,8 +8,19 @@
 +                    carpet.carpetclient.CarpetClientChunkLogger.setReason("Entity" + entityaitasks$entityaitaskentry.field_75733_a.getTask());
                  if (entityaitasks$entityaitaskentry.field_188524_c)
                  {
-                     if (!this.func_75775_b(entityaitasks$entityaitaskentry) || !this.func_75773_a(entityaitasks$entityaitaskentry))
-@@ -76,6 +78,7 @@
+-                    if (!this.func_75775_b(entityaitasks$entityaitaskentry) || !this.func_75773_a(entityaitasks$entityaitaskentry))
++                    if (!this.isTaskCompatible(entityaitasks$entityaitaskentry) || !this.func_75773_a(entityaitasks$entityaitaskentry))
+                     {
+                         entityaitasks$entityaitaskentry.field_188524_c = false;
+                         entityaitasks$entityaitaskentry.field_75733_a.func_75251_c();
+                         this.field_75780_b.remove(entityaitasks$entityaitaskentry);
+                     }
+                 }
+-                else if (this.func_75775_b(entityaitasks$entityaitaskentry) && entityaitasks$entityaitaskentry.field_75733_a.func_75250_a())
++                else if (this.isTaskCompatible(entityaitasks$entityaitaskentry) && entityaitasks$entityaitaskentry.field_75733_a.shouldStart())
+                 {
+                     entityaitasks$entityaitaskentry.field_188524_c = true;
+                     entityaitasks$entityaitaskentry.field_75733_a.func_75249_e();
                      this.field_75780_b.add(entityaitasks$entityaitaskentry);
                  }
              }
@@ -21,12 +32,48 @@
  
              for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry2 : this.field_75780_b)
              {
+-                entityaitasks$entityaitaskentry2.field_75733_a.func_75246_d();
 +                if(carpet.carpetclient.CarpetClientChunkLogger.logger.enabled)
 +                    carpet.carpetclient.CarpetClientChunkLogger.setReason("Entity" + entityaitasks$entityaitaskentry2.field_75733_a.getTask());
 +                
-                 entityaitasks$entityaitaskentry2.field_75733_a.func_75246_d();
++                entityaitasks$entityaitaskentry2.field_75733_a.tick();
              }
 +            carpet.carpetclient.CarpetClientChunkLogger.resetReason();
  
              this.field_75781_c.func_76319_b();
          }
+@@ -111,16 +118,16 @@
+ 
+     private boolean func_75773_a(EntityAITasks.EntityAITaskEntry p_75773_1_)
+     {
+-        return p_75773_1_.field_75733_a.func_75253_b();
++        return p_75773_1_.field_75733_a.shouldContinue();
+     }
+ 
+-    private boolean func_75775_b(EntityAITasks.EntityAITaskEntry p_75775_1_)
++    private boolean isTaskCompatible(EntityAITasks.EntityAITaskEntry taskEntry)
+     {
+         if (this.field_75780_b.isEmpty())
+         {
+             return true;
+         }
+-        else if (this.func_188528_b(p_75775_1_.field_75733_a.func_75247_h()))
++        else if (this.func_188528_b(taskEntry.field_75733_a.func_75247_h()))
+         {
+             return false;
+         }
+@@ -128,11 +135,11 @@
+         {
+             for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry : this.field_75780_b)
+             {
+-                if (entityaitasks$entityaitaskentry != p_75775_1_)
++                if (entityaitasks$entityaitaskentry != taskEntry)
+                 {
+-                    if (p_75775_1_.field_75731_b >= entityaitasks$entityaitaskentry.field_75731_b)
++                    if (taskEntry.field_75731_b >= entityaitasks$entityaitaskentry.field_75731_b)
+                     {
+-                        if (!this.func_75777_a(p_75775_1_, entityaitasks$entityaitaskentry))
++                        if (!this.func_75777_a(taskEntry, entityaitasks$entityaitaskentry))
+                         {
+                             return false;
+                         }

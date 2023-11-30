@@ -9,6 +9,33 @@
      private EntityLivingBase field_75339_e;
      World field_75342_a;
      private final double field_75336_f;
+@@ -42,7 +42,7 @@
+         }
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         EntityLivingBase entitylivingbase = this.field_75338_d.func_70902_q();
+ 
+@@ -69,7 +69,7 @@
+         }
+     }
+ 
+-    public boolean func_75253_b()
++    public boolean shouldContinue()
+     {
+         return !this.field_75337_g.func_75500_f() && this.field_75338_d.func_70068_e(this.field_75339_e) > (double)(this.field_75340_b * this.field_75340_b) && !this.field_75338_d.func_70906_o();
+     }
+@@ -88,7 +88,7 @@
+         this.field_75338_d.func_184644_a(PathNodeType.WATER, this.field_75344_i);
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
+     {
+         this.field_75338_d.func_70671_ap().func_75651_a(this.field_75339_e, 10.0F, (float)this.field_75338_d.func_70646_bf());
+ 
 @@ -133,4 +133,9 @@
          IBlockState iblockstate = this.field_75342_a.func_180495_p(blockpos);
          return iblockstate.func_193401_d(this.field_75342_a, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID && iblockstate.func_189884_a(this.field_75338_d) && this.field_75342_a.func_175623_d(blockpos.func_177984_a()) && this.field_75342_a.func_175623_d(blockpos.func_177981_b(2));

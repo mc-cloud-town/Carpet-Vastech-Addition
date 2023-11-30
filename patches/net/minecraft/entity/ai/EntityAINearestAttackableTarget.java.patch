@@ -11,6 +11,15 @@
  public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends EntityAITarget
  {
      protected final Class<T> field_75307_b;
+@@ -65,7 +69,7 @@
+         };
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         if (this.field_75308_c > 0 && this.field_75299_d.func_70681_au().nextInt(this.field_75308_c) != 0)
+         {
 @@ -82,12 +86,19 @@
              else
              {

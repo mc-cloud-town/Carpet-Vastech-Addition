@@ -1,6 +1,30 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAILookAtVillager.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAILookAtVillager.java
-@@ -54,4 +54,10 @@
+@@ -15,7 +15,7 @@
+         this.func_75248_a(3);
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         if (!this.field_75397_a.field_70170_p.func_72935_r())
+         {
+@@ -32,7 +32,7 @@
+         }
+     }
+ 
+-    public boolean func_75253_b()
++    public boolean shouldContinue()
+     {
+         return this.field_75396_c > 0;
+     }
+@@ -49,9 +49,15 @@
+         this.field_75395_b = null;
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
+     {
          this.field_75397_a.func_70671_ap().func_75651_a(this.field_75395_b, 30.0F, 30.0F);
          --this.field_75396_c;
      }

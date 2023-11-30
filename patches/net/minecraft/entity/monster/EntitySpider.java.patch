@@ -1,0 +1,33 @@
+--- ../src-base/minecraft/net/minecraft/entity/monster/EntitySpider.java
++++ ../src-work/minecraft/net/minecraft/entity/monster/EntitySpider.java
+@@ -212,7 +212,7 @@
+                 super(p_i46676_1_, 1.0D, true);
+             }
+ 
+-            public boolean func_75253_b()
++            public boolean shouldContinue()
+             {
+                 float f = this.field_75441_b.func_70013_c();
+ 
+@@ -223,7 +223,7 @@
+                 }
+                 else
+                 {
+-                    return super.func_75253_b();
++                    return super.shouldContinue();
+                 }
+             }
+ 
+@@ -240,10 +240,10 @@
+                 super(p_i45818_1_, p_i45818_2_, true);
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 float f = this.field_75299_d.func_70013_c();
+-                return f >= 0.5F ? false : super.func_75250_a();
++                return f >= 0.5F ? false : super.shouldStart();
+             }
+         }
+ 

@@ -1,0 +1,29 @@
+--- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIRestrictOpenDoor.java
++++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIRestrictOpenDoor.java
+@@ -21,7 +21,7 @@
+         }
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         if (this.field_75275_a.field_70170_p.func_72935_r())
+         {
+@@ -52,7 +52,7 @@
+         }
+     }
+ 
+-    public boolean func_75253_b()
++    public boolean shouldContinue()
+     {
+         if (this.field_75275_a.field_70170_p.func_72935_r())
+         {
+@@ -77,7 +77,7 @@
+         this.field_75274_b = null;
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
+     {
+         this.field_75274_b.func_75470_e();
+     }

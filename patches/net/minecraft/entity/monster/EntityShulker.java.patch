@@ -1,0 +1,77 @@
+--- ../src-base/minecraft/net/minecraft/entity/monster/EntityShulker.java
++++ ../src-work/minecraft/net/minecraft/entity/monster/EntityShulker.java
+@@ -602,7 +602,7 @@
+             this.func_75248_a(3);
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+             EntityLivingBase entitylivingbase = EntityShulker.this.func_70638_az();
+ 
+@@ -627,7 +627,7 @@
+             EntityShulker.this.func_184691_a(0);
+         }
+ 
+-        public void func_75246_d()
++        public void tick()
+         {
+             if (EntityShulker.this.field_70170_p.func_175659_aa() != EnumDifficulty.PEACEFUL)
+             {
+@@ -651,7 +651,7 @@
+                     EntityShulker.this.func_70624_b((EntityLivingBase)null);
+                 }
+ 
+-                super.func_75246_d();
++                super.tick();
+             }
+         }
+     }
+@@ -663,9 +663,9 @@
+             super(p_i47060_2_, EntityPlayer.class, true);
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+-            return EntityShulker.this.field_70170_p.func_175659_aa() == EnumDifficulty.PEACEFUL ? false : super.func_75250_a();
++            return EntityShulker.this.field_70170_p.func_175659_aa() == EnumDifficulty.PEACEFUL ? false : super.shouldStart();
+         }
+ 
+         protected AxisAlignedBB func_188511_a(double p_188511_1_)
+@@ -696,9 +696,9 @@
+                 });
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+-                return this.field_75299_d.func_96124_cp() == null ? false : super.func_75250_a();
++                return this.field_75299_d.func_96124_cp() == null ? false : super.shouldStart();
+             }
+ 
+             protected AxisAlignedBB func_188511_a(double p_188511_1_)
+@@ -724,12 +724,12 @@
+         {
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+             return EntityShulker.this.func_70638_az() == null && EntityShulker.this.field_70146_Z.nextInt(40) == 0;
+         }
+ 
+-        public boolean func_75253_b()
++        public boolean shouldContinue()
+         {
+             return EntityShulker.this.func_70638_az() == null && this.field_188522_b > 0;
+         }
+@@ -748,7 +748,7 @@
+             }
+         }
+ 
+-        public void func_75246_d()
++        public void tick()
+         {
+             --this.field_188522_b;
+         }

@@ -1,0 +1,32 @@
+--- ../src-base/minecraft/net/minecraft/entity/monster/EntityPolarBear.java
++++ ../src-work/minecraft/net/minecraft/entity/monster/EntityPolarBear.java
+@@ -199,7 +199,7 @@
+             super(EntityPolarBear.this, EntityPlayer.class, 20, true, true, (Predicate)null);
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+             if (EntityPolarBear.this.func_70631_g_())
+             {
+@@ -207,7 +207,7 @@
+             }
+             else
+             {
+-                if (super.func_75250_a())
++                if (super.shouldStart())
+                 {
+                     for (EntityPolarBear entitypolarbear : EntityPolarBear.this.field_70170_p.func_72872_a(EntityPolarBear.class, EntityPolarBear.this.func_174813_aQ().func_72314_b(8.0D, 4.0D, 8.0D)))
+                     {
+@@ -313,9 +313,9 @@
+             super(EntityPolarBear.this, 2.0D);
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+-            return !EntityPolarBear.this.func_70631_g_() && !EntityPolarBear.this.func_70027_ad() ? false : super.func_75250_a();
++            return !EntityPolarBear.this.func_70631_g_() && !EntityPolarBear.this.func_70027_ad() ? false : super.shouldStart();
+         }
+     }
+ 

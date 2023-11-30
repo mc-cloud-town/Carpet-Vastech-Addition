@@ -1,0 +1,79 @@
+--- ../src-base/minecraft/net/minecraft/entity/monster/EntityEnderman.java
++++ ../src-work/minecraft/net/minecraft/entity/monster/EntityEnderman.java
+@@ -391,7 +391,7 @@
+                 this.field_179449_j = p_i45842_1_;
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 double d0 = this.func_111175_f();
+                 this.field_179448_g = this.field_179449_j.field_70170_p.func_184150_a(this.field_179449_j.field_70165_t, this.field_179449_j.field_70163_u, this.field_179449_j.field_70161_v, d0, d0, (Function)null, new Predicate<EntityPlayer>()
+@@ -416,7 +416,7 @@
+                 super.func_75251_c();
+             }
+ 
+-            public boolean func_75253_b()
++            public boolean shouldContinue()
+             {
+                 if (this.field_179448_g != null)
+                 {
+@@ -432,11 +432,11 @@
+                 }
+                 else
+                 {
+-                    return this.field_75309_a != null && ((EntityPlayer)this.field_75309_a).func_70089_S() ? true : super.func_75253_b();
++                    return this.field_75309_a != null && ((EntityPlayer)this.field_75309_a).func_70089_S() ? true : super.shouldContinue();
+                 }
+             }
+ 
+-            public void func_75246_d()
++            public void tick()
+             {
+                 if (this.field_179448_g != null)
+                 {
+@@ -466,7 +466,7 @@
+                         }
+                     }
+ 
+-                    super.func_75246_d();
++                    super.tick();
+                 }
+             }
+         }
+@@ -480,7 +480,7 @@
+                 this.field_179475_a = p_i45843_1_;
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 if (this.field_179475_a.func_175489_ck() == null)
+                 {
+@@ -496,7 +496,7 @@
+                 }
+             }
+ 
+-            public void func_75246_d()
++            public void tick()
+             {
+                 Random random = this.field_179475_a.func_70681_au();
+                 World world = this.field_179475_a.field_70170_p;
+@@ -545,7 +545,7 @@
+                 this.field_179473_a = p_i45841_1_;
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 if (this.field_179473_a.func_175489_ck() != null)
+                 {
+@@ -561,7 +561,7 @@
+                 }
+             }
+ 
+-            public void func_75246_d()
++            public void tick()
+             {
+                 Random random = this.field_179473_a.func_70681_au();
+                 World world = this.field_179473_a.field_70170_p;

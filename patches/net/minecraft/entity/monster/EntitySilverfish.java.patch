@@ -1,0 +1,43 @@
+--- ../src-base/minecraft/net/minecraft/entity/monster/EntitySilverfish.java
++++ ../src-work/minecraft/net/minecraft/entity/monster/EntitySilverfish.java
+@@ -170,7 +170,7 @@
+                 this.func_75248_a(1);
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 if (this.field_75457_a.func_70638_az() != null)
+                 {
+@@ -198,13 +198,13 @@
+                     }
+ 
+                     this.field_179484_c = false;
+-                    return super.func_75250_a();
++                    return super.shouldStart();
+                 }
+             }
+ 
+-            public boolean func_75253_b()
++            public boolean shouldContinue()
+             {
+-                return this.field_179484_c ? false : super.func_75253_b();
++                return this.field_179484_c ? false : super.shouldContinue();
+             }
+ 
+             public void func_75249_e()
+@@ -247,12 +247,12 @@
+                 }
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 return this.field_179463_b > 0;
+             }
+ 
+-            public void func_75246_d()
++            public void tick()
+             {
+                 --this.field_179463_b;
+ 

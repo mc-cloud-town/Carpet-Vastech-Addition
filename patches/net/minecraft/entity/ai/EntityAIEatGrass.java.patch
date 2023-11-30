@@ -1,5 +1,32 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIEatGrass.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIEatGrass.java
+@@ -25,7 +25,7 @@
+         this.func_75248_a(7);
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         if (this.field_151500_b.func_70681_au().nextInt(this.field_151500_b.func_70631_g_() ? 50 : 1000) != 0)
+         {
+@@ -58,7 +58,7 @@
+         this.field_151502_a = 0;
+     }
+ 
+-    public boolean func_75253_b()
++    public boolean shouldContinue()
+     {
+         return this.field_151502_a > 0;
+     }
+@@ -68,7 +68,7 @@
+         return this.field_151502_a;
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
+     {
+         this.field_151502_a = Math.max(0, this.field_151502_a - 1);
+ 
 @@ -102,4 +102,9 @@
              }
          }

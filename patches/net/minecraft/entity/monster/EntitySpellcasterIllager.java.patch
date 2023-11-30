@@ -1,0 +1,47 @@
+--- ../src-base/minecraft/net/minecraft/entity/monster/EntitySpellcasterIllager.java
++++ ../src-work/minecraft/net/minecraft/entity/monster/EntitySpellcasterIllager.java
+@@ -105,7 +105,7 @@
+             this.func_75248_a(3);
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+             return EntitySpellcasterIllager.this.func_193085_dn() > 0;
+         }
+@@ -122,7 +122,7 @@
+             EntitySpellcasterIllager.this.func_193081_a(EntitySpellcasterIllager.SpellType.NONE);
+         }
+ 
+-        public void func_75246_d()
++        public void tick()
+         {
+             if (EntitySpellcasterIllager.this.func_70638_az() != null)
+             {
+@@ -136,7 +136,7 @@
+         protected int field_193321_c;
+         protected int field_193322_d;
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+             if (EntitySpellcasterIllager.this.func_70638_az() == null)
+             {
+@@ -152,7 +152,7 @@
+             }
+         }
+ 
+-        public boolean func_75253_b()
++        public boolean shouldContinue()
+         {
+             return EntitySpellcasterIllager.this.func_70638_az() != null && this.field_193321_c > 0;
+         }
+@@ -172,7 +172,7 @@
+             EntitySpellcasterIllager.this.func_193081_a(this.func_193320_l());
+         }
+ 
+-        public void func_75246_d()
++        public void tick()
+         {
+             --this.field_193321_c;
+ 

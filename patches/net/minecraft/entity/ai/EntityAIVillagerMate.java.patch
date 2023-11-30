@@ -7,9 +7,12 @@
  import net.minecraft.entity.Entity;
  import net.minecraft.entity.passive.EntityVillager;
  import net.minecraft.util.math.BlockPos;
-@@ -23,8 +24,16 @@
+@@ -21,10 +22,18 @@
+         this.func_75248_a(3);
+     }
  
-     public boolean func_75250_a()
+-    public boolean func_75250_a()
++    public boolean shouldStart()
      {
 +        if (CarpetSettings.displayMobAI && this.field_75450_b.func_70874_b()<5 && this.field_75450_b.func_70874_b()>0)
 +        {
@@ -57,7 +60,7 @@
      }
  
      public void func_75251_c()
-@@ -71,6 +92,10 @@
+@@ -71,16 +92,31 @@
          this.field_75452_a = null;
          this.field_75451_c = null;
          this.field_75450_b.func_70947_e(false);
@@ -67,9 +70,14 @@
 +        }
      }
  
-     public boolean func_75253_b()
-@@ -81,6 +106,17 @@
-     public void func_75246_d()
+-    public boolean func_75253_b()
++    public boolean shouldContinue()
+     {
+         return this.field_75449_e >= 0 && this.func_75446_f() && this.field_75450_b.func_70874_b() == 0 && this.field_75450_b.func_175550_n(false);
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
      {
          --this.field_75449_e;
 +        if (CarpetSettings.displayMobAI)

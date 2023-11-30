@@ -28,23 +28,23 @@ public class GhastHelper
         }
 
         @Override
-        public boolean shouldExecute()
+        public boolean shouldStart()
         {
             if (CarpetSettings.rideableGhasts && this.entityLiving.hasCustomName())
             {
                 return false;
             }
-            return super.shouldExecute();
+            return super.shouldStart();
         }
 
         @Override
-        public boolean shouldContinueExecuting()
+        public boolean shouldContinue()
         {
             if (CarpetSettings.rideableGhasts && this.entityLiving.hasCustomName())
             {
                 return false;
             }
-            return super.shouldContinueExecuting();
+            return super.shouldContinue();
         }
 
     }
@@ -88,7 +88,7 @@ public class GhastHelper
             this.parentEntity = ghast;
             this.setMutexBits(1);
         }
-        public boolean shouldExecute()
+        public boolean shouldStart()
         {
             if (!CarpetSettings.rideableGhasts)
             {
@@ -121,7 +121,7 @@ public class GhastHelper
             //return new Vec3d(v.zCoord+v.yCoord, -v.zCoord+v.xCoord, -v.yCoord-v.xCoord);
             //return new Vec3d(v.zCoord+v.yCoord, 0.0, -v.yCoord-v.xCoord);
         //}
-        public void updateTask()
+        public void tick()
         {
             float strafe = rider.moveStrafing;
             float forward = rider.moveForward;
@@ -195,7 +195,7 @@ public class GhastHelper
             return null;
         }
 
-        public boolean shouldExecute()
+        public boolean shouldStart()
         {
             if (!CarpetSettings.rideableGhasts)
             {

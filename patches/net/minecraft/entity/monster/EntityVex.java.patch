@@ -1,0 +1,59 @@
+--- ../src-base/minecraft/net/minecraft/entity/monster/EntityVex.java
++++ ../src-work/minecraft/net/minecraft/entity/monster/EntityVex.java
+@@ -241,7 +241,7 @@
+             this.func_75248_a(1);
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+             if (EntityVex.this.func_70638_az() != null && !EntityVex.this.func_70605_aq().func_75640_a() && EntityVex.this.field_70146_Z.nextInt(7) == 0)
+             {
+@@ -253,7 +253,7 @@
+             }
+         }
+ 
+-        public boolean func_75253_b()
++        public boolean shouldContinue()
+         {
+             return EntityVex.this.func_70605_aq().func_75640_a() && EntityVex.this.func_190647_dj() && EntityVex.this.func_70638_az() != null && EntityVex.this.func_70638_az().func_70089_S();
+         }
+@@ -272,7 +272,7 @@
+             EntityVex.this.func_190648_a(false);
+         }
+ 
+-        public void func_75246_d()
++        public void tick()
+         {
+             EntityLivingBase entitylivingbase = EntityVex.this.func_70638_az();
+ 
+@@ -301,7 +301,7 @@
+             super(p_i47231_2_, false);
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+             return EntityVex.this.field_190665_b != null && EntityVex.this.field_190665_b.func_70638_az() != null && this.func_75296_a(EntityVex.this.field_190665_b.func_70638_az(), false);
+         }
+@@ -367,17 +367,17 @@
+             this.func_75248_a(1);
+         }
+ 
+-        public boolean func_75250_a()
++        public boolean shouldStart()
+         {
+             return !EntityVex.this.func_70605_aq().func_75640_a() && EntityVex.this.field_70146_Z.nextInt(7) == 0;
+         }
+ 
+-        public boolean func_75253_b()
++        public boolean shouldContinue()
+         {
+             return false;
+         }
+ 
+-        public void func_75246_d()
++        public void tick()
+         {
+             BlockPos blockpos = EntityVex.this.func_190646_di();
+ 

@@ -1,5 +1,29 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIRunAroundLikeCrazy.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIRunAroundLikeCrazy.java
+@@ -20,7 +20,7 @@
+         this.func_75248_a(1);
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         if (!this.field_111180_a.func_110248_bS() && this.field_111180_a.func_184207_aI())
+         {
+@@ -49,12 +49,12 @@
+         this.field_111180_a.func_70661_as().func_75492_a(this.field_111179_c, this.field_111176_d, this.field_111177_e, this.field_111178_b);
+     }
+ 
+-    public boolean func_75253_b()
++    public boolean shouldContinue()
+     {
+         return !this.field_111180_a.func_110248_bS() && !this.field_111180_a.func_70661_as().func_75500_f() && this.field_111180_a.func_184207_aI();
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
+     {
+         if (!this.field_111180_a.func_110248_bS() && this.field_111180_a.func_70681_au().nextInt(50) == 0)
+         {
 @@ -84,4 +84,9 @@
              this.field_111180_a.field_70170_p.func_72960_a(this.field_111180_a, (byte)6);
          }

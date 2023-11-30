@@ -453,7 +453,7 @@
              if (this.field_150816_i.containsKey(p_177426_1_))
              {
 +                field_150817_t.debug("Invalidating tile entity at " + p_177426_1_);
-+                System.out.println(p_177426_1_);
++//                System.out.println(pos);
                  ((TileEntity)this.field_150816_i.get(p_177426_1_)).func_145843_s();
              }
  

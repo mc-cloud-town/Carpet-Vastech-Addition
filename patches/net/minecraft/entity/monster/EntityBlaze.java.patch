@@ -1,0 +1,29 @@
+--- ../src-base/minecraft/net/minecraft/entity/monster/EntityBlaze.java
++++ ../src-work/minecraft/net/minecraft/entity/monster/EntityBlaze.java
+@@ -198,7 +198,7 @@
+                 this.func_75248_a(3);
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 EntityLivingBase entitylivingbase = this.field_179469_a.func_70638_az();
+                 return entitylivingbase != null && entitylivingbase.func_70089_S();
+@@ -214,7 +214,7 @@
+                 this.field_179469_a.func_70844_e(false);
+             }
+ 
+-            public void func_75246_d()
++            public void tick()
+             {
+                 --this.field_179468_c;
+                 EntityLivingBase entitylivingbase = this.field_179469_a.func_70638_az();
+@@ -278,7 +278,7 @@
+                     this.field_179469_a.func_70605_aq().func_75642_a(entitylivingbase.field_70165_t, entitylivingbase.field_70163_u, entitylivingbase.field_70161_v, 1.0D);
+                 }
+ 
+-                super.func_75246_d();
++                super.tick();
+             }
+ 
+             private double func_191523_f()

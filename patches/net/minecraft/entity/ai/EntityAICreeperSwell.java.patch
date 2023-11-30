@@ -1,5 +1,23 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAICreeperSwell.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAICreeperSwell.java
+@@ -14,7 +14,7 @@
+         this.func_75248_a(1);
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         EntityLivingBase entitylivingbase = this.field_75269_a.func_70638_az();
+         return this.field_75269_a.func_70832_p() > 0 || entitylivingbase != null && this.field_75269_a.func_70068_e(entitylivingbase) < 9.0D;
+@@ -31,7 +31,7 @@
+         this.field_75268_b = null;
+     }
+ 
+-    public void func_75246_d()
++    public void tick()
+     {
+         if (this.field_75268_b == null)
+         {
 @@ -50,4 +50,9 @@
              this.field_75269_a.func_70829_a(1);
          }

@@ -42,3 +42,40 @@
      static class AIGuardianAttack extends EntityAIBase
          {
              private final EntityGuardian field_179456_a;
+@@ -409,15 +437,15 @@
+                 this.func_75248_a(3);
+             }
+ 
+-            public boolean func_75250_a()
++            public boolean shouldStart()
+             {
+                 EntityLivingBase entitylivingbase = this.field_179456_a.func_70638_az();
+                 return entitylivingbase != null && entitylivingbase.func_70089_S();
+             }
+ 
+-            public boolean func_75253_b()
++            public boolean shouldContinue()
+             {
+-                return super.func_75253_b() && (this.field_190881_c || this.field_179456_a.func_70068_e(this.field_179456_a.func_70638_az()) > 9.0D);
++                return super.shouldContinue() && (this.field_190881_c || this.field_179456_a.func_70068_e(this.field_179456_a.func_70638_az()) > 9.0D);
+             }
+ 
+             public void func_75249_e()
+@@ -435,7 +463,7 @@
+                 this.field_179456_a.field_175481_bq.func_179480_f();
+             }
+ 
+-            public void func_75246_d()
++            public void tick()
+             {
+                 EntityLivingBase entitylivingbase = this.field_179456_a.func_70638_az();
+                 this.field_179456_a.func_70661_as().func_75499_g();
+@@ -473,7 +501,7 @@
+                         this.field_179456_a.func_70624_b((EntityLivingBase)null);
+                     }
+ 
+-                    super.func_75246_d();
++                    super.tick();
+                 }
+             }
+         }

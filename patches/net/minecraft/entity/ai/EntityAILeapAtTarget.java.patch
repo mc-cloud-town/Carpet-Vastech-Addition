@@ -1,5 +1,23 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAILeapAtTarget.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAILeapAtTarget.java
+@@ -17,7 +17,7 @@
+         this.func_75248_a(5);
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         this.field_75326_b = this.field_75328_a.func_70638_az();
+ 
+@@ -47,7 +47,7 @@
+         }
+     }
+ 
+-    public boolean func_75253_b()
++    public boolean shouldContinue()
+     {
+         return !this.field_75328_a.field_70122_E;
+     }
 @@ -66,4 +66,9 @@
  
          this.field_75328_a.field_70181_x = (double)this.field_75327_c;

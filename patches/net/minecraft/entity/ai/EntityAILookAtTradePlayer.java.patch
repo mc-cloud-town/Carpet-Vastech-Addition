@@ -1,5 +1,14 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAILookAtTradePlayer.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAILookAtTradePlayer.java
+@@ -13,7 +13,7 @@
+         this.field_75335_b = p_i1633_1_;
+     }
+ 
+-    public boolean func_75250_a()
++    public boolean shouldStart()
+     {
+         if (this.field_75335_b.func_70940_q())
+         {
 @@ -25,4 +25,9 @@
              return false;
          }
