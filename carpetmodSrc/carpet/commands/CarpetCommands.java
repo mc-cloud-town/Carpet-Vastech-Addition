@@ -22,6 +22,7 @@ public class CarpetCommands {
         handler.registerCommand(new CommandDebuglogger());
         handler.registerCommand(new CommandDistance());
         handler.registerCommand(new CommandEntityInfo());
+        handler.registerCommand(new CommandEntityTask());
         handler.registerCommand(new CommandFeel());
         handler.registerCommand(new CommandFill13());
         handler.registerCommand(new CommandFillBiome());

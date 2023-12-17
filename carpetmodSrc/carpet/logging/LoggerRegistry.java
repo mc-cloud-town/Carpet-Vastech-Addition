@@ -50,6 +50,7 @@ public class LoggerRegistry
     public static boolean __carefulBreak;
     public static boolean __normalCameraVision;
     public static boolean __population;
+    public static boolean __entityTask;
 
     public static void initLoggers(MinecraftServer server)
     {
@@ -68,6 +69,7 @@ public class LoggerRegistry
         registerLogger("liquidPocket", new Logger(server, "liquidPocket", null, null, LogHandler.HUD));
         registerLogger("population", new LoggerWithFreeOptions(server, "population", LogHandler.CHAT));
 //        registerLogger("village", new LoggerWithFreeOptions(server, "village", LogHandler.CHAT));
+        registerLogger("entityTask", new LoggerWithFreeOptions(server, "entityTask", LogHandler.CHAT));
 
         registerLogger("autosave", new Logger(server, "autosave", null, null, LogHandler.HUD));
         registerLogger("tps", new Logger(server, "tps", null, null, LogHandler.HUD));

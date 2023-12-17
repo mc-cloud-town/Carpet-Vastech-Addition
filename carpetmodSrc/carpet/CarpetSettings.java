@@ -106,6 +106,9 @@ public class CarpetSettings
     })
     public static boolean commandEntityInfo = true;
 
+    @Rule(desc = "Enables /entityTask command", category = COMMANDS)
+    public static boolean commandEntityTask = false;
+
     @Rule(desc = "Enables /fill13 command, which is a /fill with grammar of 1.13", category = COMMANDS)
     public static boolean commandFill13 = false;
 

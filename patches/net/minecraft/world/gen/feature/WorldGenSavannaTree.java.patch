@@ -8,14 +8,14 @@
 +    public boolean generate_vanilla(World worldIn, Random rand, BlockPos position)
      {
 -        int i = p_180709_2_.nextInt(3) + p_180709_2_.nextInt(3) + 5;
-+        int i = rand.nextInt(3) + rand.nextInt(3) + 5;
++        int height = rand.nextInt(3) + rand.nextInt(3) + 5;
          boolean flag = true;
  
 -        if (p_180709_3_.func_177956_o() >= 1 && p_180709_3_.func_177956_o() + i + 1 <= 256)
-+        if (position.func_177956_o() >= 1 && position.func_177956_o() + i + 1 <= 256)
++        if (position.func_177956_o() >= 1 && position.func_177956_o() + height + 1 <= 256)
          {
 -            for (int j = p_180709_3_.func_177956_o(); j <= p_180709_3_.func_177956_o() + 1 + i; ++j)
-+            for (int j = position.func_177956_o(); j <= position.func_177956_o() + 1 + i; ++j)
++            for (int j = position.func_177956_o(); j <= position.func_177956_o() + 1 + height; ++j)
              {
                  int k = 1;
  
@@ -26,7 +26,7 @@
                  }
  
 -                if (j >= p_180709_3_.func_177956_o() + 1 + i - 2)
-+                if (j >= position.func_177956_o() + 1 + i - 2)
++                if (j >= position.func_177956_o() + 1 + height - 2)
                  {
                      k = 2;
                  }
@@ -46,7 +46,7 @@
                              {
                                  flag = false;
                              }
-@@ -71,21 +71,21 @@
+@@ -71,118 +71,118 @@
              }
              else
              {
@@ -54,7 +54,7 @@
 +                Block block = worldIn.func_180495_p(position.func_177977_b()).func_177230_c();
  
 -                if ((block == Blocks.field_150349_c || block == Blocks.field_150346_d) && p_180709_3_.func_177956_o() < 256 - i - 1)
-+                if ((block == Blocks.field_150349_c || block == Blocks.field_150346_d) && position.func_177956_o() < 256 - i - 1)
++                if ((block == Blocks.field_150349_c || block == Blocks.field_150346_d) && position.func_177956_o() < 256 - height - 1)
                  {
 -                    this.func_175921_a(p_180709_1_, p_180709_3_.func_177977_b());
 -                    EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.func_179518_a(p_180709_2_);
@@ -62,50 +62,75 @@
 -                    int l2 = 3 - p_180709_2_.nextInt(3);
 -                    int i3 = p_180709_3_.func_177958_n();
 -                    int j1 = p_180709_3_.func_177952_p();
+-                    int k1 = 0;
 +                    this.func_175921_a(worldIn, position.func_177977_b());
-+                    EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.func_179518_a(rand);
-+                    int k2 = i - rand.nextInt(4) - 1;
-+                    int l2 = 3 - rand.nextInt(3);
-+                    int i3 = position.func_177958_n();
-+                    int j1 = position.func_177952_p();
-                     int k1 = 0;
++                    EnumFacing branchDir = EnumFacing.Plane.HORIZONTAL.func_179518_a(rand);
++                    int branchHeight = height - rand.nextInt(4) - 1;
++                    int branchLength = 3 - rand.nextInt(3);
++                    int curX = position.func_177958_n();
++                    int curZ = position.func_177952_p();
++                    int maxY = 0;
  
-                     for (int l1 = 0; l1 < i; ++l1)
+-                    for (int l1 = 0; l1 < i; ++l1)
++                    for (int curH = 0; curH < height; ++curH)
                      {
 -                        int i2 = p_180709_3_.func_177956_o() + l1;
-+                        int i2 = position.func_177956_o() + l1;
++                        int curY = position.func_177956_o() + curH;
  
-                         if (l1 >= k2 && l2 > 0)
+-                        if (l1 >= k2 && l2 > 0)
++                        if (curH >= branchHeight && branchLength > 0)
                          {
-@@ -95,11 +95,11 @@
+-                            i3 += enumfacing.func_82601_c();
+-                            j1 += enumfacing.func_82599_e();
+-                            --l2;
++                            curX += branchDir.func_82601_c();
++                            curZ += branchDir.func_82599_e();
++                            --branchLength;
                          }
  
-                         BlockPos blockpos = new BlockPos(i3, i2, j1);
+-                        BlockPos blockpos = new BlockPos(i3, i2, j1);
 -                        Material material = p_180709_1_.func_180495_p(blockpos).func_185904_a();
++                        BlockPos blockpos = new BlockPos(curX, curY, curZ);
 +                        Material material = worldIn.func_180495_p(blockpos).func_185904_a();
  
                          if (material == Material.field_151579_a || material == Material.field_151584_j)
                          {
 -                            this.func_181642_b(p_180709_1_, blockpos);
+-                            k1 = i2;
 +                            this.func_181642_b(worldIn, blockpos);
-                             k1 = i2;
++                            maxY = curY;
                          }
                      }
-@@ -112,7 +112,7 @@
+ 
+-                    BlockPos blockpos2 = new BlockPos(i3, k1, j1);
++                    BlockPos highestLog = new BlockPos(curX, maxY, curZ);
+ 
+-                    for (int j3 = -3; j3 <= 3; ++j3)
++                    for (int dx = -3; dx <= 3; ++dx)
+                     {
+-                        for (int i4 = -3; i4 <= 3; ++i4)
++                        for (int dz = -3; dz <= 3; ++dz)
                          {
-                             if (Math.abs(j3) != 3 || Math.abs(i4) != 3)
+-                            if (Math.abs(j3) != 3 || Math.abs(i4) != 3)
++                            if (Math.abs(dx) != 3 || Math.abs(dz) != 3)
                              {
 -                                this.func_175924_b(p_180709_1_, blockpos2.func_177982_a(j3, 0, i4));
-+                                this.func_175924_b(worldIn, blockpos2.func_177982_a(j3, 0, i4));
++                                this.func_175924_b(worldIn, highestLog.func_177982_a(dx, 0, dz));
                              }
                          }
                      }
-@@ -123,37 +123,37 @@
+ 
+-                    blockpos2 = blockpos2.func_177984_a();
++                    highestLog = highestLog.func_177984_a();
+ 
+-                    for (int k3 = -1; k3 <= 1; ++k3)
++                    for (int dx = -1; dx <= 1; ++dx)
                      {
-                         for (int j4 = -1; j4 <= 1; ++j4)
+-                        for (int j4 = -1; j4 <= 1; ++j4)
++                        for (int dz = -1; dz <= 1; ++dz)
                          {
 -                            this.func_175924_b(p_180709_1_, blockpos2.func_177982_a(k3, 0, j4));
-+                            this.func_175924_b(worldIn, blockpos2.func_177982_a(k3, 0, j4));
++                            this.func_175924_b(worldIn, highestLog.func_177982_a(dx, 0, dz));
                          }
                      }
  
@@ -116,56 +141,86 @@
 -                    i3 = p_180709_3_.func_177958_n();
 -                    j1 = p_180709_3_.func_177952_p();
 -                    EnumFacing enumfacing1 = EnumFacing.Plane.HORIZONTAL.func_179518_a(p_180709_2_);
-+                    this.func_175924_b(worldIn, blockpos2.func_177965_g(2));
-+                    this.func_175924_b(worldIn, blockpos2.func_177985_f(2));
-+                    this.func_175924_b(worldIn, blockpos2.func_177970_e(2));
-+                    this.func_175924_b(worldIn, blockpos2.func_177964_d(2));
-+                    i3 = position.func_177958_n();
-+                    j1 = position.func_177952_p();
-+                    EnumFacing enumfacing1 = EnumFacing.Plane.HORIZONTAL.func_179518_a(rand);
++                    this.func_175924_b(worldIn, highestLog.func_177965_g(2));
++                    this.func_175924_b(worldIn, highestLog.func_177985_f(2));
++                    this.func_175924_b(worldIn, highestLog.func_177970_e(2));
++                    this.func_175924_b(worldIn, highestLog.func_177964_d(2));
++                    curX = position.func_177958_n();
++                    curZ = position.func_177952_p();
++                    EnumFacing branch2Dir = EnumFacing.Plane.HORIZONTAL.func_179518_a(rand);
  
-                     if (enumfacing1 != enumfacing)
+-                    if (enumfacing1 != enumfacing)
++                    if (branch2Dir != branchDir)
                      {
 -                        int l3 = k2 - p_180709_2_.nextInt(2) - 1;
 -                        int k4 = 1 + p_180709_2_.nextInt(3);
-+                        int l3 = k2 - rand.nextInt(2) - 1;
-+                        int k4 = 1 + rand.nextInt(3);
-                         k1 = 0;
+-                        k1 = 0;
++                        int branch2Height = branchHeight - rand.nextInt(2) - 1;
++                        int branch2Length = 1 + rand.nextInt(3);
++                        maxY = 0;
  
-                         for (int l4 = l3; l4 < i && k4 > 0; --k4)
+-                        for (int l4 = l3; l4 < i && k4 > 0; --k4)
++                        for (int curH = branch2Height; curH < height && branch2Length > 0; --branch2Length)
                          {
-                             if (l4 >= 1)
+-                            if (l4 >= 1)
++                            if (curH >= 1)
                              {
 -                                int j2 = p_180709_3_.func_177956_o() + l4;
-+                                int j2 = position.func_177956_o() + l4;
-                                 i3 += enumfacing1.func_82601_c();
-                                 j1 += enumfacing1.func_82599_e();
-                                 BlockPos blockpos1 = new BlockPos(i3, j2, j1);
+-                                i3 += enumfacing1.func_82601_c();
+-                                j1 += enumfacing1.func_82599_e();
+-                                BlockPos blockpos1 = new BlockPos(i3, j2, j1);
 -                                Material material1 = p_180709_1_.func_180495_p(blockpos1).func_185904_a();
++                                int curY = position.func_177956_o() + curH;
++                                curX += branch2Dir.func_82601_c();
++                                curZ += branch2Dir.func_82599_e();
++                                BlockPos blockpos1 = new BlockPos(curX, curY, curZ);
 +                                Material material1 = worldIn.func_180495_p(blockpos1).func_185904_a();
  
                                  if (material1 == Material.field_151579_a || material1 == Material.field_151584_j)
                                  {
 -                                    this.func_181642_b(p_180709_1_, blockpos1);
+-                                    k1 = j2;
 +                                    this.func_181642_b(worldIn, blockpos1);
-                                     k1 = j2;
++                                    maxY = curY;
                                  }
                              }
-@@ -171,7 +171,7 @@
+ 
+-                            ++l4;
++                            ++curH;
+                         }
+ 
+-                        if (k1 > 0)
++                        if (maxY > 0)
+                         {
+-                            BlockPos blockpos3 = new BlockPos(i3, k1, j1);
++                            BlockPos highestBranch2Log = new BlockPos(curX, maxY, curZ);
+ 
+-                            for (int i5 = -2; i5 <= 2; ++i5)
++                            for (int dx = -2; dx <= 2; ++dx)
+                             {
+-                                for (int k5 = -2; k5 <= 2; ++k5)
++                                for (int dz = -2; dz <= 2; ++dz)
                                  {
-                                     if (Math.abs(i5) != 2 || Math.abs(k5) != 2)
+-                                    if (Math.abs(i5) != 2 || Math.abs(k5) != 2)
++                                    if (Math.abs(dx) != 2 || Math.abs(dz) != 2)
                                      {
 -                                        this.func_175924_b(p_180709_1_, blockpos3.func_177982_a(i5, 0, k5));
-+                                        this.func_175924_b(worldIn, blockpos3.func_177982_a(i5, 0, k5));
++                                        this.func_175924_b(worldIn, highestBranch2Log.func_177982_a(dx, 0, dz));
                                      }
                                  }
                              }
-@@ -182,7 +182,7 @@
+ 
+-                            blockpos3 = blockpos3.func_177984_a();
++                            highestBranch2Log = highestBranch2Log.func_177984_a();
+ 
+-                            for (int j5 = -1; j5 <= 1; ++j5)
++                            for (int dx = -1; dx <= 1; ++dx)
                              {
-                                 for (int l5 = -1; l5 <= 1; ++l5)
+-                                for (int l5 = -1; l5 <= 1; ++l5)
++                                for (int dz = -1; dz <= 1; ++dz)
                                  {
 -                                    this.func_175924_b(p_180709_1_, blockpos3.func_177982_a(j5, 0, l5));
-+                                    this.func_175924_b(worldIn, blockpos3.func_177982_a(j5, 0, l5));
++                                    this.func_175924_b(worldIn, highestBranch2Log.func_177982_a(dx, 0, dz));
                                  }
                              }
                          }

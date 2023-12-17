@@ -10,7 +10,27 @@
  public abstract class EntityLiving extends EntityLivingBase
  {
      private static final DataParameter<Byte> field_184654_a = EntityDataManager.<Byte>func_187226_a(EntityLiving.class, DataSerializers.field_187191_a);
-@@ -192,11 +195,19 @@
+@@ -66,8 +69,9 @@
+     protected EntityJumpHelper field_70767_i;
+     private final EntityBodyHelper field_70762_j;
+     protected PathNavigate field_70699_by;
+-    protected final EntityAITasks field_70714_bg;
+-    protected final EntityAITasks field_70715_bh;
++    // VasCM - changed access
++    public final EntityAITasks field_70714_bg;
++    public final EntityAITasks field_70715_bh;
+     private EntityLivingBase field_70696_bz;
+     private final EntitySenses field_70723_bA;
+     private final NonNullList<ItemStack> field_184656_bv = NonNullList.<ItemStack>func_191197_a(2, ItemStack.field_190927_a);
+@@ -88,6 +92,7 @@
+         super(p_i1595_1_);
+         this.field_70714_bg = new EntityAITasks(p_i1595_1_ != null && p_i1595_1_.field_72984_F != null ? p_i1595_1_.field_72984_F : null);
+         this.field_70715_bh = new EntityAITasks(p_i1595_1_ != null && p_i1595_1_.field_72984_F != null ? p_i1595_1_.field_72984_F : null);
++        this.field_70714_bg.trackedEntity = this.field_70715_bh.trackedEntity = this; // VasCM - entity task logger
+         this.field_70749_g = new EntityLookHelper(this);
+         this.field_70765_h = new EntityMoveHelper(this);
+         this.field_70767_i = new EntityJumpHelper(this);
+@@ -192,11 +197,19 @@
  
      public void func_70642_aH()
      {
@@ -34,7 +54,7 @@
          }
      }
  
-@@ -408,6 +419,10 @@
+@@ -408,6 +421,10 @@
  
              p_70014_1_.func_74782_a("Leash", nbttagcompound2);
          }
@@ -45,7 +65,7 @@
  
          p_70014_1_.func_74757_a("LeftHanded", this.func_184638_cS());
  
-@@ -821,7 +836,9 @@
+@@ -821,7 +838,9 @@
  
      public boolean func_70058_J()
      {
@@ -56,7 +76,7 @@
      }
  
      public int func_70641_bl()
-@@ -1414,4 +1431,33 @@
+@@ -1414,4 +1433,33 @@
          IN_AIR,
          IN_WATER;
      }
