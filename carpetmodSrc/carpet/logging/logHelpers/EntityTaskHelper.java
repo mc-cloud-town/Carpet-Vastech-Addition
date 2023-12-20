@@ -22,7 +22,7 @@ public class EntityTaskHelper {
     }
 
     private static void log(Entity entity, Consumer<List<ITextComponent>> message) {
-        if (!LoggerRegistry.__population) return;
+        if (!LoggerRegistry.__entityTask) return;
         Logger logger = logger();
         logger.log((option, player) -> {
             if (!entity.getCachedUniqueIdString().equals(option)) return new ITextComponent[0];

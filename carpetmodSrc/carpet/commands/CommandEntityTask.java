@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class CommandEntityTask extends CommandCarpetBase {
@@ -34,7 +35,7 @@ public class CommandEntityTask extends CommandCarpetBase {
         } catch (IllegalAccessException e) {
             try {
                 RANDOM_SEED.setAccessible(true);
-                return RANDOM_SEED.getLong(random);
+                return ((AtomicLong) RANDOM_SEED.get(random)).get();
             } catch (IllegalAccessException ex) {
                 throw new AssertionError(ex);
             }

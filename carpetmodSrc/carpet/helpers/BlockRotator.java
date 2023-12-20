@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class BlockRotator
 {
-	public static boolean flipBlockWithCactus(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    public static boolean flipBlockWithCactus(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         if (!playerIn.capabilities.allowEdit || !CarpetSettings.flippinCactus || !player_holds_cactus_mainhand(playerIn))
         {
@@ -150,23 +150,24 @@ public class BlockRotator
     public static boolean flip_block(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         Block block = state.getBlock();
+        IBlockState newState = null;
         if ( (block instanceof BlockGlazedTerracotta) || (block instanceof BlockRedstoneDiode) || (block instanceof BlockRailBase) ||
              (block instanceof BlockTrapDoor)         || (block instanceof BlockLever)         || (block instanceof BlockFenceGate))
         {
-            worldIn.setBlockState(pos, block.withRotation(state, Rotation.CLOCKWISE_90), 130);
+            newState = block.withRotation(state, Rotation.CLOCKWISE_90);
         }
         else if ((block instanceof BlockObserver) || (block instanceof BlockEndRod))
         {
-            worldIn.setBlockState(pos, state.withProperty(BlockDirectional.FACING, (EnumFacing)state.getValue(BlockDirectional.FACING).getOpposite()), 130);
+            newState = state.withProperty(BlockDirectional.FACING, (EnumFacing)state.getValue(BlockDirectional.FACING).getOpposite());
         }
         else if (block instanceof BlockDispenser)
         {
-            worldIn.setBlockState(pos, state.withProperty(BlockDispenser.FACING, (EnumFacing)state.getValue(BlockDispenser.FACING).getOpposite()), 130);
+            newState = state.withProperty(BlockDispenser.FACING, (EnumFacing)state.getValue(BlockDispenser.FACING).getOpposite());
         }
         else if (block instanceof BlockPistonBase)
         {
             if (!(((Boolean)state.getValue(BlockPistonBase.EXTENDED)).booleanValue()))
-                worldIn.setBlockState(pos, state.withProperty(BlockDirectional.FACING, (EnumFacing)state.getValue(BlockDirectional.FACING).getOpposite()), 130);
+                newState = state.withProperty(BlockDirectional.FACING, (EnumFacing)state.getValue(BlockDirectional.FACING).getOpposite());
         }
         else if (block instanceof BlockSlab)
         {
@@ -174,11 +175,11 @@ public class BlockRotator
             {
                 if (state.getValue(BlockSlab.HALF) == BlockSlab.EnumBlockHalf.TOP)
                 {
-                    worldIn.setBlockState(pos, state.withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM), 130);
+                    newState = state.withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
                 }
                 else
                 {
-                    worldIn.setBlockState(pos, state.withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.TOP), 130);
+                    newState = state.withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.TOP);
                 }
             }
         }
@@ -186,7 +187,7 @@ public class BlockRotator
         {
             if ((EnumFacing)state.getValue(BlockHopper.FACING) != EnumFacing.DOWN)
             {
-                worldIn.setBlockState(pos, state.withProperty(BlockHopper.FACING, (EnumFacing) state.getValue(BlockHopper.FACING).rotateY()), 130);
+                newState = state.withProperty(BlockHopper.FACING, (EnumFacing) state.getValue(BlockHopper.FACING).rotateY());
             }
         }
         else if (block instanceof BlockStairs)
@@ -196,11 +197,11 @@ public class BlockRotator
             {
                 if (state.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.TOP)
                 {
-                    worldIn.setBlockState(pos, state.withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM), 130);
+                    newState = state.withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM);
                 }
                 else
                 {
-                    worldIn.setBlockState(pos, state.withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.TOP), 130);
+                    newState = state.withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.TOP);
                 }
             }
             else
@@ -228,11 +229,11 @@ public class BlockRotator
                 }
                 if (turn_right)
                 {
-                    worldIn.setBlockState(pos, block.withRotation(state, Rotation.COUNTERCLOCKWISE_90), 130);
+                    newState = block.withRotation(state, Rotation.COUNTERCLOCKWISE_90);
                 }
                 else
                 {
-                    worldIn.setBlockState(pos, block.withRotation(state, Rotation.CLOCKWISE_90), 130);
+                    newState = block.withRotation(state, Rotation.CLOCKWISE_90);
                 }
             }
         }
@@ -240,8 +241,29 @@ public class BlockRotator
         {
             return false;
         }
+        if (newState == null) return false;
+        Throwable catchedThrowable = null;
+        try {
+            // This step is to invoke onBlockAdded() and breakBlock() for more consistency
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+        } catch (Throwable throwable) { catchedThrowable = throwable; } // Disrespect update suppression
+        worldIn.setBlockState(pos, newState, 130); // Rotate the block
         worldIn.markBlockRangeForRenderUpdate(pos, pos);
-        return true;
+        // Update the newly placed block
+        // This is to prevent stuff like floating levers
+        // Stop using floating levers from flipping cactus as temporary bud wires for update suppression
+        // The carpet implementation is not something that you should deconstruct
+        try {
+            worldIn.neighborChanged(pos, block, pos);
+        } catch (Throwable throwable) { catchedThrowable = throwable; }
+        // This step prevents levers attached to the incomplete side of a rotated stair for instance
+        try {
+            worldIn.notifyNeighborsOfStateChange(pos, block, true);
+        } catch (Throwable throwable) { catchedThrowable = throwable; }
+        if (catchedThrowable == null) return true;
+        if (catchedThrowable instanceof RuntimeException) throw (RuntimeException) catchedThrowable;
+        if (catchedThrowable instanceof Error) throw (Error) catchedThrowable;
+        throw new RuntimeException(catchedThrowable);
     }
     private static boolean player_holds_cactus_mainhand(EntityPlayer playerIn)
     {
