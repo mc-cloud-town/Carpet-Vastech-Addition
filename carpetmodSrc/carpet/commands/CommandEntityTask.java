@@ -31,7 +31,7 @@ public class CommandEntityTask extends CommandCarpetBase {
 
     private static long getSeed(Random random) {
         try {
-            return RANDOM_SEED.getLong(random);
+            return ((AtomicLong) RANDOM_SEED.get(random)).get();
         } catch (IllegalAccessException e) {
             try {
                 RANDOM_SEED.setAccessible(true);

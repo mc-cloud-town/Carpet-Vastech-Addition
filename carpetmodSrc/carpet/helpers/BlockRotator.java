@@ -242,9 +242,16 @@ public class BlockRotator
             return false;
         }
         if (newState == null) return false;
+        // Allow creative players to use the old inconsistent behavior, skipping all the updates for consistency
+        if (CarpetSettings.creativeInconsistentCactus && playerIn.capabilities.isCreativeMode) {
+            worldIn.setBlockState(pos, newState, 130); // Rotate the block
+            worldIn.markBlockRangeForRenderUpdate(pos, pos);
+            return true;
+        }
         Throwable catchedThrowable = null;
         try {
             // This step is to invoke onBlockAdded() and breakBlock() for more consistency
+            // You can't just rotate a stupid repeater and bud redstone wire for free
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
         } catch (Throwable throwable) { catchedThrowable = throwable; } // Disrespect update suppression
         worldIn.setBlockState(pos, newState, 130); // Rotate the block

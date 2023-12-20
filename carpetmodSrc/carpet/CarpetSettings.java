@@ -45,7 +45,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.5.6";
+    public static final String tagVersion = "v0.1.5.7";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -1304,6 +1304,9 @@ public class CarpetSettings
 
     @Rule(desc = "Online player use offline UUID for player data", category = FEATURE)
     public static boolean useOfflineUUIDForPlayerData = false;
+
+    @Rule(desc = "Allow creative players to use the old behavior for flippinCactus that send no updates", category = EXPERIMENTAL)
+    public static boolean creativeInconsistentCactus = true;
 
 
     // ===== API ===== //

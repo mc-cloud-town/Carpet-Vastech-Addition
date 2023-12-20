@@ -50,3 +50,4 @@ whitelist.json
 /run/
 gradle.properties
 worldedit-core-6.1.jar
+paranamer-2.6.jar
