@@ -49,3 +49,4 @@ whitelist.json
 /buildSrc/out/
 /run/
 gradle.properties
+worldedit-core-6.1.jar
