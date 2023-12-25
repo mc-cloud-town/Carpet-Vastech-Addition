@@ -350,6 +350,24 @@
      static class EmeraldForItems implements EntityVillager.ITradeList
          {
              public Item field_179405_a;
+@@ -1023,7 +1233,7 @@
+             }
+         }
+ 
+-    static class ListEnchantedItemForEmeralds implements EntityVillager.ITradeList
++    public static class ListEnchantedItemForEmeralds implements EntityVillager.ITradeList
+         {
+             public ItemStack field_179407_a;
+             public EntityVillager.PriceInfo field_179406_b;
+@@ -1093,7 +1303,7 @@
+             }
+         }
+ 
+-    static class PriceInfo extends Tuple<Integer, Integer>
++    public static class PriceInfo extends Tuple<Integer, Integer>
+         {
+             public PriceInfo(int p_i45810_1_, int p_i45810_2_)
+             {
 @@ -1140,4 +1350,37 @@
                  }
              }

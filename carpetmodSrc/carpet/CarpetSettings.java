@@ -42,10 +42,11 @@ import static carpet.CarpetSettings.RuleCategory.*;
 
 public class CarpetSettings
 {
+    public static final boolean INTERNAL_BUILD = false;
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.5.7";
+    public static final String tagVersion = "v0.1.5.8";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -1308,6 +1309,8 @@ public class CarpetSettings
     @Rule(desc = "Allow creative players to use the old behavior for flippinCactus that send no updates", category = EXPERIMENTAL)
     public static boolean creativeInconsistentCactus = true;
 
+    @Rule(desc = "Signs on diamond blocks have a comparator output equal to the number written on it", category = EXPERIMENTAL)
+    public static boolean signComparatorOutput = false;
 
     // ===== API ===== //
 
