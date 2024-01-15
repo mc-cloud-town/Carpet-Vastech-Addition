@@ -243,7 +243,7 @@
              if (this.field_76637_e.field_73011_w.func_191066_m())
              {
                  for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
-@@ -478,12 +499,19 @@
+@@ -478,12 +499,20 @@
          }
      }
  
@@ -260,13 +260,14 @@
 +    @Nullable
 +    public IBlockState setBlockState_carpet(BlockPos pos, IBlockState state, boolean skip_updates) //CM added skip_updates
 +    {
++        skip_updates |= CarpetSettings.disableBlockSelfChecks; // carpet
 +        int i = pos.func_177958_n() & 15;
 +        int j = pos.func_177956_o();
 +        int k = pos.func_177952_p() & 15;
          int l = k << 4 | i;
  
          if (j >= this.field_76638_b[l] - 1)
-@@ -492,22 +520,22 @@
+@@ -492,22 +521,22 @@
          }
  
          int i1 = this.field_76634_f[l];
@@ -294,7 +295,7 @@
                  {
                      return null;
                  }
-@@ -515,35 +543,45 @@
+@@ -515,35 +544,45 @@
                  extendedblockstorage = new ExtendedBlockStorage(j >> 4 << 4, this.field_76637_e.field_73011_w.func_191066_m());
                  this.field_76652_q[j >> 4] = extendedblockstorage;
                  flag = j >= i1;
@@ -349,7 +350,7 @@
                      int k1 = iblockstate.func_185891_c();
  
                      if (j1 > 0)
-@@ -558,15 +596,16 @@
+@@ -558,15 +597,16 @@
                          this.func_76615_h(i, j, k);
                      }
  
@@ -371,7 +372,7 @@
  
                      if (tileentity != null)
                      {
-@@ -574,19 +613,30 @@
+@@ -574,19 +614,30 @@
                      }
                  }
  
@@ -408,7 +409,7 @@
                      }
  
                      if (tileentity1 != null)
-@@ -596,6 +646,9 @@
+@@ -596,6 +647,9 @@
                  }
  
                  this.field_76643_l = true;
@@ -418,7 +419,7 @@
                  return iblockstate;
              }
          }
-@@ -603,6 +656,7 @@
+@@ -603,6 +657,7 @@
  
      public int func_177413_a(EnumSkyBlock p_177413_1_, BlockPos p_177413_2_)
      {
@@ -426,7 +427,7 @@
          int i = p_177413_2_.func_177958_n() & 15;
          int j = p_177413_2_.func_177956_o();
          int k = p_177413_2_.func_177952_p() & 15;
-@@ -633,7 +687,12 @@
+@@ -633,7 +688,12 @@
          {
              extendedblockstorage = new ExtendedBlockStorage(j >> 4 << 4, this.field_76637_e.field_73011_w.func_191066_m());
              this.field_76652_q[j >> 4] = extendedblockstorage;
@@ -440,7 +441,7 @@
          }
  
          this.field_76643_l = true;
-@@ -653,6 +712,7 @@
+@@ -653,6 +713,7 @@
  
      public int func_177443_a(BlockPos p_177443_1_, int p_177443_2_)
      {
@@ -448,7 +449,7 @@
          int i = p_177443_1_.func_177958_n() & 15;
          int j = p_177443_1_.func_177956_o();
          int k = p_177443_1_.func_177952_p() & 15;
-@@ -789,6 +849,8 @@
+@@ -789,6 +850,8 @@
          {
              if (this.field_150816_i.containsKey(p_177426_1_))
              {
@@ -457,7 +458,7 @@
                  ((TileEntity)this.field_150816_i.get(p_177426_1_)).func_145843_s();
              }
  
-@@ -819,6 +881,10 @@
+@@ -819,6 +882,10 @@
          {
              this.field_76637_e.func_175650_b(classinheritancemultimap);
          }
@@ -468,7 +469,7 @@
      }
  
      public void func_76623_d()
-@@ -964,13 +1030,49 @@
+@@ -964,13 +1031,49 @@
          {
              if (p_186034_1_.func_185933_a(this, this.field_76635_g, this.field_76647_h))
              {
@@ -520,7 +521,7 @@
              this.func_76630_e();
          }
      }
-@@ -1018,9 +1120,11 @@
+@@ -1018,9 +1121,11 @@
  
          this.field_150815_m = true;
  
@@ -535,7 +536,7 @@
          }
  
          while (!this.field_177447_w.isEmpty())
-@@ -1041,6 +1145,11 @@
+@@ -1041,6 +1146,11 @@
          return this.field_150815_m && this.field_76646_k && this.field_150814_l;
      }
  
@@ -547,7 +548,7 @@
      public boolean func_186035_j()
      {
          return this.field_150815_m;
-@@ -1389,4 +1498,67 @@
+@@ -1389,4 +1499,67 @@
          QUEUED,
          CHECK;
      }

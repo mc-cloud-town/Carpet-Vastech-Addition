@@ -56,9 +56,16 @@
      }
  
      public int func_176201_c(IBlockState p_176201_1_)
-@@ -145,4 +167,16 @@
+@@ -143,6 +165,22 @@
+ 
+     public IBlockState func_176203_a(int p_176203_1_)
      {
-         return this.func_176223_P().func_177226_a(field_176387_N, EnumFacing.func_82600_a(p_176203_1_ & 7));
+-        return this.func_176223_P().func_177226_a(field_176387_N, EnumFacing.func_82600_a(p_176203_1_ & 7));
++        // VasCM - setBlockCanPlaceLitObservers
++        if (!CarpetSettings.setBlockCanPlaceLitObservers)
++            return this.func_176223_P().func_177226_a(field_176387_N, EnumFacing.func_82600_a(p_176203_1_ & 7)); // vanilla
++        else
++            return this.func_176223_P().func_177226_a(field_176387_N, EnumFacing.func_82600_a(p_176203_1_ & 7)).func_177226_a(field_190963_a, (p_176203_1_ & 8) != 0); // carpet
      }
 +
 +    // RSMM

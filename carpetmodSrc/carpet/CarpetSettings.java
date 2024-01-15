@@ -46,7 +46,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.5.8";
+    public static final String tagVersion = "v0.1.5.9";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -1311,6 +1311,15 @@ public class CarpetSettings
 
     @Rule(desc = "Signs on diamond blocks have a comparator output equal to the number written on it", category = EXPERIMENTAL)
     public static boolean signComparatorOutput = false;
+
+    @Rule(desc = "When on, disables all block/observer/comparator updates from propagating", category = EXPERIMENTAL)
+    public static boolean totallyNoBlockUpdates = false;
+
+    @Rule(desc = "When on, disables all onBlockAdded() and breakBlock() calls", category = EXPERIMENTAL)
+    public static boolean disableBlockSelfChecks = false;
+
+    @Rule(desc = "Allows /setblock and /fill commands to place lit observers", category = FIX)
+    public static boolean setBlockCanPlaceLitObservers = false;
 
     // ===== API ===== //
 
