@@ -769,15 +769,15 @@ public class EntityAICrafter extends EntityAIBase {
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
-	public boolean shouldStart() {
+	public boolean shouldExecute() {
 		return true;
 	}
 
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
-	public boolean shouldContinue() {
-		return this.currentTask >= 0 && super.shouldContinue();
+	public boolean continueExecuting() {
+		return this.currentTask >= 0 && super.continueExecuting();
 	}
 
 	/**
@@ -789,7 +789,7 @@ public class EntityAICrafter extends EntityAIBase {
 	/**
 	 * Updates the task
 	 */
-	public void tick() {
+	public void updateTask() {
 		lookAtCraftingTables();
 
 		if (craftingCooldown <= 0) {

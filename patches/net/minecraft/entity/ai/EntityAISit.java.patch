@@ -1,14 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAISit.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAISit.java
-@@ -14,7 +14,7 @@
-         this.func_75248_a(5);
-     }
- 
--    public boolean func_75250_a()
-+    public boolean shouldStart()
-     {
-         if (!this.field_75272_a.func_70909_n())
-         {
 @@ -58,4 +58,9 @@
      {
          this.field_75271_b = p_75270_1_;

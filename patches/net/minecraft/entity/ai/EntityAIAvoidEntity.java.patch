@@ -12,12 +12,8 @@
  public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase
  {
      private final Predicate<Entity> field_179509_a;
-@@ -48,12 +53,16 @@
-         this.func_75248_a(1);
-     }
- 
--    public boolean func_75250_a()
-+    public boolean shouldStart()
+@@ -51,9 +56,13 @@
+     public boolean func_75250_a()
      {
          List<T> list = this.field_75380_a.field_70170_p.<T>func_175647_a(this.field_181064_i, this.field_75380_a.func_174813_aQ().func_72314_b((double)this.field_179508_f, 3.0D, (double)this.field_179508_f), Predicates.and(EntitySelectors.field_188444_d, this.field_179509_a, this.field_179510_i));
 -
@@ -72,19 +68,10 @@
      }
  
 -    public boolean func_75253_b()
-+    public boolean shouldContinue()
++    public boolean continueExecuting()
      {
          return !this.field_75375_g.func_75500_f();
      }
-@@ -92,7 +123,7 @@
-         this.field_75376_d = null;
-     }
- 
--    public void func_75246_d()
-+    public void tick()
-     {
-         if (this.field_75380_a.func_70068_e(this.field_75376_d) < 49.0D)
-         {
 @@ -103,4 +134,9 @@
              this.field_75380_a.func_70661_as().func_75489_a(this.field_75378_b);
          }

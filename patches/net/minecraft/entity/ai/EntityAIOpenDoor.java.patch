@@ -5,23 +5,16 @@
      }
  
 -    public boolean func_75253_b()
-+    public boolean shouldContinue()
++    public boolean continueExecuting()
      {
 -        return this.field_75361_i && this.field_75360_j > 0 && super.func_75253_b();
-+        return this.field_75361_i && this.field_75360_j > 0 && super.shouldContinue();
++        return this.field_75361_i && this.field_75360_j > 0 && super.continueExecuting();
      }
  
      public void func_75249_e()
-@@ -33,9 +33,14 @@
-         }
-     }
- 
--    public void func_75246_d()
-+    public void tick()
-     {
+@@ -38,4 +38,9 @@
          --this.field_75360_j;
--        super.func_75246_d();
-+        super.tick();
+         super.func_75246_d();
      }
 +
 +    @Override

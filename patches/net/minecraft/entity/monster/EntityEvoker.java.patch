@@ -1,41 +1,11 @@
 --- ../src-base/minecraft/net/minecraft/entity/monster/EntityEvoker.java
 +++ ../src-work/minecraft/net/minecraft/entity/monster/EntityEvoker.java
-@@ -271,7 +271,7 @@
-             super();
-         }
- 
--        public void func_75246_d()
-+        public void tick()
-         {
-             if (EntityEvoker.this.func_70638_az() != null)
-             {
-@@ -291,9 +291,9 @@
-             super();
-         }
- 
--        public boolean func_75250_a()
-+        public boolean shouldStart()
-         {
--            if (!super.func_75250_a())
-+            if (!super.shouldStart())
-             {
-                 return false;
-             }
-@@ -355,7 +355,7 @@
-             super();
-         }
- 
--        public boolean func_75250_a()
-+        public boolean shouldStart()
-         {
-             if (EntityEvoker.this.func_70638_az() != null)
-             {
 @@ -389,7 +389,7 @@
              }
          }
  
 -        public boolean func_75253_b()
-+        public boolean shouldContinue()
++        public boolean continueExecuting()
          {
              return EntityEvoker.this.func_190751_dj() != null && this.field_193321_c > 0;
          }

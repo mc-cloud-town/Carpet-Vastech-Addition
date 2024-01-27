@@ -5,7 +5,7 @@
      }
  
 -    public boolean func_75253_b()
-+    public boolean shouldContinue()
++    public boolean continueExecuting()
      {
          EntityLivingBase entitylivingbase = this.field_75299_d.func_70638_az();
  

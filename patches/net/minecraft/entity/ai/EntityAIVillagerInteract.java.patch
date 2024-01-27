@@ -1,17 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIVillagerInteract.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIVillagerInteract.java
-@@ -33,9 +33,9 @@
-         }
-     }
- 
--    public void func_75246_d()
-+    public void tick()
-     {
--        super.func_75246_d();
-+        super.tick();
- 
-         if (this.field_179478_e > 0)
-         {
 @@ -92,4 +92,9 @@
              }
          }

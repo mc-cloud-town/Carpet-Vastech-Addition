@@ -38,24 +38,12 @@
      public boolean func_190684_dE()
      {
          return false;
-@@ -513,9 +528,9 @@
-                 super(p_i47285_1_, EntityWolf.class, 16, false, true, (Predicate)null);
-             }
- 
--            public boolean func_75250_a()
-+            public boolean shouldStart()
-             {
--                if (super.func_75250_a() && this.field_75309_a != null && !((EntityWolf)this.field_75309_a).func_70909_n())
-+                if (super.shouldStart() && this.field_75309_a != null && !((EntityWolf)this.field_75309_a).func_70909_n())
-                 {
-                     return true;
-                 }
 @@ -539,7 +554,7 @@
                  super(p_i47282_1_, false);
              }
  
 -            public boolean func_75253_b()
-+            public boolean shouldContinue()
++            public boolean continueExecuting()
              {
                  if (this.field_75299_d instanceof EntityLlama)
                  {
@@ -64,7 +52,7 @@
                  }
  
 -                return super.func_75253_b();
-+                return super.shouldContinue();
++                return super.continueExecuting();
              }
          }
  

@@ -41,14 +41,14 @@ public class EntityAIAutotrader extends EntityAIBase {
      * @return
      */
     @Override
-    public boolean shouldStart() {
+    public boolean shouldExecute() {
         return true;
     }
 
     /**
      * AI update task that in this case only searches for a emerald block to throw items toward it when trading.
      */
-    public void tick() {
+    public void updateTask() {
         counter++;
         if (counter % 100 == 0) {
             findClosestEmeraldBlock();

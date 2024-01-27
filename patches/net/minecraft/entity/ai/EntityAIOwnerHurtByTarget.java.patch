@@ -1,14 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIOwnerHurtByTarget.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIOwnerHurtByTarget.java
-@@ -16,7 +16,7 @@
-         this.func_75248_a(1);
-     }
- 
--    public boolean func_75250_a()
-+    public boolean shouldStart()
-     {
-         if (!this.field_75316_a.func_70909_n())
-         {
 @@ -51,4 +51,9 @@
  
          super.func_75249_e();

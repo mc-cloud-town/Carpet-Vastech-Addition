@@ -1,31 +1,13 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAILlamaFollowCaravan.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAILlamaFollowCaravan.java
-@@ -17,7 +17,7 @@
-         this.func_75248_a(1);
-     }
- 
--    public boolean func_75250_a()
-+    public boolean shouldStart()
-     {
-         if (!this.field_190859_a.func_110167_bD() && !this.field_190859_a.func_190718_dR())
-         {
 @@ -80,7 +80,7 @@
          }
      }
  
 -    public boolean func_75253_b()
-+    public boolean shouldContinue()
++    public boolean continueExecuting()
      {
          if (this.field_190859_a.func_190718_dR() && this.field_190859_a.func_190716_dS().func_70089_S() && this.func_190858_a(this.field_190859_a, 0))
-         {
-@@ -120,7 +120,7 @@
-         this.field_190860_b = 2.1D;
-     }
- 
--    public void func_75246_d()
-+    public void tick()
-     {
-         if (this.field_190859_a.func_190718_dR())
          {
 @@ -156,4 +156,9 @@
              return false;

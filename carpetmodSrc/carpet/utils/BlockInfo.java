@@ -223,7 +223,7 @@ public class BlockInfo
             int i;
             for (i=1;i<30*20*60; i++) //*60 used to be 5 hours, limited to 30 mins
             {
-                if (wander.shouldStart())
+                if (wander.shouldExecute())
                 {
                     break;
                 }

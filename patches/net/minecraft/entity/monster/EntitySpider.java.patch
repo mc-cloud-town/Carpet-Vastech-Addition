@@ -5,7 +5,7 @@
              }
  
 -            public boolean func_75253_b()
-+            public boolean shouldContinue()
++            public boolean continueExecuting()
              {
                  float f = this.field_75441_b.func_70013_c();
  
@@ -14,20 +14,7 @@
                  else
                  {
 -                    return super.func_75253_b();
-+                    return super.shouldContinue();
++                    return super.continueExecuting();
                  }
              }
- 
-@@ -240,10 +240,10 @@
-                 super(p_i45818_1_, p_i45818_2_, true);
-             }
- 
--            public boolean func_75250_a()
-+            public boolean shouldStart()
-             {
-                 float f = this.field_75299_d.func_70013_c();
--                return f >= 0.5F ? false : super.func_75250_a();
-+                return f >= 0.5F ? false : super.shouldStart();
-             }
-         }
  

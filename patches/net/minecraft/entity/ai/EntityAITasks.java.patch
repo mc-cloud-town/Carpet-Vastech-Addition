@@ -51,7 +51,7 @@
                      }
                  }
 -                else if (this.func_75775_b(entityaitasks$entityaitaskentry) && entityaitasks$entityaitaskentry.field_75733_a.func_75250_a())
-+                else if (this.isTaskCompatible(entityaitasks$entityaitaskentry, false) && entityaitasks$entityaitaskentry.field_75733_a.shouldStart())
++                else if (this.isTaskCompatible(entityaitasks$entityaitaskentry, false) && entityaitasks$entityaitaskentry.field_75733_a.func_75250_a())
                  {
 +                    if (LoggerRegistry.__entityTask) onTaskStart(trackedEntity, entityaitasks$entityaitaskentry.field_75733_a);
                      entityaitasks$entityaitaskentry.field_188524_c = true;
@@ -68,11 +68,10 @@
  
              for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry2 : this.field_75780_b)
              {
--                entityaitasks$entityaitaskentry2.field_75733_a.func_75246_d();
 +                if(carpet.carpetclient.CarpetClientChunkLogger.logger.enabled)
 +                    carpet.carpetclient.CarpetClientChunkLogger.setReason("Entity" + entityaitasks$entityaitaskentry2.field_75733_a.getTask());
 +                
-+                entityaitasks$entityaitaskentry2.field_75733_a.tick();
+                 entityaitasks$entityaitaskentry2.field_75733_a.func_75246_d();
              }
 +            carpet.carpetclient.CarpetClientChunkLogger.resetReason();
  
@@ -86,7 +85,7 @@
 +        // vanilla
 +//        return taskEntry.action.shouldContinue();
 +        // VasCM
-+        boolean result = p_75773_1_.field_75733_a.shouldContinue();
++        boolean result = p_75773_1_.field_75733_a.continueExecuting();
 +        if (!result) onTaskTerminated(trackedEntity, p_75773_1_.field_75733_a);
 +        return result;
      }

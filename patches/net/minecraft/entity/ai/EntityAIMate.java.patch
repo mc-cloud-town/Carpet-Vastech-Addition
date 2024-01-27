@@ -1,32 +1,14 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIMate.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIMate.java
-@@ -34,7 +34,7 @@
-         this.func_75248_a(3);
-     }
- 
--    public boolean func_75250_a()
-+    public boolean shouldStart()
-     {
-         if (!this.field_75390_d.func_70880_s())
-         {
 @@ -47,7 +47,7 @@
          }
      }
  
 -    public boolean func_75253_b()
-+    public boolean shouldContinue()
++    public boolean continueExecuting()
      {
          return this.field_75391_e.func_70089_S() && this.field_75391_e.func_70880_s() && this.field_75392_b < 60;
      }
-@@ -58,7 +58,7 @@
-         this.field_75392_b = 0;
-     }
- 
--    public void func_75246_d()
-+    public void tick()
-     {
-         this.field_75390_d.func_70671_ap().func_75651_a(this.field_75391_e, 10.0F, (float)this.field_75390_d.func_70646_bf());
-         this.field_75390_d.func_70661_as().func_75497_a(this.field_75391_e, this.field_75393_c);
 @@ -133,4 +133,9 @@
              }
          }

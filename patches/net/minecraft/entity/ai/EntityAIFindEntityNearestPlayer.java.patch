@@ -9,21 +9,12 @@
      private final Predicate<Entity> field_179435_c;
      private final EntityAINearestAttackableTarget.Sorter field_179432_d;
      private EntityLivingBase field_179433_e;
-@@ -73,7 +73,7 @@
-         this.field_179432_d = new EntityAINearestAttackableTarget.Sorter(p_i45882_1_);
-     }
- 
--    public boolean func_75250_a()
-+    public boolean shouldStart()
-     {
-         double d0 = this.func_179431_f();
-         List<EntityPlayer> list = this.field_179434_b.field_70170_p.<EntityPlayer>func_175647_a(EntityPlayer.class, this.field_179434_b.func_174813_aQ().func_72314_b(d0, 4.0D, d0), this.field_179435_c);
 @@ -90,7 +90,7 @@
          }
      }
  
 -    public boolean func_75253_b()
-+    public boolean shouldContinue()
++    public boolean continueExecuting()
      {
          EntityLivingBase entitylivingbase = this.field_179434_b.func_70638_az();
  

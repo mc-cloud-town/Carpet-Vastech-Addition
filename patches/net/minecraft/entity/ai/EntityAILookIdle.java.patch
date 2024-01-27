@@ -1,27 +1,15 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAILookIdle.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAILookIdle.java
-@@ -15,12 +15,12 @@
-         this.func_75248_a(3);
-     }
- 
--    public boolean func_75250_a()
-+    public boolean shouldStart()
-     {
+@@ -20,7 +20,7 @@
          return this.field_75258_a.func_70681_au().nextFloat() < 0.02F;
      }
  
 -    public boolean func_75253_b()
-+    public boolean shouldContinue()
++    public boolean continueExecuting()
      {
          return this.field_75255_d >= 0;
      }
-@@ -33,9 +33,14 @@
-         this.field_75255_d = 20 + this.field_75258_a.func_70681_au().nextInt(20);
-     }
- 
--    public void func_75246_d()
-+    public void tick()
-     {
+@@ -38,4 +38,9 @@
          --this.field_75255_d;
          this.field_75258_a.func_70671_ap().func_75650_a(this.field_75258_a.field_70165_t + this.field_75256_b, this.field_75258_a.field_70163_u + (double)this.field_75258_a.func_70047_e(), this.field_75258_a.field_70161_v + this.field_75257_c, (float)this.field_75258_a.func_184649_cE(), (float)this.field_75258_a.func_70646_bf());
      }
