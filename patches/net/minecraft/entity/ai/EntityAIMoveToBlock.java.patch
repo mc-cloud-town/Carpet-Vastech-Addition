@@ -1,14 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIMoveToBlock.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIMoveToBlock.java
-@@ -37,7 +37,7 @@
-         }
-     }
- 
--    public boolean func_75253_b()
-+    public boolean continueExecuting()
-     {
-         return this.field_179493_e >= -this.field_179490_f && this.field_179493_e <= 1200 && this.func_179488_a(this.field_179495_c.field_70170_p, this.field_179494_b);
-     }
 @@ -103,4 +103,9 @@
      }
  

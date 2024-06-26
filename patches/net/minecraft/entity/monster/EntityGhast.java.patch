@@ -115,12 +115,3 @@
              }
  
              public void func_75246_d()
-@@ -300,7 +376,7 @@
-                 }
-             }
- 
--            public boolean func_75253_b()
-+            public boolean continueExecuting()
-             {
-                 return false;
-             }

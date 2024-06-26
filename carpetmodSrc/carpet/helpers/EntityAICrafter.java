@@ -776,8 +776,8 @@ public class EntityAICrafter extends EntityAIBase {
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
-	public boolean continueExecuting() {
-		return this.currentTask >= 0 && super.continueExecuting();
+	public boolean shouldContinueExecuting() {
+		return this.currentTask >= 0 && super.shouldContinueExecuting();
 	}
 
 	/**

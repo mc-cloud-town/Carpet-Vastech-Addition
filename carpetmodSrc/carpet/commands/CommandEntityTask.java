@@ -2,9 +2,11 @@ package carpet.commands;
 
 import carpet.commands.CommandCarpetBase;
 import carpet.logging.LoggerRegistry;
+import carpet.utils.JavaVersionUtil;
 import carpet.utils.Messenger;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks;
@@ -19,27 +21,11 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class CommandEntityTask extends CommandCarpetBase {
-    private static final Field RANDOM_SEED;
-    static {
-        try {
-            RANDOM_SEED = Random.class.getDeclaredField("seed");
-            RANDOM_SEED.setAccessible(true);
-        } catch (NoSuchFieldException e) {
-            throw new AssertionError(e);
-        }
-    }
+    private static final JavaVersionUtil.FieldAccessor<AtomicLong> SEED_ACCESSOR =
+        JavaVersionUtil.objectFieldAccessor(Random.class, "seed", AtomicLong.class);
 
     private static long getSeed(Random random) {
-        try {
-            return ((AtomicLong) RANDOM_SEED.get(random)).get();
-        } catch (IllegalAccessException e) {
-            try {
-                RANDOM_SEED.setAccessible(true);
-                return ((AtomicLong) RANDOM_SEED.get(random)).get();
-            } catch (IllegalAccessException ex) {
-                throw new AssertionError(ex);
-            }
-        }
+        return SEED_ACCESSOR.get(random).get();
     }
 
     @Override
@@ -65,20 +51,22 @@ public class CommandEntityTask extends CommandCarpetBase {
         } catch (Throwable throwable) {
             throw new CommandException("Invalid UUID string");
         }
-        List<EntityLiving> entities;
+        List<Entity> entities;
         UUID finalUuid = uuid;
-        if ((entities = sender.getEntityWorld().getEntities(EntityLiving.class, __ -> true)
+        if ((entities = sender.getEntityWorld().getEntities(Entity.class, __ -> true)
                 .stream().filter(entity -> entity.getUniqueID().equals(finalUuid)).collect(Collectors.toList())).isEmpty()) {
             throw new CommandException("No entity with such UUID exist");
         } else {
-            EntityLiving entity = entities.get(0);
-            Messenger.s(sender, "Currently executing tasks for target entity " + uuidString + ": ");
-            EntityAITasks tasks = entity.tasks;
-            for (EntityAITasks.EntityAITaskEntry taskEntry: tasks.executingTaskEntries) {
-                EntityAIBase task = taskEntry.action;
-                Messenger.s(sender, task.getTask());
+            Entity entity = entities.get(0);
+            if (entity instanceof EntityLiving) {
+                Messenger.s(sender, "Currently executing tasks for target entity " + uuidString + ": ");
+                EntityAITasks tasks = ((EntityLiving) entity).tasks;
+                for (EntityAITasks.EntityAITaskEntry taskEntry : tasks.executingTaskEntries) {
+                    EntityAIBase task = taskEntry.action;
+                    Messenger.s(sender, task.getTask());
+                }
             }
-            Messenger.s(sender, "Current RNG seed for this entity is " + getSeed(entity.getRNG()));
+            Messenger.s(sender, "Current RNG seed for this entity is " + getSeed(entity.rand));
         }
     }
 }

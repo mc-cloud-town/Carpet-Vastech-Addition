@@ -1,14 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIFleeSun.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIFleeSun.java
-@@ -61,7 +61,7 @@
-         }
-     }
- 
--    public boolean func_75253_b()
-+    public boolean continueExecuting()
-     {
-         return !this.field_75372_a.func_70661_as().func_75500_f();
-     }
 @@ -89,4 +89,9 @@
  
          return null;

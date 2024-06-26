@@ -57,7 +57,7 @@
      }
  
      public void func_75251_c()
-@@ -71,9 +92,13 @@
+@@ -71,6 +92,10 @@
          this.field_75452_a = null;
          this.field_75451_c = null;
          this.field_75450_b.func_70947_e(false);
@@ -67,11 +67,7 @@
 +        }
      }
  
--    public boolean func_75253_b()
-+    public boolean continueExecuting()
-     {
-         return this.field_75449_e >= 0 && this.func_75446_f() && this.field_75450_b.func_70874_b() == 0 && this.field_75450_b.func_175550_n(false);
-     }
+     public boolean func_75253_b()
 @@ -81,6 +106,17 @@
      public void func_75246_d()
      {

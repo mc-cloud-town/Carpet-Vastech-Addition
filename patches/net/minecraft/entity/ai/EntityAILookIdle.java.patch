@@ -1,14 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAILookIdle.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAILookIdle.java
-@@ -20,7 +20,7 @@
-         return this.field_75258_a.func_70681_au().nextFloat() < 0.02F;
-     }
- 
--    public boolean func_75253_b()
-+    public boolean continueExecuting()
-     {
-         return this.field_75255_d >= 0;
-     }
 @@ -38,4 +38,9 @@
          --this.field_75255_d;
          this.field_75258_a.func_70671_ap().func_75650_a(this.field_75258_a.field_70165_t + this.field_75256_b, this.field_75258_a.field_70163_u + (double)this.field_75258_a.func_70047_e(), this.field_75258_a.field_70161_v + this.field_75257_c, (float)this.field_75258_a.func_184649_cE(), (float)this.field_75258_a.func_70646_bf());

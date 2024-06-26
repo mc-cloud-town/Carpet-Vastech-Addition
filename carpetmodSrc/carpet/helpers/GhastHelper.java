@@ -38,13 +38,13 @@ public class GhastHelper
         }
 
         @Override
-        public boolean continueExecuting()
+        public boolean shouldContinueExecuting()
         {
             if (CarpetSettings.rideableGhasts && this.entityLiving.hasCustomName())
             {
                 return false;
             }
-            return super.continueExecuting();
+            return super.shouldContinueExecuting();
         }
 
     }
@@ -220,13 +220,13 @@ public class GhastHelper
         }
         public void startExecuting()
         {
-            continueExecuting();
+            shouldContinueExecuting();
         }
         public void resetTask()
         {
             this.owner = null;
         }
-        public boolean continueExecuting()
+        public boolean shouldContinueExecuting()
         {
             if (owner != null && owner.dimension == this.parentEntity.dimension)
                 {

@@ -1,14 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIMoveIndoors.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIMoveIndoors.java
-@@ -54,7 +54,7 @@
-         }
-     }
- 
--    public boolean func_75253_b()
-+    public boolean continueExecuting()
-     {
-         return !this.field_75424_a.func_70661_as().func_75500_f();
-     }
 @@ -88,4 +88,9 @@
          this.field_75421_d = this.field_75422_b.func_179856_e().func_177952_p();
          this.field_75422_b = null;

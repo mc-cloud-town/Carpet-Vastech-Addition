@@ -1,14 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIFollowGolem.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIFollowGolem.java
-@@ -51,7 +51,7 @@
-         }
-     }
- 
--    public boolean func_75253_b()
-+    public boolean continueExecuting()
-     {
-         return this.field_75292_b.func_70853_p() > 0;
-     }
 @@ -85,4 +85,9 @@
              this.field_75294_a.func_70661_as().func_75499_g();
          }

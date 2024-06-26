@@ -34,12 +34,3 @@
      protected SoundEvent func_184601_bQ(DamageSource p_184601_1_)
      {
          return this.func_189101_db() ? SoundEvents.field_187898_fy : SoundEvents.field_187880_fp;
-@@ -405,7 +416,7 @@
-                 super.func_75249_e();
-             }
- 
--            public boolean func_75253_b()
-+            public boolean continueExecuting()
-             {
-                 EntityLivingBase entitylivingbase = this.field_179466_a.func_70638_az();
- 

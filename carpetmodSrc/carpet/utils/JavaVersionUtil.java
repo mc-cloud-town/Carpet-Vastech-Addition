@@ -3,7 +3,6 @@ package carpet.utils;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 public final class JavaVersionUtil {
     public static final int JAVA_VERSION = getJavaVersion();
@@ -46,8 +45,10 @@ public final class JavaVersionUtil {
             if (JAVA_VERSION <= 8) {
                 throw e;
             }
+            /*
             long fieldOffset = UnsafeFieldAccessor.unsafe.objectFieldOffset(field);
             return new UnsafeFieldAccessor<>(ownerClass, fieldOffset);
+             */
         }
 
         try {
@@ -79,6 +80,7 @@ public final class JavaVersionUtil {
         }
     }
 
+    /*
     private static class UnsafeFieldAccessor<T> implements FieldAccessor<T> {
         private static final sun.misc.Unsafe unsafe = getUnsafe();
 
@@ -115,4 +117,5 @@ public final class JavaVersionUtil {
             }
         }
     }
+     */
 }

@@ -46,7 +46,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.5.10";
+    public static final String tagVersion = "v0.1.5.12";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -1232,7 +1232,7 @@ public class CarpetSettings
 
     @Rule(desc = "Let pressure plates, detector rails, frosted ice, " +
             "string and repeating command blocks scheduled normally timed tile ticks on ITT", category = CREATIVE)
-    public static boolean calmITTCrashers = true;
+    public static boolean calmITTCrashers = false;
 
     @Rule(desc = "Disables snooper that collects data from your server to Mojang", category = FIX, validator = "validateDisableSnooper")
     public static boolean disableSnooper = true;

@@ -1,14 +1,5 @@
 --- ../src-base/minecraft/net/minecraft/entity/ai/EntityAIPanic.java
 +++ ../src-work/minecraft/net/minecraft/entity/ai/EntityAIPanic.java
-@@ -71,7 +71,7 @@
-         this.field_75267_a.func_70661_as().func_75492_a(this.field_75266_c, this.field_75263_d, this.field_75264_e, this.field_75265_b);
-     }
- 
--    public boolean func_75253_b()
-+    public boolean continueExecuting()
-     {
-         return !this.field_75267_a.func_70661_as().func_75500_f();
-     }
 @@ -112,4 +112,9 @@
  
          return blockpos1;

@@ -38,21 +38,3 @@
      public boolean func_190684_dE()
      {
          return false;
-@@ -539,7 +554,7 @@
-                 super(p_i47282_1_, false);
-             }
- 
--            public boolean func_75253_b()
-+            public boolean continueExecuting()
-             {
-                 if (this.field_75299_d instanceof EntityLlama)
-                 {
-@@ -552,7 +567,7 @@
-                     }
-                 }
- 
--                return super.func_75253_b();
-+                return super.continueExecuting();
-             }
-         }
- 

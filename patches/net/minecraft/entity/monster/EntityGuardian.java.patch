@@ -42,15 +42,3 @@
      static class AIGuardianAttack extends EntityAIBase
          {
              private final EntityGuardian field_179456_a;
-@@ -415,9 +443,9 @@
-                 return entitylivingbase != null && entitylivingbase.func_70089_S();
-             }
- 
--            public boolean func_75253_b()
-+            public boolean continueExecuting()
-             {
--                return super.func_75253_b() && (this.field_190881_c || this.field_179456_a.func_70068_e(this.field_179456_a.func_70638_az()) > 9.0D);
-+                return super.continueExecuting() && (this.field_190881_c || this.field_179456_a.func_70068_e(this.field_179456_a.func_70638_az()) > 9.0D);
-             }
- 
-             public void func_75249_e()

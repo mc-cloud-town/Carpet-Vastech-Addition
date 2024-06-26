@@ -85,7 +85,7 @@
 +        // vanilla
 +//        return taskEntry.action.shouldContinue();
 +        // VasCM
-+        boolean result = p_75773_1_.field_75733_a.continueExecuting();
++        boolean result = p_75773_1_.field_75733_a.func_75253_b();
 +        if (!result) onTaskTerminated(trackedEntity, p_75773_1_.field_75733_a);
 +        return result;
      }

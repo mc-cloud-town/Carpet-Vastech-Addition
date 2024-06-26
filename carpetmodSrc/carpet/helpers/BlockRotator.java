@@ -151,6 +151,13 @@ public class BlockRotator
     {
         Block block = state.getBlock();
         IBlockState newState = null;
+        // You are not supposed to flip rails using this in survival
+        // If a rail configuration requires you to learn rail mechanics, go learn it
+        // If a rail configuration requires an update suppressor, go build one
+        //  - avoiding an entire contraption with a carpet rule is against the spirits of TMC
+        if (block instanceof BlockRailBase && !playerIn.capabilities.isCreativeMode) {
+            return false;
+        }
         if ( (block instanceof BlockGlazedTerracotta) || (block instanceof BlockRedstoneDiode) || (block instanceof BlockRailBase) ||
              (block instanceof BlockTrapDoor)         || (block instanceof BlockLever)         || (block instanceof BlockFenceGate))
         {
