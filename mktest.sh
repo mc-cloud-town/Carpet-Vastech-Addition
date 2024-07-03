@@ -44,7 +44,7 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-carpet_name="carpet-1.12.2-`date +%F`.jar"
+carpet_name="VasCM_latest.jar"
 echo "Cleaning previous installations ..."
 rm -rf "build/tmp/fullRelease/*"
 mkdir -p "build/tmp/fullRelease"
@@ -80,15 +80,17 @@ mkdir -p "$BUILD_DIR/patches"
 unzip -q "$PATCH_PATH" -d "$BUILD_DIR/patches" || { echo "failed to extract patches!" && exit 1; }
 
 echo "Patch work ..."
-pushd "$BUILD_DIR/patches"
+CUR_PATH="`pwd`"
+cd "$BUILD_DIR/patches"
 zip -q -u "$MC_JAR" `find . -name '*'`
-popd
+cd "$CUR_PATH"
 
 echo "Cleanup ..."
-pushd "$BUILD_DIR"
+CUR_PATH="`pwd`"
+cd "$BUILD_DIR"
 rm -rf "patches"
 mv "$MC_JAR" "../../$carpet_name"
-popd
+cd "$CUR_PATH"
 
 if [ "x$OUTFILE" != "x" ]; then
     cp "build/$carpet_name" "$OUTFILE"
@@ -102,7 +104,7 @@ if [ "$TEST" = "1" ]; then
         echo "eula=true" > "test/eula.txt"
     fi
     cp "build/$carpet_name" "test/$carpet_name"
-    pushd "test"
+    cd  "test"
     java -jar "$carpet_name" --nogui
-    popd
+    cd ".."
 fi
