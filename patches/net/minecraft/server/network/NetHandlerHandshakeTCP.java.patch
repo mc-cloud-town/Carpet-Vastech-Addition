@@ -1,0 +1,27 @@
+--- ../src-base/minecraft/net/minecraft/server/network/NetHandlerHandshakeTCP.java
++++ ../src-work/minecraft/net/minecraft/server/network/NetHandlerHandshakeTCP.java
+@@ -1,5 +1,6 @@
+ package net.minecraft.server.network;
+ 
++import carpet.CarpetSettings;
+ import net.minecraft.network.EnumConnectionState;
+ import net.minecraft.network.NetworkManager;
+ import net.minecraft.network.handshake.INetHandlerHandshakeServer;
+@@ -8,6 +9,7 @@
+ import net.minecraft.server.MinecraftServer;
+ import net.minecraft.util.text.ITextComponent;
+ import net.minecraft.util.text.TextComponentTranslation;
++import uk.co.thinkofdeath.vanillacord.helper.BungeeHelper;
+ 
+ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer
+ {
+@@ -26,6 +28,9 @@
+         {
+             case LOGIN:
+                 this.field_147386_b.func_150723_a(EnumConnectionState.LOGIN);
++                // VasCM - VanillaCord : Parse handshake listener
++                if (CarpetSettings.bungeeCordForwarding)
++                    BungeeHelper.parseHandshake(field_147386_b, p_147383_1_);
+ 
+                 if (p_147383_1_.func_149595_d() > 340)
+                 {

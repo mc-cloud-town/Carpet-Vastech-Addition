@@ -1,0 +1,21 @@
+--- ../src-base/minecraft/net/minecraft/network/handshake/client/C00Handshake.java
++++ ../src-work/minecraft/net/minecraft/network/handshake/client/C00Handshake.java
+@@ -1,6 +1,8 @@
+ package net.minecraft.network.handshake.client;
+ 
+ import java.io.IOException;
++
++import carpet.CarpetSettings;
+ import net.minecraft.network.EnumConnectionState;
+ import net.minecraft.network.Packet;
+ import net.minecraft.network.PacketBuffer;
+@@ -16,7 +18,8 @@
+     public void func_148837_a(PacketBuffer p_148837_1_) throws IOException
+     {
+         this.field_149600_a = p_148837_1_.func_150792_a();
+-        this.field_149598_b = p_148837_1_.func_150789_c(255);
++        // VasCM - VanillaCord : Increase the hostname field size
++        this.field_149598_b = p_148837_1_.func_150789_c(CarpetSettings.bungeeCordForwarding ? Short.MAX_VALUE : 255);
+         this.field_149599_c = p_148837_1_.readUnsignedShort();
+         this.field_149597_d = EnumConnectionState.func_150760_a(p_148837_1_.func_150792_a());
+     }

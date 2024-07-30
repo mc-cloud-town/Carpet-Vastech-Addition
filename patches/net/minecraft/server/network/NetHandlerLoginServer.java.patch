@@ -7,7 +7,15 @@
  import com.mojang.authlib.GameProfile;
  import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
  import io.netty.channel.ChannelFuture;
-@@ -44,6 +45,7 @@
+@@ -33,6 +34,7 @@
+ import org.apache.commons.lang3.Validate;
+ import org.apache.logging.log4j.LogManager;
+ import org.apache.logging.log4j.Logger;
++import uk.co.thinkofdeath.vanillacord.helper.BungeeHelper;
+ 
+ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable
+ {
+@@ -44,6 +46,7 @@
      public final NetworkManager field_147333_a;
      private NetHandlerLoginServer.LoginState field_147328_g = NetHandlerLoginServer.LoginState.HELLO;
      private int field_147336_h;
@@ -15,7 +23,7 @@
      private GameProfile field_147337_i;
      private final String field_147334_j = "";
      private SecretKey field_147335_k;
-@@ -54,6 +56,7 @@
+@@ -54,6 +57,7 @@
          this.field_147327_f = p_i45298_1_;
          this.field_147333_a = p_i45298_2_;
          field_147329_d.nextBytes(this.field_147330_e);
@@ -23,7 +31,7 @@
      }
  
      public void func_73660_a()
-@@ -74,7 +77,8 @@
+@@ -74,7 +78,8 @@
              }
          }
  
@@ -33,3 +41,12 @@
          {
              this.func_194026_b(new TextComponentTranslation("multiplayer.disconnect.slow_login", new Object[0]));
          }
+@@ -232,6 +237,8 @@
+ 
+     protected GameProfile func_152506_a(GameProfile p_152506_1_)
+     {
++        if (CarpetSettings.bungeeCordForwarding)
++            return BungeeHelper.injectProfile(this.field_147333_a, p_152506_1_);
+         UUID uuid = UUID.nameUUIDFromBytes(("OfflinePlayer:" + p_152506_1_.getName()).getBytes(StandardCharsets.UTF_8));
+         return new GameProfile(uuid, p_152506_1_.getName());
+     }

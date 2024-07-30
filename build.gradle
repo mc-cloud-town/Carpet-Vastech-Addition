@@ -10,7 +10,9 @@ buildscript
 {
 	repositories
 	{
-		mavenCentral()
+        // Maven mirror for quicker access in China
+//  	mavenCentral()
+        maven {url "https://maven.aliyun.com/repository/public"}
 		maven {url 'https://masa.dy.fi/maven/'}
 		maven {url 'https://files.minecraftforge.net/maven'}
 		maven {url 'https://plugins.gradle.org/m2/'}
