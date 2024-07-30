@@ -469,7 +469,15 @@
      }
  
      public void func_76623_d()
-@@ -964,13 +1031,49 @@
+@@ -958,19 +1025,56 @@
+         }
+     }
+ 
+-    protected void func_186034_a(IChunkGenerator p_186034_1_)
++    // VasCM - semiVoidWorldGeneration changed access
++    public void func_186034_a(IChunkGenerator p_186034_1_)
+     {
+         if (this.func_177419_t())
          {
              if (p_186034_1_.func_185933_a(this, this.field_76635_g, this.field_76647_h))
              {
@@ -521,7 +529,7 @@
              this.func_76630_e();
          }
      }
-@@ -1018,9 +1121,11 @@
+@@ -1018,9 +1122,11 @@
  
          this.field_150815_m = true;
  
@@ -536,7 +544,7 @@
          }
  
          while (!this.field_177447_w.isEmpty())
-@@ -1041,6 +1146,11 @@
+@@ -1041,6 +1147,11 @@
          return this.field_150815_m && this.field_76646_k && this.field_150814_l;
      }
  
@@ -548,7 +556,7 @@
      public boolean func_186035_j()
      {
          return this.field_150815_m;
-@@ -1389,4 +1499,67 @@
+@@ -1389,4 +1500,67 @@
          QUEUED,
          CHECK;
      }

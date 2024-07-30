@@ -46,7 +46,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.1.5.13";
+    public static final String tagVersion = "v0.1.5.14";
     public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
@@ -1323,6 +1323,14 @@ public class CarpetSettings
 
     @Rule(desc = "Allows /setblock and /fill commands to place lit observers", category = FIX)
     public static boolean setBlockCanPlaceLitObservers = false;
+
+    @Rule(desc = "In a world with superflat generation, normal terrain generates " +
+            "instead in the overworld for x<0", category = EXPERIMENTAL)
+    public static boolean semiFlatWorldGeneration = false;
+
+    @Rule(desc = "In a world with superflat generation, all blocks are voided " +
+            " in the overworld after all generation and population completes for z<0", category = EXPERIMENTAL)
+    public static boolean semiVoidWorldGeneration = false;
 
     // ===== API ===== //
 

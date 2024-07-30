@@ -10,7 +10,14 @@ import java.util.Iterator;
 import java.util.Set;
 
 public final class JavaVersionUtil {
-    public static final int JAVA_VERSION = getJavaVersion();
+    public static final int JAVA_VERSION;
+
+    static {
+        JAVA_VERSION = getJavaVersion();
+        if (JAVA_VERSION >= 17) {
+            crackReflectionAccess();
+        }
+    }
 
     private JavaVersionUtil() {}
 
@@ -43,10 +50,6 @@ public final class JavaVersionUtil {
         if (fieldType.isPrimitive()) {
             throw new RuntimeException("objectFieldAccessor does not work for primitive field types");
         }
-
-        if (JAVA_VERSION >= 17) {
-            crackReflectionAccess();
-        }
         try {
             field.setAccessible(true);
         } catch (RuntimeException e) { // InaccessibleObjectException
@@ -64,7 +67,9 @@ public final class JavaVersionUtil {
         }
 
         try {
-            return new MethodHandleFieldAccessor<>(MethodHandles.lookup().unreflectGetter(field));
+            return new MethodHandleFieldAccessor<>(
+                    MethodHandles.lookup().unreflectGetter(field),
+                    MethodHandles.lookup().unreflectSetter(field));
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -72,13 +77,17 @@ public final class JavaVersionUtil {
 
     public interface FieldAccessor<T> {
         T get(Object instance);
+
+        void set(Object instance, T value);
     }
 
     private static class MethodHandleFieldAccessor<T> implements FieldAccessor<T> {
         private final MethodHandle getter;
+        private final MethodHandle setter;
 
-        private MethodHandleFieldAccessor(MethodHandle getter) {
+        private MethodHandleFieldAccessor(MethodHandle getter, MethodHandle setter) {
             this.getter = getter;
+            this.setter = setter;
         }
 
         @SuppressWarnings("unchecked")
@@ -86,6 +95,15 @@ public final class JavaVersionUtil {
         public T get(Object instance) {
             try {
                 return (T) getter.invoke(instance);
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        @Override
+        public void set(Object instance, T value) {
+            try {
+                setter.invoke(instance, value);
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

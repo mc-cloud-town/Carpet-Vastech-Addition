@@ -22,7 +22,7 @@
  public class EntityVillager extends EntityAgeable implements INpc, IMerchant
  {
      private static final Logger field_190674_bx = LogManager.getLogger();
-@@ -105,15 +109,144 @@
+@@ -105,15 +109,149 @@
      private int field_70961_j;
      private boolean field_70959_by;
      private boolean field_175565_bs;
@@ -169,10 +169,15 @@
 +
 +                    {new EntityVillager.ITradeList[0][]}};
 +
++    // VasCM - accessor
++    public void setTimeUntilReset(int timeUntilReset) {
++        this.field_70961_j = timeUntilReset;
++    }
++
      public EntityVillager(World p_i1747_1_)
      {
          this(p_i1747_1_, 0);
-@@ -127,6 +260,8 @@
+@@ -127,6 +265,8 @@
          this.func_70105_a(0.6F, 1.95F);
          ((PathNavigateGround)this.func_70661_as()).func_179688_b(true);
          this.func_98053_h(true);
@@ -181,7 +186,7 @@
      }
  
      protected void func_184651_r()
-@@ -164,6 +299,16 @@
+@@ -164,6 +304,16 @@
              {
                  this.field_70714_bg.func_75776_a(6, new EntityAIHarvestFarmland(this, 0.6D));
              }
@@ -198,7 +203,7 @@
          }
      }
  
-@@ -173,6 +318,16 @@
+@@ -173,6 +323,16 @@
          {
              this.field_70714_bg.func_75776_a(8, new EntityAIHarvestFarmland(this, 0.6D));
          }
@@ -215,7 +220,7 @@
  
          super.func_175500_n();
      }
-@@ -332,6 +487,7 @@
+@@ -332,6 +492,7 @@
          if (this.field_70963_i != null)
          {
              p_70014_1_.func_74782_a("Offers", this.field_70963_i.func_77202_a());
@@ -223,7 +228,7 @@
          }
  
          NBTTagList nbttaglist = new NBTTagList();
-@@ -362,6 +518,7 @@
+@@ -362,6 +523,7 @@
          {
              NBTTagCompound nbttagcompound = p_70037_1_.func_74775_l("Offers");
              this.field_70963_i = new MerchantRecipeList(nbttagcompound);
@@ -231,7 +236,7 @@
          }
  
          NBTTagList nbttaglist = p_70037_1_.func_150295_c("Inventory", 10);
-@@ -491,12 +648,17 @@
+@@ -491,12 +653,17 @@
              }
          }
  
@@ -249,7 +254,7 @@
      }
  
      @Nullable
-@@ -608,6 +770,17 @@
+@@ -608,6 +775,17 @@
          {
              this.func_175554_cu();
          }
@@ -267,7 +272,7 @@
  
          return this.field_70963_i;
      }
-@@ -616,6 +789,12 @@
+@@ -616,6 +794,12 @@
      {
          EntityVillager.ITradeList[][][] aentityvillager$itradelist = field_175561_bA[this.func_70946_n()];
  
@@ -280,7 +285,7 @@
          if (this.field_175563_bv != 0 && this.field_175562_bw != 0)
          {
              ++this.field_175562_bw;
-@@ -630,10 +809,18 @@
+@@ -630,10 +814,18 @@
          {
              this.field_70963_i = new MerchantRecipeList();
          }
@@ -299,7 +304,7 @@
          if (i >= 0 && i < aentityvillager$itradelist.length)
          {
              EntityVillager.ITradeList[][] aentityvillager$itradelist1 = aentityvillager$itradelist[i];
-@@ -648,6 +835,7 @@
+@@ -648,6 +840,7 @@
                  }
              }
          }
@@ -307,7 +312,7 @@
      }
  
      public World func_190670_t_()
-@@ -842,6 +1030,11 @@
+@@ -842,6 +1035,11 @@
          ItemStack itemstack = p_175445_1_.func_92059_d();
          Item item = itemstack.func_77973_b();
  
@@ -319,7 +324,7 @@
          if (this.func_175558_a(item))
          {
              ItemStack itemstack1 = this.field_175560_bz.func_174894_a(itemstack);
-@@ -855,6 +1048,17 @@
+@@ -855,6 +1053,17 @@
                  itemstack.func_190920_e(itemstack1.func_190916_E());
              }
          }
@@ -337,7 +342,7 @@
      }
  
      private boolean func_175558_a(Item p_175558_1_)
-@@ -948,6 +1152,12 @@
+@@ -948,6 +1157,12 @@
          }
      }
  
@@ -350,7 +355,7 @@
      static class EmeraldForItems implements EntityVillager.ITradeList
          {
              public Item field_179405_a;
-@@ -1023,7 +1233,7 @@
+@@ -1023,7 +1238,7 @@
              }
          }
  
@@ -359,7 +364,7 @@
          {
              public ItemStack field_179407_a;
              public EntityVillager.PriceInfo field_179406_b;
-@@ -1093,7 +1303,7 @@
+@@ -1093,7 +1308,7 @@
              }
          }
  
@@ -368,7 +373,7 @@
          {
              public PriceInfo(int p_i45810_1_, int p_i45810_2_)
              {
-@@ -1140,4 +1350,37 @@
+@@ -1140,4 +1355,37 @@
                  }
              }
          }

@@ -1,6 +1,15 @@
 --- ../src-base/minecraft/net/minecraft/world/gen/ChunkGeneratorFlat.java
 +++ ../src-work/minecraft/net/minecraft/world/gen/ChunkGeneratorFlat.java
-@@ -24,6 +24,9 @@
+@@ -5,6 +5,8 @@
+ import java.util.Map;
+ import java.util.Random;
+ import javax.annotation.Nullable;
++
++import carpet.CarpetSettings;
+ import net.minecraft.block.state.IBlockState;
+ import net.minecraft.entity.EnumCreatureType;
+ import net.minecraft.init.Biomes;
+@@ -24,6 +26,9 @@
  import net.minecraft.world.gen.structure.MapGenVillage;
  import net.minecraft.world.gen.structure.StructureOceanMonument;
  
@@ -10,17 +19,53 @@
  public class ChunkGeneratorFlat implements IChunkGenerator
  {
      private final World field_73163_a;
-@@ -119,7 +122,8 @@
+@@ -36,6 +41,9 @@
+     private WorldGenLakes field_82703_i;
+     private WorldGenLakes field_82701_j;
+ 
++    private final long storedSeed;
++    private ChunkGeneratorOverworld semiFlatGenerator;
++
+     public ChunkGeneratorFlat(World p_i2004_1_, long p_i2004_2_, boolean p_i2004_4_, String p_i2004_5_)
+     {
+         this.field_73163_a = p_i2004_1_;
+@@ -119,11 +127,20 @@
          }
  
          p_i2004_1_.func_181544_b(j);
 -        this.field_82697_g = flag && this.field_82699_e.func_82648_a() != Biome.func_185362_a(Biomes.field_185440_P) ? false : this.field_82699_e.func_82644_b().containsKey("decoration");
 +//        this.hasDecoration = flag && this.flatWorldGenInfo.getBiome() != Biome.getIdForBiome(Biomes.VOID) ? false : this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
 +        this.field_82697_g = (!flag || this.field_82699_e.func_82648_a() == Biome.func_185362_a(Biomes.field_185440_P)) && this.field_82699_e.func_82644_b().containsKey("decoration");
++        // VasCM - semiFlatWorldGeneration
++        this.storedSeed = p_i2004_2_;
      }
  
      public Chunk func_185932_a(int p_185932_1_, int p_185932_2_)
-@@ -243,4 +247,15 @@
+     {
++        if (CarpetSettings.semiFlatWorldGeneration && p_185932_1_ < 0) {
++            if (this.semiFlatGenerator == null)
++                semiFlatGenerator = new ChunkGeneratorOverworld(field_73163_a, storedSeed,
++                        true, null);
++            return semiFlatGenerator.func_185932_a(p_185932_1_, p_185932_2_);
++        }
+         ChunkPrimer chunkprimer = new ChunkPrimer();
+ 
+         for (int i = 0; i < this.field_82700_c.length; ++i)
+@@ -162,6 +179,13 @@
+ 
+     public void func_185931_b(int p_185931_1_, int p_185931_2_)
+     {
++        if (CarpetSettings.semiFlatWorldGeneration && p_185931_1_ < 0) {
++            if (this.semiFlatGenerator == null)
++                semiFlatGenerator = new ChunkGeneratorOverworld(field_73163_a, storedSeed,
++                        true, null);
++            semiFlatGenerator.func_185931_b(p_185931_1_, p_185931_2_);
++            return;
++        }
+         int i = p_185931_1_ * 16;
+         int j = p_185931_2_ * 16;
+         BlockPos blockpos = new BlockPos(i, 0, j);
+@@ -243,4 +267,15 @@
              mapgenstructure.func_186125_a(this.field_73163_a, p_180514_2_, p_180514_3_, (ChunkPrimer)null);
          }
      }

@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 
@@ -26,6 +27,10 @@ public class CommandEntityTask extends CommandCarpetBase {
 
     private static long getSeed(Random random) {
         return SEED_ACCESSOR.get(random).get();
+    }
+
+    private static void setSeed(Random random, long seed) {
+        SEED_ACCESSOR.get(random).set(seed);
     }
 
     @Override
@@ -66,7 +71,22 @@ public class CommandEntityTask extends CommandCarpetBase {
                     Messenger.s(sender, task.getTask());
                 }
             }
-            Messenger.s(sender, "Current RNG seed for this entity is " + getSeed(entity.rand));
+            Messenger.s(sender, "Current RNG seed for this entity is " + getSeed(entity.accessRandom()));
+            if (args.length >= 1) {
+                try {
+                    long seed = Long.parseLong(args[1]);
+                    setSeed(entity.accessRandom(), seed);
+                    Messenger.s(sender, "RNG seed for this entity has been updated to " + getSeed(entity.accessRandom()));
+                } catch (Throwable ignore) {}
+            }
+            if (args.length >= 2 && "setLevelUpTime".equals(args[1])) {
+                try {
+                    int levelUpTime = Integer.parseInt(args[2]);
+                    EntityVillager villager = (EntityVillager) entity;
+                    villager.setTimeUntilReset(levelUpTime);
+                    Messenger.s(sender, "levelUpTime of this villager has been updated to " + levelUpTime + "ticks");
+                } catch (Throwable ignore) {}
+            }
         }
     }
 }
