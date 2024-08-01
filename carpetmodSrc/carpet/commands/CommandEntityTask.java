@@ -72,6 +72,10 @@ public class CommandEntityTask extends CommandCarpetBase {
                 }
             }
             Messenger.s(sender, "Current RNG seed for this entity is " + getSeed(entity.accessRandom()));
+            if (entity instanceof EntityVillager) {
+                EntityVillager villager = (EntityVillager) entity;
+                Messenger.s(sender, "levelUpTime of the villager is " + villager.getTimeUntilReset());
+            }
             if (args.length >= 1) {
                 try {
                     long seed = Long.parseLong(args[1]);
@@ -84,6 +88,7 @@ public class CommandEntityTask extends CommandCarpetBase {
                     int levelUpTime = Integer.parseInt(args[2]);
                     EntityVillager villager = (EntityVillager) entity;
                     villager.setTimeUntilReset(levelUpTime);
+                    villager.setNeedsInitilization(levelUpTime > 0);
                     Messenger.s(sender, "levelUpTime of this villager has been updated to " + levelUpTime + "ticks");
                 } catch (Throwable ignore) {}
             }
