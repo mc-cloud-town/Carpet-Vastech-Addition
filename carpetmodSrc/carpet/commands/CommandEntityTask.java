@@ -44,6 +44,11 @@ public class CommandEntityTask extends CommandCarpetBase {
     }
 
     @Override
+    public boolean isUsernameIndex(String[] args, int index) {
+        return index == 0;
+    }
+
+    @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (!command_enabled("commandEntityTask", sender)) return;
         String uuidString = null;
