@@ -43,7 +43,7 @@ jobs:
           mkdir -p in out
           cp ./base.jar ./in/vascm_ctec_${VERSION}_proxy.jar
           cp ./base.jar ./out/vascm_ctec_${VERSION}.jar
-          java -jar ../../.github/workflows/scripts/VanillaCord.jar vascm_ctec_${VERSION}_proxy.jar
+          java -jar ../../.github/workflows/scripts/VanillaCord.jar vascm_ctec_${VERSION}_proxy
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
