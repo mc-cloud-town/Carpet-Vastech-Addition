@@ -1,0 +1,13 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "release/*"
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-base.yaml
+    with:
+      tag: ci-${{ github.sha }}
