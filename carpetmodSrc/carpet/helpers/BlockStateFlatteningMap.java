@@ -19,8 +19,8 @@ public class BlockStateFlatteningMap {
     public static final Map<Map<String, String>, Integer> DEFLATTENING_MAP = new HashMap<>(4096);
     public static final Map<String, Integer> CACHED_MAPPINGS = new HashMap<>(514);
 
-    private static final Pattern BBS_PATTERN = Pattern.compile("(?<block>[a-zA-z:_]+)(\\[(?<props>.+)\\])");
-    private static final Pattern PROP_PATTERN = Pattern.compile("(?<key>[a-zA-z:_]+)=(?<value>[a-zA-z:_]+)");
+    private static final Pattern BBS_PATTERN = Pattern.compile("(?<block>[a-zA-Z:_]+)(\\[(?<props>.+)\\])");
+    private static final Pattern PROP_PATTERN = Pattern.compile("(?<key>[a-zA-Z:_]+)=(?<value>[a-zA-Z:_]+)");
 
     /*
     public static String toDefaultPropertyValue(String value) {
