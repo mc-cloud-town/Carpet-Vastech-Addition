@@ -39,19 +39,19 @@ public abstract class CommandCarpetBase extends CommandBase
     {
         if (!CarpetSettings.get(command_name).equalsIgnoreCase("true"))
         {
-            msg(sender, Messenger.m(null, "w Command is disabled in carpet settings"));
-            if (!(sender instanceof EntityPlayer)) return false;
-            if (CarpetSettings.locked)
-            {
-                Messenger.m((EntityPlayer)sender, "gi Ask your admin to enable it server config");
-            }
-            else
-            {
-                Messenger.m((EntityPlayer)sender,
-                        "gi copy&pasta \"",
-                        "gib /carpet "+command_name+" true", "/carpet "+command_name+" true",
-                        "gi \"to enable it");
-            }
+            // msg(sender, Messenger.m(null, "w Command is disabled in carpet settings"));
+            // if (!(sender instanceof EntityPlayer)) return false;
+            // if (CarpetSettings.locked)
+            // {
+            //     Messenger.m((EntityPlayer)sender, "gi Ask your admin to enable it server config");
+            // }
+            // else
+            // {
+            //     Messenger.m((EntityPlayer)sender,
+            //             "gi copy&pasta \"",
+            //             "gib /carpet "+command_name+" true", "/carpet "+command_name+" true",
+            //             "gi \"to enable it");
+            // }
             return false;
         }
         return true;

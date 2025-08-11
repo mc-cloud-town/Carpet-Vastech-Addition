@@ -17,6 +17,7 @@ public class CarpetCommands {
         handler.registerCommand(new CommandChunk());
         handler.registerCommand(new CommandCluster());
         handler.registerCommand(new CommandCluster_old());
+        handler.registerCommand(new CommandC());
         handler.registerCommand(new CommandColon());
         handler.registerCommand(new CommandCounter());
         handler.registerCommand(new CommandDebugCarpet());
@@ -27,8 +28,6 @@ public class CarpetCommands {
         handler.registerCommand(new CommandFeel());
         handler.registerCommand(new CommandFill13());
         handler.registerCommand(new CommandFillBiome());
-        handler.registerCommand(new CommandGMC());
-        handler.registerCommand(new CommandGMS());
         handler.registerCommand(new CommandGrow());
         if (CarpetSettings.INTERNAL_BUILD) handler.registerCommand(new CommandIngameTest());
         handler.registerCommand(new CommandLagSpike());

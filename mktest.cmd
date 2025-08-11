@@ -25,9 +25,8 @@ echo Applying VasCM ...
 7z a build\tmp\fullRelease\minecraft_server-1.12.2.jar .\build\tmp\fullRelease\patches\* > nul
 echo Cleanup ...
 rd /s /q build\tmp\fullRelease\patches
-move /y build\tmp\fullRelease\minecraft_server-1.12.2.jar ..\releases\VasCM_latest.jar > nul
-: move /y build\tmp\fullRelease\minecraft_server-1.12.2.jar %appdata%\.minecraft\saves\minecraft_server.1.12.2_carpet_test.jar > nul
-: pushd %appdata%\.minecraft\saves
-: echo Starting server ...
-: java -jar minecraft_server.1.12.2_carpet_test.jar --nogui
-: popd
+move /y build\tmp\fullRelease\minecraft_server-1.12.2.jar %appdata%\.minecraft\saves\minecraft_server.1.12.2_carpet_test.jar > nul
+pushd %appdata%\.minecraft\saves
+echo Starting server ...
+java -jar minecraft_server.1.12.2_carpet_test.jar --nogui
+popd

@@ -46,8 +46,8 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String tagVersion = "v0.2.0";
-    public static final String carpetVersion = "Carpet Vastech Addition " + tagVersion;
+    public static final String tagVersion = "v0.1.0";
+    public static final String carpetVersion = "Carpet Vastech Addition CTEC " + tagVersion;
 
     public static final String minecraftVersion = "1.12.2";
     public static final String mcpMappings = "39-1.12";
@@ -84,8 +84,10 @@ public class CarpetSettings
     })
     public static boolean commandBlockInfo = true;
 
-    @Rule(desc = "Enables /c and /s commands to quickly switch between spectator and server modes", category = COMMANDS, extra = {
-            "/c and /s commands are available to all players regardless of their permission levels"
+    @Rule(desc = "Enables /c command: toggles camera spectator mode.", category = COMMANDS, extra = {
+            "/c",
+            "/c <player>",
+            "/c <x> <y> <z> [in <dimension>]"
     })
     public static boolean commandCameramode = true;
 
