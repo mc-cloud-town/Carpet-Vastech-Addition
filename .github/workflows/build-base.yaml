@@ -46,7 +46,7 @@ jobs:
           java -jar ../../.github/workflows/scripts/VanillaCord.jar vascm_ctec_${VERSION}_proxy.jar
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: carpetmod-build-${{ inputs.tag }}
+          name: vascm-ctec-build-${{ inputs.tag }}
           path: build/proxy/out/
