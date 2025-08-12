@@ -32,21 +32,11 @@ jobs:
           VERSION: ${{ inputs.tag }}
           SKIP_PROMPT: true
         run: |
-          ./gradlew setupCarpetmod
-          ./gradlew createRelease
-
-          cd build
-          mkdir -p proxy
-          mv ./distributions/Carpetmod_dev.zip ./proxy/base.jar
-
-          cd proxy
-          mkdir -p in out
-          cp ./base.jar ./in/vascm_ctec_${VERSION}_proxy.jar
-          cp ./base.jar ./out/vascm_ctec_${VERSION}.jar
-          java -jar ../../.github/workflows/scripts/VanillaCord.jar vascm_ctec_${VERSION}_proxy
+          chmod +x build.sh
+          ./build.sh
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: vascm-ctec-build-${{ inputs.tag }}
-          path: build/proxy/out/
+          path: build/out/
