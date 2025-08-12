@@ -11,7 +11,17 @@
  import com.google.common.collect.Lists;
  import com.google.common.collect.Sets;
  import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
-@@ -129,6 +131,13 @@
+@@ -40,7 +42,8 @@
+     private final WorldServer field_72701_a;
+     private final List<EntityPlayerMP> field_72699_b = Lists.<EntityPlayerMP>newArrayList();
+     private final Long2ObjectMap<PlayerChunkMapEntry> field_72700_c = new Long2ObjectOpenHashMap<PlayerChunkMapEntry>(4096);
+-    private final Set<PlayerChunkMapEntry> field_72697_d = Sets.<PlayerChunkMapEntry>newHashSet();
++    // Carpet:Change to public
++    public Set<PlayerChunkMapEntry> field_72697_d = Sets.<PlayerChunkMapEntry>newHashSet();
+     private final List<PlayerChunkMapEntry> field_187310_g = Lists.<PlayerChunkMapEntry>newLinkedList();
+     private final List<PlayerChunkMapEntry> field_187311_h = Lists.<PlayerChunkMapEntry>newLinkedList();
+     private final List<PlayerChunkMapEntry> field_111193_e = Lists.<PlayerChunkMapEntry>newArrayList();
+@@ -129,6 +132,13 @@
              this.field_72697_d.clear();
          }
  
@@ -25,7 +35,7 @@
          if (this.field_187312_l && i % 4L == 0L)
          {
              this.field_187312_l = false;
-@@ -215,9 +224,17 @@
+@@ -215,9 +225,17 @@
  
              if (!worldprovider.func_76567_e())
              {
@@ -43,7 +53,7 @@
      }
  
      public boolean func_152621_a(int p_152621_1_, int p_152621_2_)
-@@ -232,20 +249,22 @@
+@@ -232,20 +250,22 @@
          return (PlayerChunkMapEntry)this.field_72700_c.get(func_187307_d(p_187301_1_, p_187301_2_));
      }
  
@@ -71,7 +81,7 @@
              }
  
              if (!playerchunkmapentry.func_187272_b())
-@@ -271,8 +290,16 @@
+@@ -271,8 +291,16 @@
  
      public void func_72683_a(EntityPlayerMP p_72683_1_)
      {
@@ -90,7 +100,7 @@
          p_72683_1_.field_71131_d = p_72683_1_.field_70165_t;
          p_72683_1_.field_71132_e = p_72683_1_.field_70161_v;
  
-@@ -280,7 +307,7 @@
+@@ -280,7 +308,7 @@
          {
              for (int l = j - this.field_72698_e; l <= j + this.field_72698_e; ++l)
              {
@@ -99,7 +109,7 @@
              }
          }
  
-@@ -290,8 +317,16 @@
+@@ -290,8 +318,16 @@
  
      public void func_72695_c(EntityPlayerMP p_72695_1_)
      {
@@ -118,7 +128,7 @@
  
          for (int k = i - this.field_72698_e; k <= i + this.field_72698_e; ++k)
          {
-@@ -327,16 +362,32 @@
+@@ -327,16 +363,32 @@
  
      public void func_72685_d(EntityPlayerMP p_72685_1_)
      {
@@ -155,7 +165,7 @@
              int i1 = this.field_72698_e;
              int j1 = i - k;
              int k1 = j - l;
-@@ -349,7 +400,7 @@
+@@ -349,7 +401,7 @@
                      {
                          if (!this.func_72684_a(l1, i2, k, l, i1))
                          {
@@ -164,7 +174,7 @@
                          }
  
                          if (!this.func_72684_a(l1 - j1, i2 - k1, i, j, i1))
-@@ -396,7 +447,7 @@
+@@ -396,7 +448,7 @@
                      {
                          for (int k1 = k - p_152622_1_; k1 <= k + p_152622_1_; ++k1)
                          {
@@ -173,7 +183,7 @@
  
                              if (!playerchunkmapentry.func_187275_d(entityplayermp))
                              {
-@@ -413,7 +464,7 @@
+@@ -413,7 +465,7 @@
                          {
                              if (!this.func_72684_a(l, i1, j, k, p_152622_1_))
                              {
@@ -182,7 +192,7 @@
                              }
                          }
                      }
-@@ -460,7 +511,28 @@
+@@ -460,7 +512,32 @@
  
          if (chunk != null)
          {
@@ -209,5 +219,9 @@
 +				}
 +			}
 +    	};
++    }
++
++    public void setDirtyEntries(Set<PlayerChunkMapEntry> dirtyEntries) {
++        this.field_72697_d = dirtyEntries;
 +    }
  }

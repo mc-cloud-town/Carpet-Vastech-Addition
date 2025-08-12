@@ -51,6 +51,7 @@ public class LoggerRegistry
     public static boolean __normalCameraVision;
     public static boolean __population;
     public static boolean __entityTask;
+    public static boolean __8001gt;
 
     public static void initLoggers(MinecraftServer server)
     {
@@ -72,6 +73,7 @@ public class LoggerRegistry
         registerLogger("entityTask", new LoggerWithFreeOptions(server, "entityTask", LogHandler.CHAT));
 
         registerLogger("autosave", new Logger(server, "autosave", null, null, LogHandler.HUD));
+        registerLogger("8001gt", new Logger(server, "8001gt", null, null, LogHandler.HUD));
         registerLogger("tps", new Logger(server, "tps", null, null, LogHandler.HUD));
         registerLogger("packets", new Logger(server, "packets", null, null, LogHandler.HUD));
         registerLogger("counter",new Logger(server, "counter","white", new String[]{"all","cactus","white","orange","magenta","light_blue","yellow","lime","pink","gray","silver","cyan","purple","blue","brown","green","red","black"}, LogHandler.HUD));
