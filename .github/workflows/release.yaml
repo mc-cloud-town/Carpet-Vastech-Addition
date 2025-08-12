@@ -3,9 +3,6 @@ permissions:
   contents: write
   actions: read
 
-permissions:
-  contents: write
-
 on:
   push:
     tags:
