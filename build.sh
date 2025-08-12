@@ -3,8 +3,6 @@
 ./gradlew setupCarpetmod
 ./gradlew createRelease
 
-cd ~/Carpet-Vastech-Addition/ || exit
-
 rm -rf build/tmp/fullRelease
 mkdir -p build/tmp/fullRelease
 
